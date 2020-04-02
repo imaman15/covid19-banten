@@ -1,5 +1,5 @@
 ###################
-What is CodeIgniter 3
+Codeigniter 3
 ###################
 
 CodeIgniter is an Application Development Framework - a toolkit - for people
