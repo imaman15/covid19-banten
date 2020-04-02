@@ -44,3 +44,106 @@ function cr()
         echo $year . ' - ' . $yearnow;
     }
 }
+
+function secho($str)
+{
+    echo htmlentities($str, ENT_QUOTES, 'UTF-8');
+}
+
+function phoneNumber($number)
+{
+    // situs http://agussaputra.com/read-article-40-mengubah+62+menjadi+0+dan+0+menjadi+62++sms.html
+
+    $hp = "";
+    // kadang ada penulisan no hp 0811 239 345
+    $number = str_replace(" ", "", $number);
+    // kadang ada penulisan no hp (0274) 778787
+    $number = str_replace("(", "", $number);
+    // kadang ada penulisan no hp (0274) 778787
+    $number = str_replace(")", "", $number);
+    // kadang ada penulisan no hp 0811.239.345
+    $number = str_replace(".", "", $number);
+    // kadang ada penulisan no hp 0811-239-345
+    $number = str_replace("-", "", $number);
+
+    // cek apakah no hp mengandung karakter + dan 0-9
+    if (!preg_match('/[^+0-9]/', trim($number))) {
+        // cek apakah no hp karakter 1-3 adalah +62
+        if (substr(trim($number), 0, 3) == '+62') {
+            $hp = trim($number);
+        }
+        // cek apakah no hp karakter 1 adalah 0
+        elseif (substr(trim($number), 0, 1) == '0') {
+            $hp = '+62' . substr(trim($number), 1);
+        }
+        // cek apakah no hp karakter 1 adalah 62
+        elseif (substr(trim($number), 0, 2) == '62') {
+            $hp = '+' . trim($number);
+        }
+    }
+    return $hp;
+    // Dan berikut untuk menampilkan kembali "+62" menjadi "0":
+    // $hp0 = substr_replace($hp,'0',0,3);
+}
+
+function get_random_password($chars_min, $chars_max, $use_upper_case, $include_numbers, $include_special_chars)
+{
+    $length = rand($chars_min, $chars_max);
+    $selection = 'aeuoyibcdfghjklmnpqrstvwxz';
+    if ($include_numbers) {
+        $selection .= "1234567890";
+    }
+    if ($include_special_chars) {
+        $selection .= '/[!@#$%^&*()\-_=+{};:,<.>~]/';
+    }
+
+    $password = "";
+    for ($i = 0; $i < $length; $i++) {
+        $current_letter = $use_upper_case ? (rand(0, 1) ? strtoupper($selection[(rand() % strlen($selection))]) : $selection[(rand() % strlen($selection))]) : $selection[(rand() % strlen($selection))];
+        $password .=  $current_letter;
+    }
+
+    return $password;
+}
+
+// Function Keterangan Waktu
+function timeInfo($timestamp)
+{
+    $selisih = time() - strtotime($timestamp);
+    $detik = $selisih;
+    $menit = round($selisih / 60);
+    $jam = round($selisih / 3600);
+    $hari = round($selisih / 86400);
+    $minggu = round($selisih / 604800);
+    $bulan = round($selisih / 2419200);
+    $tahun = round($selisih / 29030400);
+
+    if ($detik <= 60) {
+        $waktu = $detik . ' detik yang lalu';
+    } else if ($menit <= 60) {
+        $waktu = $menit . ' menit yang lalu';
+    } else if ($jam <= 24) {
+        $waktu = $jam . ' jam yang lalu';
+    } else if ($hari <= 7) {
+        $waktu = $hari . ' hari yang lalu';
+    } else if ($minggu <= 4) {
+        $waktu = $minggu . ' minggu yang lalu';
+    } else if ($bulan <= 12) {
+        $waktu = $bulan . ' bulan yang lalu';
+    } else {
+        $waktu = $tahun . ' tahun yang lalu';
+    }
+
+    return $waktu;
+}
+
+function status($data)
+{
+    if ($data == 1) {
+        return "Administrator";
+    } elseif ($data == 2) {
+        return "Relawan";
+    } else {
+        return "-";
+    }
+}
