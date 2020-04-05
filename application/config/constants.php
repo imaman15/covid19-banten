@@ -97,4 +97,5 @@ define('M_PASSWORD', strtolower(M_ADMIN . '/ganti-sandi'));
 
 // Constanta Menu Web User
 define('U_HOME', strtolower('beranda'));
-define('U_NEWS', strtolower('info-dan-tips-kesehatan'));
+define('U_NEWS', strtolower('info-kesehatan'));
+define('U_TEAM', strtolower('team'));

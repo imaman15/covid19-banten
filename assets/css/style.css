@@ -1,0 +1,28 @@
+/* Show it is fixed to the top */
+body {
+	/* min-height: 75rem; */
+	padding-top: 6.5rem;
+}
+
+#main-navbar {
+	font-family: Product Sans, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif !important;
+}
+
+#main-navbar .nav-link {
+	border-bottom: 5px solid #f8f9fa;
+}
+
+#main-navbar .nav-link:hover,
+#main-navbar a.active {
+	border-bottom: solid #cdd1d4;
+	font-weight: bold;
+}
+
+#collab img {
+	width: 80px;
+}
+
+#collab a {
+	text-decoration: none;
+	color: rgb(230, 230, 230);
+}

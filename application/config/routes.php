@@ -64,3 +64,8 @@ $route[M_SUBDISTRICT] = 'volunteer/subdistrict';
 $route[M_COVID] = 'volunteer/covid';
 $route[M_CONFIG] = 'volunteer/configuration';
 $route[M_NEWS] = 'volunteer/news';
+
+// Frontend
+$route[U_NEWS] = 'news';
+$route[U_NEWS . '/(:any)'] = 'news/$1';
+$route[U_TEAM] = 'team';
