@@ -55,7 +55,7 @@
                                     <div class="h5 mb-0 font-weight-bold text-gray-800">450</div>
                                 </div>
                                 <div class="col-auto">
-                                    <i class="fas fa-users fa-2x text-gray-300"></i>
+                                    <i class="fas fa-diagnoses fa-2x text-gray-300"></i>
                                 </div>
                             </div>
                         </div>
@@ -70,7 +70,7 @@
                                     <div class="h5 mb-0 font-weight-bold text-gray-800">570</div>
                                 </div>
                                 <div class="col-auto">
-                                    <i class="fas fa-users fa-2x text-gray-300"></i>
+                                    <i class="fas fa-procedures fa-2x text-gray-300"></i>
                                 </div>
                             </div>
                         </div>
@@ -86,6 +86,9 @@
                                     <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Positif</div>
                                     <div class="h5 mb-0 font-weight-bold text-gray-800">2</div>
                                 </div>
+                                <div class="col-auto">
+                                    <i class="fas fa-user-injured  text-gray-300"></i>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -98,6 +101,9 @@
                                     <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Sembuh</div>
                                     <div class="h5 mb-0 font-weight-bold text-gray-800">56</div>
                                 </div>
+                                <div class="col-auto">
+                                    <i class="fas fa-clinic-medical  text-gray-300"></i>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -109,6 +115,9 @@
                                 <div class="col mr-2">
                                     <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">Meninggal</div>
                                     <div class="h5 mb-0 font-weight-bold text-gray-800">2</div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fas fa-ambulance  text-gray-300"></i>
                                 </div>
                             </div>
                         </div>

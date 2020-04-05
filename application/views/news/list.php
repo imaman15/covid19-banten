@@ -1,6 +1,6 @@
 <div class="container">
 
-  <p class="h4 text-center mb-4">Informasi Kesehatan dan Berita tentang Corona</p>
+  <p class="h3 text-center mb-4 text-dark">Informasi Kesehatan dan Berita tentang Corona</p>
 
   <div class="row mb-2">
     <div class="col-md-6">

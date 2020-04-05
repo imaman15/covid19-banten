@@ -1,7 +1,7 @@
 <div class="container">
-  <p class="h2 text-center mb-4">Data Informasi Persebaran Corona Provinsi Banten</p>
+  <p class="h3 text-center mb-4 text-dark">Data Informasi Persebaran Corona Provinsi Banten</p>
   <div class="row">
-    <!-- Earnings (Monthly) Card Example -->
+
     <div class="col-xl-6 col-md-6 mb-4">
       <div class="card border-left-primary shadow h-100 py-2">
         <div class="card-body">
@@ -18,13 +18,12 @@
       </div>
     </div>
 
-    <!-- Earnings (Monthly) Card Example -->
     <div class="col-xl-6 col-md-6 mb-4">
-      <div class="card border-left-success shadow h-100 py-2">
+      <div class="card border-left-info shadow h-100 py-2">
         <div class="card-body">
           <div class="row no-gutters align-items-center">
             <div class="col mr-2">
-              <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Pasien Dalam Pengawasan (PDP)</div>
+              <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Pasien Dalam Pengawasan (PDP)</div>
               <div class="h5 mb-0 font-weight-bold text-gray-800">215</div>
             </div>
             <div class="col-auto">
@@ -35,17 +34,16 @@
       </div>
     </div>
 
-
     <!-- End Row -->
   </div>
   <div class="row">
-    <!-- Earnings (Monthly) Card Example -->
+
     <div class="col-xl-4 col-md-6 mb-4">
-      <div class="card border-left-info shadow h-100 py-2">
+      <div class="card border-left-warning shadow h-100 py-2">
         <div class="card-body">
           <div class="row no-gutters align-items-center">
             <div class="col mr-2">
-              <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Positif Corona</div>
+              <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Positif Corona</div>
               <div class="h5 mb-0 font-weight-bold text-gray-800">320</div>
             </div>
             <div class="col-auto">
@@ -55,13 +53,13 @@
         </div>
       </div>
     </div>
-    <!-- Earnings (Monthly) Card Example -->
+
     <div class="col-xl-4 col-md-6 mb-4">
-      <div class="card border-left-warning shadow h-100 py-2">
+      <div class="card border-left-success shadow h-100 py-2">
         <div class="card-body">
           <div class="row no-gutters align-items-center">
             <div class="col mr-2">
-              <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Sembuh</div>
+              <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Sembuh</div>
               <div class="h5 mb-0 font-weight-bold text-gray-800">32</div>
             </div>
             <div class="col-auto">

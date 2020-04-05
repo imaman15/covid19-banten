@@ -1,6 +1,6 @@
 <div class="container">
 
-    <p class="h4 text-center mb-4">Berita Terkini</p>
+    <p class="h3 text-center mb-4 text-dark">Berita Terkini</p>
 
     <div class="card mb-4">
         <div class="card-header text-center">

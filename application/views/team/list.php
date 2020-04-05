@@ -1,6 +1,6 @@
 <div class="container">
 
-    <p class="h4 text-center mb-4">Tim Relawan Kami</p>
+    <p class="h3 text-center mb-4 text-dark">Tim Relawan Kami</p>
 
     <div class="card-deck">
         <div class="card text-center">
