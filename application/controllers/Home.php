@@ -7,7 +7,7 @@ class Home extends CI_Controller
 
     public function index()
     {
-        echo 'Beranda';
+        echo 'Beranda tessisis';
     }
 }
 
