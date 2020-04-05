@@ -7,7 +7,10 @@ class Team extends CI_Controller
 
     public function index()
     {
-        echo 'Tim Relawan';
+        $data 	= array( 'title'	=> 'Relawan',
+                        'content'	=> 'team/list'
+                );
+        $this->load->view('layout/index', $data, FALSE);
     }
 }
 
