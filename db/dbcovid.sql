@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.3
+-- version 4.9.2
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Apr 02, 2020 at 06:25 PM
--- Server version: 10.1.36-MariaDB
--- PHP Version: 7.2.11
+-- Host: localhost
+-- Waktu pembuatan: 08 Apr 2020 pada 20.14
+-- Versi server: 10.4.11-MariaDB
+-- Versi PHP: 7.2.26
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -25,7 +25,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `covid`
+-- Struktur dari tabel `covid`
 --
 
 CREATE TABLE `covid` (
@@ -35,16 +35,27 @@ CREATE TABLE `covid` (
   `positif` int(11) NOT NULL,
   `sembuh` int(11) NOT NULL,
   `meninggal` int(11) NOT NULL,
-  `tgl_publish` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `tgl_publish` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `id_district` int(11) NOT NULL,
   `id_subdistrict` int(11) NOT NULL,
   `id_users` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data untuk tabel `covid`
+--
+
+INSERT INTO `covid` (`id_covid`, `odp`, `pdp`, `positif`, `sembuh`, `meninggal`, `tgl_publish`, `id_district`, `id_subdistrict`, `id_users`) VALUES
+(1, 3, 40, 3, 32, 4, '2020-04-05 05:00:17', 1, 1, 2),
+(2, 34, 43, 32, 44, 43, '2020-04-05 12:42:28', 2, 1, 2),
+(3, 34, 44, 43, 43, 43, '2020-04-05 10:51:14', 1, 1, 2),
+(4, 45, 45, 44, 33, 34, '2020-04-05 12:33:03', 2, 3, 2),
+(5, 33, 23, 55, 43, 34, '2020-04-05 11:43:36', 1, 1, 2);
+
 -- --------------------------------------------------------
 
 --
--- Table structure for table `district`
+-- Struktur dari tabel `district`
 --
 
 CREATE TABLE `district` (
@@ -52,10 +63,19 @@ CREATE TABLE `district` (
   `nama_district` varchar(128) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data untuk tabel `district`
+--
+
+INSERT INTO `district` (`id_district`, `nama_district`) VALUES
+(1, 'Serang'),
+(2, 'Lebak'),
+(3, 'Pandeglang');
+
 -- --------------------------------------------------------
 
 --
--- Table structure for table `news`
+-- Struktur dari tabel `news`
 --
 
 CREATE TABLE `news` (
@@ -65,14 +85,14 @@ CREATE TABLE `news` (
   `kategori` int(1) NOT NULL,
   `img` varchar(256) NOT NULL,
   `tgl_publish` datetime NOT NULL,
-  `tgl_update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `tgl_update` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `id_users` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `subdistrict`
+-- Struktur dari tabel `subdistrict`
 --
 
 CREATE TABLE `subdistrict` (
@@ -81,10 +101,18 @@ CREATE TABLE `subdistrict` (
   `id_district` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data untuk tabel `subdistrict`
+--
+
+INSERT INTO `subdistrict` (`id_subdistrict`, `nama_subdistrict`, `id_district`) VALUES
+(1, 'Taktakan', 1),
+(2, 'Cipocok', 1);
+
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users`
+-- Struktur dari tabel `users`
 --
 
 CREATE TABLE `users` (
@@ -94,15 +122,15 @@ CREATE TABLE `users` (
   `name` varchar(128) NOT NULL,
   `phone` varchar(50) NOT NULL,
   `photo` varchar(128) NOT NULL,
-  `desc` text,
+  `desc` text DEFAULT NULL,
   `status` int(1) NOT NULL COMMENT '1 = Administrator, 2 = Relawan',
   `active` int(1) NOT NULL COMMENT '0 = Tidak Aktif, 1 = Aktif, 2 = Blokir',
   `date_created` int(11) NOT NULL,
-  `date_update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `date_update` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `users`
+-- Dumping data untuk tabel `users`
 --
 
 INSERT INTO `users` (`id_users`, `email`, `password`, `name`, `phone`, `photo`, `desc`, `status`, `active`, `date_created`, `date_update`) VALUES
@@ -114,7 +142,7 @@ INSERT INTO `users` (`id_users`, `email`, `password`, `name`, `phone`, `photo`, 
 --
 
 --
--- Indexes for table `covid`
+-- Indeks untuk tabel `covid`
 --
 ALTER TABLE `covid`
   ADD PRIMARY KEY (`id_covid`),
@@ -123,61 +151,61 @@ ALTER TABLE `covid`
   ADD KEY `id_users` (`id_users`);
 
 --
--- Indexes for table `district`
+-- Indeks untuk tabel `district`
 --
 ALTER TABLE `district`
   ADD PRIMARY KEY (`id_district`);
 
 --
--- Indexes for table `news`
+-- Indeks untuk tabel `news`
 --
 ALTER TABLE `news`
   ADD PRIMARY KEY (`id_news`),
   ADD KEY `id_users` (`id_users`);
 
 --
--- Indexes for table `subdistrict`
+-- Indeks untuk tabel `subdistrict`
 --
 ALTER TABLE `subdistrict`
   ADD PRIMARY KEY (`id_subdistrict`),
   ADD KEY `id_district` (`id_district`);
 
 --
--- Indexes for table `users`
+-- Indeks untuk tabel `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id_users`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT untuk tabel yang dibuang
 --
 
 --
--- AUTO_INCREMENT for table `covid`
+-- AUTO_INCREMENT untuk tabel `covid`
 --
 ALTER TABLE `covid`
-  MODIFY `id_covid` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_covid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT for table `district`
+-- AUTO_INCREMENT untuk tabel `district`
 --
 ALTER TABLE `district`
-  MODIFY `id_district` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_district` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `news`
+-- AUTO_INCREMENT untuk tabel `news`
 --
 ALTER TABLE `news`
   MODIFY `id_news` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `subdistrict`
+-- AUTO_INCREMENT untuk tabel `subdistrict`
 --
 ALTER TABLE `subdistrict`
-  MODIFY `id_subdistrict` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_subdistrict` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `users`
+-- AUTO_INCREMENT untuk tabel `users`
 --
 ALTER TABLE `users`
   MODIFY `id_users` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
