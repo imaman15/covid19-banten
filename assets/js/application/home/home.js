@@ -86,7 +86,7 @@ $.ajax({
       var label = date.getDate()+ ' ' + month[date.getMonth()] + ' ' + date.getFullYear() + ' ' + date.getHours()+ ':' + date.getMinutes(); 
       
 
-    myLineChart1.data.labels.push(label);
+    myLineChart2.data.labels.push(label);
 
     return [ meninggal.push(count_meninggal), 
               positif.push(count_positif),
@@ -97,13 +97,13 @@ $.ajax({
       
     })
   
-    myLineChart1.data.datasets[0].data = meninggal;
-    myLineChart1.data.datasets[1].data = positif;
-    myLineChart1.data.datasets[2].data = sembuh;
-    myLineChart1.data.datasets[3].data = odp;
-    myLineChart1.data.datasets[4].data = pdp;
+    myLineChart2.data.datasets[0].data = meninggal;
+    myLineChart2.data.datasets[1].data = positif;
+    myLineChart2.data.datasets[2].data = sembuh;
+    myLineChart2.data.datasets[3].data = odp;
+    myLineChart2.data.datasets[4].data = pdp;
 
-    myLineChart1.update();
+    myLineChart2.update();
     
   }
 });
@@ -339,10 +339,9 @@ var myLineChart = new Chart(ctx, {
 });
 
 
-
 // Area Chart Example
 var ctx2 = document.getElementById("myAreaChart2");
-var myLineChart1 = new Chart(ctx2, {
+var myLineChart2 = new Chart(ctx2, {
   type: 'line',
   data: {
     labels: [],
