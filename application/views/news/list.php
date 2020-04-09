@@ -1,13 +1,13 @@
 <div class="container">
   <p class="h3 text-center mb-4 text-dark">Informasi Kesehatan dan Berita tentang Corona</p>
-  
+
   <div class="row mb-2">
-    <?php foreach ( $berita as $berita) { ?>
+    <?php foreach ($berita as $berita) { ?>
       <div class="col-md-6">
         <div class="card flex-md-row mb-4 box-shadow h-md-250">
-          <img class="card-img-right flex-auto d-none d-md-block" src="<?= $berita->img ?>" height="auto" width="200" alt="Card image cap">
+          <img class="card-img-right flex-auto d-none d-md-block" src="<?= base_url('assets/img/news/') . $berita->img ?>" height="200" width="200" alt="Card image cap">
           <div class="card-body d-flex flex-column align-items-start">
-            <strong class="d-inline-block mb-2 text-primary"><?= ($berita->kategori == 1 ) ? "Info Kesehatan" : "Berita"; ?></strong>
+            <strong class="d-inline-block mb-2 text-primary"><?= ($berita->kategori == 1) ? "Info Kesehatan" : "Berita"; ?></strong>
             <h3 class="mb-0">
               <a class="text-dark" href="<?= base_url('news/detail/') . $berita->id_news ?>"><?= $berita->title ?></a>
             </h3>
@@ -18,7 +18,7 @@
         </div>
       </div>
     <?php } ?>
-    
+
   </div>
 
 </div>
