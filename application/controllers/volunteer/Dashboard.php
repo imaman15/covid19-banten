@@ -9,6 +9,7 @@ class Dashboard extends CI_Controller
         parent::__construct();
         //Do your magic here
         not_login();
+        $this->load->model('covid_model');
     }
 
     public function index()
@@ -20,6 +21,7 @@ class Dashboard extends CI_Controller
         }
         $data['title'] = 'Dashboard';
         $data['page'] = $page;
+        $data['count'] = $this->covid_model->jumlah();
         $this->load->view('volunteer/templates', $data, FALSE);
     }
 }
