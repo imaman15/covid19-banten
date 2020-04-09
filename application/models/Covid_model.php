@@ -13,7 +13,7 @@ class Covid_model extends CI_Model
 
     private $table = 'covid';
 
-    // Listing all user
+    // Listing all kabupaten
     public function listing(){
         $this->db->select('*');
         $this->db->from($this->table);
@@ -22,30 +22,20 @@ class Covid_model extends CI_Model
         return $query->result();
     }
 
-      // Listing all user
+      // Listing detail kabupaten
       public function listing_kabupaten_detail($id_kabupaten){
-        $this->db->select('*');
+        $this->db->select('covid.*, subdistrict.nama_subdistrict');
         $this->db->from($this->table);
-        $this->db->where('id_district', $id_kabupaten);
+        // Join Database
+		$this->db->join('subdistrict', 'subdistrict.id_subdistrict = covid.id_subdistrict', 'left');
+        // end join
+        
+        $this->db->where('covid.id_district', $id_kabupaten);
         $this->db->order_by('id_covid');
         $query = $this->db->get();
         return $query->result();
     }
 
-    // listing all produk
-	public function listing_kabupaten_all(){
-
-		$this->db->select('covid.*,
-						district.nama_district,
-						');
-		$this->db->from('covid');
-
-		// Join Database
-		$this->db->join('district', 'district.id_district = covid.id_district', 'left');
-		// end join
-		$query = $this->db->get();
-		return $query->result();
-	}
 
     // Jumlah keseluruhan
 	public function jumlah(){
