@@ -1,5 +1,5 @@
 <div class="container">
-  <input type="hidden" id="base_url" value="<?= base_url()?>">
+  <input type="hidden" id="base_url" value="<?= base_url() ?>">
   <p class="h3 text-center mb-4 text-dark">Data Informasi Persebaran Corona Provinsi Banten</p>
   <div class="row">
 
@@ -108,7 +108,7 @@
   </div>
   <p class="text-center">Grafik Informasi Persebaran Corona Per Kabupaten</p>
   <div class="row">
-    <?php foreach($kabupaten as $kabupaten) { ?>
+    <?php foreach ($kabupaten as $kabupaten) { ?>
       <div class="col-md-6">
         <div class="card shadow mb-4">
           <div class="card-header py-3">
@@ -131,3 +131,7 @@
   <!-- End Content-fluid -->
 </div>
 
+
+<!-- Chart -->
+<script src="<?php echo base_url() ?>assets/vendor/chart/chart.min.js"></script>
+<script src="<?php echo base_url() ?>assets/js/demo/chart-area-demo.js"></script>
