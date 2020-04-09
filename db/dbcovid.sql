@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Waktu pembuatan: 08 Apr 2020 pada 20.14
--- Versi server: 10.4.11-MariaDB
--- Versi PHP: 7.2.26
+-- Generation Time: Apr 09, 2020 at 08:42 PM
+-- Server version: 10.4.11-MariaDB
+-- PHP Version: 7.2.26
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -25,7 +25,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `covid`
+-- Table structure for table `covid`
 --
 
 CREATE TABLE `covid` (
@@ -42,20 +42,20 @@ CREATE TABLE `covid` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `covid`
+-- Dumping data for table `covid`
 --
 
 INSERT INTO `covid` (`id_covid`, `odp`, `pdp`, `positif`, `sembuh`, `meninggal`, `tgl_publish`, `id_district`, `id_subdistrict`, `id_users`) VALUES
 (1, 3, 40, 3, 32, 4, '2020-04-05 05:00:17', 1, 1, 2),
 (2, 34, 43, 32, 44, 43, '2020-04-05 12:42:28', 2, 1, 2),
 (3, 34, 44, 43, 43, 43, '2020-04-05 10:51:14', 1, 1, 2),
-(4, 45, 45, 44, 33, 34, '2020-04-05 12:33:03', 2, 3, 2),
+(4, 45, 45, 44, 33, 34, '2020-04-09 15:09:02', 1, 2, 2),
 (5, 33, 23, 55, 43, 34, '2020-04-05 11:43:36', 1, 1, 2);
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `district`
+-- Table structure for table `district`
 --
 
 CREATE TABLE `district` (
@@ -64,7 +64,7 @@ CREATE TABLE `district` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `district`
+-- Dumping data for table `district`
 --
 
 INSERT INTO `district` (`id_district`, `nama_district`) VALUES
@@ -75,7 +75,7 @@ INSERT INTO `district` (`id_district`, `nama_district`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `news`
+-- Table structure for table `news`
 --
 
 CREATE TABLE `news` (
@@ -89,10 +89,17 @@ CREATE TABLE `news` (
   `id_users` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `news`
+--
+
+INSERT INTO `news` (`id_news`, `title`, `content`, `kategori`, `img`, `tgl_publish`, `tgl_update`, `id_users`) VALUES
+(1, 'Cegah corona', 'Data base Lorem ipsum dolor sit amet consectetur adipisicing elit. Non odit ab nam nobis perferendis, officiis magnam alias blanditiis distinctio iure, harum nostrum repudiandae voluptates labore, modi inventore magni nulla corporis! This card uses Bootstrap\'s default styling with no utility classes added. Global styles are the only things modifying the look and feel of this default card example. Lorem ipsum dolor sit amet consectetur adipisicing elit. Non odit ab nam nobis perferendis, officiis magnam alias blanditiis distinctio iure, harum nostrum repudiandae voluptates labore, modi inventore magni nulla corporis! This card uses Bootstrap\'s default styling with no utility classes added. Global styles are the only things modifying the look and feel of this default card example. Lorem ipsum dolor sit amet consectetur adipisicing elit. Non odit ab nam nobis perferendis, officiis magnam alias blanditiis distinctio iure, harum nostrum repudiandae voluptates labore, modi inventore magni nulla corporis! This card uses Bootstrap\'s default styling with no utility classes added. Global styles are the only things modifying the look and feel of this default card example. Lorem ipsum dolor sit amet consectetur adipisicing elit. Non odit ab nam nobis perferendis, officiis magnam alias blanditiis distinctio iure, harum nostrum repudiandae voluptates labore, modi inventore magni nulla corporis! This card uses Bootstrap\'s default styling with no utility classes added. Global styles are the only things modifying the look and feel of this default card example. Lorem ipsum dolor sit amet consectetur adipisicing elit. Non odit ab nam nobis perferendis, officiis magnam alias blanditiis distinctio iure, harum nostrum repudiandae voluptates labore, modi inventore magni nulla corporis! This card uses Bootstrap\'s default styling with no utility classes added. Global styles are the only things modifying the look and feel of this default card example. Lorem ipsum dolor sit amet consectetur adipisicing elit. Non odit ab nam nobis perferendis, officiis magnam alias blanditiis distinctio iure, harum nostrum repudiandae voluptates labore, modi inventore magni nulla corporis! This card uses Bootstrap\'s default styling with no utility classes added. Global styles are the only things modifying the look and feel of this default card example.', 2, 'http://localhost/covid_web/assets/img/berita.jpeg', '2020-04-09 00:00:00', '2020-04-09 16:55:25', 2);
+
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `subdistrict`
+-- Table structure for table `subdistrict`
 --
 
 CREATE TABLE `subdistrict` (
@@ -102,7 +109,7 @@ CREATE TABLE `subdistrict` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `subdistrict`
+-- Dumping data for table `subdistrict`
 --
 
 INSERT INTO `subdistrict` (`id_subdistrict`, `nama_subdistrict`, `id_district`) VALUES
@@ -112,7 +119,7 @@ INSERT INTO `subdistrict` (`id_subdistrict`, `nama_subdistrict`, `id_district`) 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `users`
+-- Table structure for table `users`
 --
 
 CREATE TABLE `users` (
@@ -130,7 +137,7 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `users`
+-- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id_users`, `email`, `password`, `name`, `phone`, `photo`, `desc`, `status`, `active`, `date_created`, `date_update`) VALUES
@@ -142,7 +149,7 @@ INSERT INTO `users` (`id_users`, `email`, `password`, `name`, `phone`, `photo`, 
 --
 
 --
--- Indeks untuk tabel `covid`
+-- Indexes for table `covid`
 --
 ALTER TABLE `covid`
   ADD PRIMARY KEY (`id_covid`),
@@ -151,61 +158,61 @@ ALTER TABLE `covid`
   ADD KEY `id_users` (`id_users`);
 
 --
--- Indeks untuk tabel `district`
+-- Indexes for table `district`
 --
 ALTER TABLE `district`
   ADD PRIMARY KEY (`id_district`);
 
 --
--- Indeks untuk tabel `news`
+-- Indexes for table `news`
 --
 ALTER TABLE `news`
   ADD PRIMARY KEY (`id_news`),
   ADD KEY `id_users` (`id_users`);
 
 --
--- Indeks untuk tabel `subdistrict`
+-- Indexes for table `subdistrict`
 --
 ALTER TABLE `subdistrict`
   ADD PRIMARY KEY (`id_subdistrict`),
   ADD KEY `id_district` (`id_district`);
 
 --
--- Indeks untuk tabel `users`
+-- Indexes for table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id_users`);
 
 --
--- AUTO_INCREMENT untuk tabel yang dibuang
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT untuk tabel `covid`
+-- AUTO_INCREMENT for table `covid`
 --
 ALTER TABLE `covid`
   MODIFY `id_covid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT untuk tabel `district`
+-- AUTO_INCREMENT for table `district`
 --
 ALTER TABLE `district`
   MODIFY `id_district` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT untuk tabel `news`
+-- AUTO_INCREMENT for table `news`
 --
 ALTER TABLE `news`
-  MODIFY `id_news` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_news` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT untuk tabel `subdistrict`
+-- AUTO_INCREMENT for table `subdistrict`
 --
 ALTER TABLE `subdistrict`
   MODIFY `id_subdistrict` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT untuk tabel `users`
+-- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
   MODIFY `id_users` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;

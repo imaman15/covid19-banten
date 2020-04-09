@@ -24,7 +24,7 @@
           <h6 class="m-0 font-weight-bold text-primary text-center" id="nama_kabupaten"><?= $kabupaten_detail[0]->nama_district ?></h6>
         </div>
         <div class="card-body">
-          <div class="chart-area">
+          <div class="chart-area" id="your_canvas_father">
             <canvas id="myAreaChart"></canvas>
           </div>
           <hr>

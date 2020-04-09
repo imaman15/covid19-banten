@@ -30,7 +30,6 @@ class Covid_model extends CI_Model
         // Join Database
         $this->db->join('subdistrict', 'subdistrict.id_subdistrict = covid.id_subdistrict', 'left');
         // end join
-
         $this->db->where('covid.id_district', $id_kabupaten);
         $this->db->order_by('id_covid');
         $query = $this->db->get();

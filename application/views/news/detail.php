@@ -1,38 +1,28 @@
 <div class="container">
-
     <p class="h3 text-center mb-4 text-dark">Berita Terkini</p>
+    <?php foreach($detail as $detail) { ?>
+        <div class="card mb-4">
+            <div class="card-header text-center">
+                <?= $detail->title ?>
+            </div>
+            <div class="card-body text-justify">
+                <div class="row">
+                    
+                    <div class="col-md-4">
+                        <img src="<?= $detail->img ?>" class="img-fluid mb-4" alt="Responsive image">
+                        <p class="btn btn-light">Berita pada <?= tgl_indo($detail->tgl_publish) ?></p>
+                        <p class="btn btn-light"><?= ($detail->kategori == 1 ) ? "Info Kesehatan" : "Berita"; ?></p>
+                        <p class="btn btn-light">Ditulis oleh <?= $detail->name ?></p>
 
-    <div class="card mb-4">
-        <div class="card-header text-center">
-            Judul Berita
-        </div>
-        <div class="card-body text-justify">
-            <div class="row">
-                <div class="col-md-4">
-                    <img src="<?= base_url('assets/img/berita.jpeg') ?>" class="img-fluid mb-4" alt="Responsive image">
-                    <p class="btn btn-light">Lihat Berita Lain nya</p>
-                    <p class="btn btn-light">Tags</p>
-                    <p class="btn btn-light">tes</p>
-
-                </div>
-                <div class="col-md-8">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Non odit ab nam nobis perferendis, officiis magnam alias blanditiis distinctio iure, harum nostrum repudiandae voluptates labore, modi inventore magni nulla corporis!
-                    This card uses Bootstrap's default styling with no utility classes added. Global styles are the only things modifying the look and feel of this default card example.
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Non odit ab nam nobis perferendis, officiis magnam alias blanditiis distinctio iure, harum nostrum repudiandae voluptates labore, modi inventore magni nulla corporis!
-                    This card uses Bootstrap's default styling with no utility classes added. Global styles are the only things modifying the look and feel of this default card example.
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Non odit ab nam nobis perferendis, officiis magnam alias blanditiis distinctio iure, harum nostrum repudiandae voluptates labore, modi inventore magni nulla corporis!
-                    This card uses Bootstrap's default styling with no utility classes added. Global styles are the only things modifying the look and feel of this default card example.
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Non odit ab nam nobis perferendis, officiis magnam alias blanditiis distinctio iure, harum nostrum repudiandae voluptates labore, modi inventore magni nulla corporis!
-                    This card uses Bootstrap's default styling with no utility classes added. Global styles are the only things modifying the look and feel of this default card example.
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Non odit ab nam nobis perferendis, officiis magnam alias blanditiis distinctio iure, harum nostrum repudiandae voluptates labore, modi inventore magni nulla corporis!
-                    This card uses Bootstrap's default styling with no utility classes added. Global styles are the only things modifying the look and feel of this default card example.
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Non odit ab nam nobis perferendis, officiis magnam alias blanditiis distinctio iure, harum nostrum repudiandae voluptates labore, modi inventore magni nulla corporis!
-                    This card uses Bootstrap's default styling with no utility classes added. Global styles are the only things modifying the look and feel of this default card example.
+                    </div>
+                    <div class="col-md-8">
+                        <?= $detail->content ?>
+                    </div>
+                    
                 </div>
             </div>
         </div>
-    </div>
-
+    <?php } ?>
 </div>
 
 <!-- End Content-fluid -->
