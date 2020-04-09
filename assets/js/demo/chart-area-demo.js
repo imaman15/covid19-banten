@@ -2,16 +2,16 @@
 Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
 Chart.defaults.global.defaultFontColor = '#858796';
 
-var base_url = $('#base_url').val();
+var url = $('#base_url').val();
 
 $.ajax({
-	url: base_url + "home/data",
+	url: url + "home/data",
 	type: 'GET',
 	dataType: "json",
 	success: function (data) {
 		var month = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli",
 			"Agustus", "September", "Oktober", "Novermber", "Desember"
-		];
+		]
 
 		var positif = [];
 		var meninggal = [];
@@ -59,7 +59,7 @@ $.ajax({
 
 
 $.ajax({
-	url: base_url + "home/data_kabupaten",
+	url: url + "home/data_kabupaten",
 	type: 'POST',
 	data: {
 		id_kabupaten: 1
@@ -69,7 +69,7 @@ $.ajax({
 
 		var month = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli",
 			"Agustus", "September", "Oktober", "Novermber", "Desember"
-		];
+		]
 
 		var positif = [];
 		var meninggal = [];
@@ -114,7 +114,7 @@ $.ajax({
 
 
 $.ajax({
-	url: base_url + "home/data_kabupaten",
+	url: url + "home/data_kabupaten",
 	type: 'POST',
 	data: {
 		id_kabupaten: 2
@@ -124,7 +124,8 @@ $.ajax({
 
 		var month = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli",
 			"Agustus", "September", "Oktober", "Novermber", "Desember"
-		];
+		]
+
 		var positif = [];
 		var meninggal = [];
 		var sembuh = [];
@@ -132,6 +133,7 @@ $.ajax({
 		var pdp = [];
 
 		$.each(data, function (i, item) {
+
 			var count_positif = item.positif;
 			var count_sembuh = item.sembuh;
 			var count_odp = item.odp;
@@ -141,7 +143,8 @@ $.ajax({
 
 			var date = new Date(count_tanggal);
 			var label = date.getDate() + ' ' + month[date.getMonth()] + ' ' + date.getFullYear() + ' ' + date.getHours() + ':' + date.getMinutes();
-			console.log(data);
+
+
 			myLineChart2.data.labels.push(label);
 
 			return [meninggal.push(count_meninggal),
