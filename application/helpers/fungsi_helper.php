@@ -147,3 +147,25 @@ function status($data)
         return "-";
     }
 }
+
+function tgl_indo($tanggal){
+    
+    $tgl_new = date("Y-m-d", strtotime($tanggal));
+	$bulan = array (
+		1 =>   'Januari',
+		'Februari',
+		'Maret',
+		'April',
+		'Mei',
+		'Juni',
+		'Juli',
+		'Agustus',
+		'September',
+		'Oktober',
+		'November',
+		'Desember'
+	);
+	$date = explode('-', $tgl_new);
+ 
+	return $date[2] . ' ' . $bulan[ (int)$date[1] ] . ' ' . $date[0];
+}

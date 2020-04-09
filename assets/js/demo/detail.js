@@ -6,14 +6,14 @@ var url = $('#base_url').val();
 var id = $('#id').val();
 
 grafik_detail(id);
-table_detail(id)
 
 $( "#filter_kabupaten" ).change(function() {
   var id = $(this).val();
   var wilayah =  $('#filter_kabupaten').find(":selected").text();
   var wilayah_default =  $('#nama_kabupaten_default').val();
+  
+    grafik_detail(id);
 
-  grafik_detail(id);
   if (wilayah == 'Pilih Wilayah') {
     $('#nama_kabupaten').html(wilayah_default);
   } else {
@@ -37,7 +37,7 @@ function grafik_detail(id){
         var sembuh = [];
         var odp = [];
         var pdp = [];
-    
+
         $.each(data, function(i, item){
           
           var count_positif   = item.positif;
@@ -51,7 +51,6 @@ function grafik_detail(id){
           var date = new Date(count_tanggal);
           var label = date.getDate()+ ' ' + month[date.getMonth()] + ' ' + date.getFullYear() + ' ' + date.getHours()+ ':' + date.getMinutes(); 
           
-    
         myLineChart.data.labels.push(label);
 
         // create table
@@ -86,6 +85,7 @@ function grafik_detail(id){
         myLineChart.data.datasets[4].data = pdp;
     
         myLineChart.update();
+        
 
       }
     });
