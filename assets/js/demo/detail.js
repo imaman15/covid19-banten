@@ -5,7 +5,6 @@ Chart.defaults.global.defaultFontColor = '#858796';
 var url = $('#base_url').val();
 var id = $('#id').val();
 
-
 grafik_detail(id);
 table_detail(id)
 
@@ -22,23 +21,6 @@ $( "#filter_kabupaten" ).change(function() {
   }
 
 });
-
-function table_detail(id){
- 
-  // $.ajax({
-  //   url: url + "home/data_kabupaten",
-  //   type: 'POST',
-  //   data: {id_kabupaten : id},
-  //   dataType: "json",
-  //   success: function(data) {
-  //     var month = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", 
-  //                 "Agustus", "September", "Oktober", "Novermber", "Desember"]
-  
-  //     console.log(data);
-  //   }
-  // });
-
-}
 
 function grafik_detail(id){
     $.ajax({
@@ -84,9 +66,10 @@ function grafik_detail(id){
               <td>${item.sembuh}</td>
               <td>${item.positif}</td>
              </tr> 
-        `);
-    
-    
+          `);
+
+        // end table
+        
         return [ meninggal.push(count_meninggal), 
                   positif.push(count_positif),
                   sembuh.push(count_sembuh),
@@ -104,33 +87,9 @@ function grafik_detail(id){
     
         myLineChart.update();
 
-        // create table
-
-        // document.getElementById('tbl_body').append = data.reduce((prev, current) => {
-        //   var date = new Date(count_tanggal);
-        //   var label = date.getDate()+ ' ' + month[date.getMonth()] + ' ' + date.getFullYear() + ' ' + date.getHours()+ ':' + date.getMinutes(); 
-
-        //   return prev + 
-        //     `<tr>
-        //         <td>${label}</td>
-        //         <td>${current.nama_subdistrict}</td>
-        //         <td>${current.odp}</td>
-        //         <td>${current.pdp}</td>
-        //         <td>${current.positif}</td>
-        //         <td>${current.sembuh}</td>
-        //         <td>${current.positif}</td>
-        //       </tr>
-        //     `
-        // })
-        
       }
-    }, "");
+    });
 }
-
-
-
-// ajak kabupaten
-
 
 function number_format(number, decimals, dec_point, thousands_sep) {
   // *     example: number_format(1234.56, 2, ',', ' ');
@@ -308,7 +267,3 @@ var myLineChart = new Chart(ctx, {
     }
   }
 });
-
-
-
-
