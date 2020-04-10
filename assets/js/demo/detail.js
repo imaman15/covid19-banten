@@ -12,7 +12,7 @@ $( "#filter_kabupaten" ).change(function() {
   var wilayah =  $('#filter_kabupaten').find(":selected").text();
   var wilayah_default =  $('#nama_kabupaten_default').val();
   
-    grafik_detail(id);
+  window.location.href = url + "home/detail/" + id;
 
   if (wilayah == 'Pilih Wilayah') {
     $('#nama_kabupaten').html(wilayah_default);
@@ -35,8 +35,10 @@ function grafik_detail(id){
         var positif = [];
         var meninggal = [];
         var sembuh = [];
-        var odp = [];
+        var odp = []
         var pdp = [];
+        var label = [];
+        var nama_subdistrict = [];
 
         $.each(data, function(i, item){
           
@@ -46,38 +48,42 @@ function grafik_detail(id){
           var count_pdp       = item.pdp;
           var count_meninggal = item.meninggal;
           var count_tanggal   = item.tgl_publish;
-          var nama_subdistrict  = item.nama_subdistrict
+          var nama_subdistrict_one  = item.nama_subdistrict
     
           var date = new Date(count_tanggal);
-          var label = date.getDate()+ ' ' + month[date.getMonth()] + ' ' + date.getFullYear() + ' ' + date.getHours()+ ':' + date.getMinutes(); 
+          var label_one = date.getDate()+ ' ' + month[date.getMonth()] + ' ' + date.getFullYear() + ' ' + date.getHours()+ ':' + date.getMinutes(); 
           
-        myLineChart.data.labels.push(label);
+          myLineChart.data.labels.push(label_one);
 
-        // create table
+            // create table
+            
+            $('#tbl_body').each(function(index, tbody) { 
+              $(tbody).append(` 
+                <tr>
+                  <td>${label_one}</td>
+                  <td>${nama_subdistrict_one}</td>
+                  <td>${count_odp}</td>
+                  <td>${count_pdp}</td>
+                  <td>${count_positif}</td>
+                  <td>${count_sembuh}</td>
+                  <td>${count_meninggal}</td>
+                </tr> 
+              `);
+            });
 
-        $('#tbl_body').html(` 
-            <tr>
-              <td>${label}</td>
-              <td>${nama_subdistrict}</td>
-              <td>${item.odp}</td>
-              <td>${item.pdp}</td>
-              <td>${item.positif}</td>
-              <td>${item.sembuh}</td>
-              <td>${item.positif}</td>
-             </tr> 
-          `);
-
-        // end table
         
         return [ meninggal.push(count_meninggal), 
                   positif.push(count_positif),
                   sembuh.push(count_sembuh),
                   odp.push(count_odp),
-                  pdp.push(count_pdp)
+                  pdp.push(count_pdp),
+                  label.push(label_one),
+                  nama_subdistrict.push(nama_subdistrict_one)
+
               ];
           
         });
-      
+       
         myLineChart.data.datasets[0].data = meninggal;
         myLineChart.data.datasets[1].data = positif;
         myLineChart.data.datasets[2].data = sembuh;
@@ -86,6 +92,8 @@ function grafik_detail(id){
     
         myLineChart.update();
         
+        
+          
 
       }
     });

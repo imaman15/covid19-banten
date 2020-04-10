@@ -4,6 +4,8 @@ Chart.defaults.global.defaultFontColor = '#858796';
 
 var url = $('#base_url').val();
 
+kabupaten();
+
 $.ajax({
 	url: url + "home/data",
 	type: 'GET',
@@ -56,61 +58,64 @@ $.ajax({
 
 
 // ajak kabupaten
+function kabupaten(){
 
+	$.ajax({
+		url: url + "home/data_kabupaten",
+		type: 'POST',
+		data: {
+			id_kabupaten: 1
+		},
+		dataType: "json",
+		success: function (data) {
+	
+			var month = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli",
+				"Agustus", "September", "Oktober", "Novermber", "Desember"
+			]
+	
+			var positif = [];
+			var meninggal = [];
+			var sembuh = [];
+			var odp = [];
+			var pdp = [];
+	
+			$.each(data, function (i, item) {
+	
+				var count_positif = item.positif;
+				var count_sembuh = item.sembuh;
+				var count_odp = item.odp;
+				var count_pdp = item.pdp;
+				var count_meninggal = item.meninggal;
+				var count_tanggal = item.tgl_publish;
+	
+				var date = new Date(count_tanggal);
+				var label = date.getDate() + ' ' + month[date.getMonth()] + ' ' + date.getFullYear() + ' ' + date.getHours() + ':' + date.getMinutes();
+	
+	
+				myLineChart1.data.labels.push(label);
+	
+				return [meninggal.push(count_meninggal),
+					positif.push(count_positif),
+					sembuh.push(count_sembuh),
+					odp.push(count_odp),
+					pdp.push(count_pdp)
+				];
+	
+			})
+	
+			myLineChart1.data.datasets[0].data = meninggal;
+			myLineChart1.data.datasets[1].data = positif;
+			myLineChart1.data.datasets[2].data = sembuh;
+			myLineChart1.data.datasets[3].data = odp;
+			myLineChart1.data.datasets[4].data = pdp;
+	
+			myLineChart1.update();
+	
+		}
+	});
 
-$.ajax({
-	url: url + "home/data_kabupaten",
-	type: 'POST',
-	data: {
-		id_kabupaten: 1
-	},
-	dataType: "json",
-	success: function (data) {
+}
 
-		var month = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli",
-			"Agustus", "September", "Oktober", "Novermber", "Desember"
-		]
-
-		var positif = [];
-		var meninggal = [];
-		var sembuh = [];
-		var odp = [];
-		var pdp = [];
-
-		$.each(data, function (i, item) {
-
-			var count_positif = item.positif;
-			var count_sembuh = item.sembuh;
-			var count_odp = item.odp;
-			var count_pdp = item.pdp;
-			var count_meninggal = item.meninggal;
-			var count_tanggal = item.tgl_publish;
-
-			var date = new Date(count_tanggal);
-			var label = date.getDate() + ' ' + month[date.getMonth()] + ' ' + date.getFullYear() + ' ' + date.getHours() + ':' + date.getMinutes();
-
-
-			myLineChart1.data.labels.push(label);
-
-			return [meninggal.push(count_meninggal),
-				positif.push(count_positif),
-				sembuh.push(count_sembuh),
-				odp.push(count_odp),
-				pdp.push(count_pdp)
-			];
-
-		})
-
-		myLineChart1.data.datasets[0].data = meninggal;
-		myLineChart1.data.datasets[1].data = positif;
-		myLineChart1.data.datasets[2].data = sembuh;
-		myLineChart1.data.datasets[3].data = odp;
-		myLineChart1.data.datasets[4].data = pdp;
-
-		myLineChart1.update();
-
-	}
-});
 
 
 $.ajax({
@@ -348,8 +353,8 @@ var myLineChart = new Chart(ctx, {
 
 
 // Area Chart Example
-var ctx2 = document.getElementById("myAreaChart1");
-var myLineChart1 = new Chart(ctx2, {
+var ctx1 = document.getElementById("myAreaChart1");
+var myLineChart1 = new Chart(ctx1, {
 	type: 'line',
 	data: {
 		labels: [],
