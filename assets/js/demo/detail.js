@@ -7,11 +7,17 @@ var id = $('#id').val();
 
 grafik_detail(id);
 
+
+setTimeout(function() {
+  location.reload();
+}, 5000);
+
+
 $( "#filter_kabupaten" ).change(function() {
   var id = $(this).val();
   var wilayah =  $('#filter_kabupaten').find(":selected").text();
   var wilayah_default =  $('#nama_kabupaten_default').val();
-  
+
   window.location.href = url + "home/detail/" + id;
 
   if (wilayah == 'Pilih Wilayah') {
