@@ -13,9 +13,10 @@ class Auth extends CI_Controller
         $this->load->model('users_model', 'users');
     }
 
-    public function registration()
+    public function index()
     {
-        echo 'registration';
+        $data['title'] = 'Daftar Relawan';
+        $this->load->view('volunteer/register', $data, FALSE);
     }
 
     public function login()

@@ -23,6 +23,14 @@ class Users_model extends CI_Model
         $this->db->from($this->_table);
         return $this->db->get();
     }
+
+    public function dataNot($names)
+    {
+        $this->db->where('active', 1);
+        $this->db->where_not_in('id_users', $names);
+        $this->db->from($this->_table);
+        return $this->db->get();
+    }
 }
 
 /* End of file Users_model.php */

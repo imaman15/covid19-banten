@@ -53,6 +53,8 @@ $route['default_controller'] = 'home';
 $route['404_override'] = 'error_page';
 $route['translate_uri_dashes'] = FALSE;
 
+//$route['daftar/(:any)'] = 'volunteer/auth/$1';
+$route['daftar'] = 'volunteer/auth';
 $route[M_ADMIN . '/login'] = 'volunteer/auth/login';
 $route[M_ADMIN . '/logout'] = 'volunteer/auth/logout';
 $route[M_ADMIN] = 'volunteer/dashboard';

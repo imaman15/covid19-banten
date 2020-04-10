@@ -27,3 +27,10 @@ body {
 	text-decoration: none;
 	color: rgb(230, 230, 230);
 }
+
+/*  MEMBER LIST - Halaman Home  */
+
+#member-list .card-body img {
+	width: 125px;
+	margin-top: -80px;
+}

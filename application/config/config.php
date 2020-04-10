@@ -29,6 +29,9 @@ $config['base_url'] .= "://" . $_SERVER['HTTP_HOST'];
 $config['base_url'] .= str_replace(basename($_SERVER['SCRIPT_NAME']), "", $_SERVER['SCRIPT_NAME']);
 date_default_timezone_set('Asia/Jakarta');
 
+setlocale(LC_TIME, 'id_ID');
+// strftime("%d %B %Y", time());
+
 /*
 |--------------------------------------------------------------------------
 | Index File
