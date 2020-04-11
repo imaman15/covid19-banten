@@ -8,11 +8,6 @@ var id = $('#id').val();
 grafik_detail(id);
 
 
-setTimeout(function() {
-  location.reload();
-}, 5000);
-
-
 $( "#filter_kabupaten" ).change(function() {
   var id = $(this).val();
   var wilayah =  $('#filter_kabupaten').find(":selected").text();

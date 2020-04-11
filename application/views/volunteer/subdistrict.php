@@ -107,7 +107,7 @@
             "serverSide": true,
             "order": [],
             "ajax": {
-                "url": "<?php echo site_url('volunteer/subdistrict/list') ?>",
+                "url": "<?php echo site_url('volunteer/subdistrict/myList') ?>",
                 "type": "POST"
             },
             "columnDefs": [{

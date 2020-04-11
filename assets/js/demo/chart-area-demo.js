@@ -17,7 +17,6 @@ $.ajax({
 
 })
 
-
 $.ajax({
 	url: url + "home/data",
 	type: 'GET',

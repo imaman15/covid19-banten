@@ -10,19 +10,7 @@
     <div id="collab" class="row d-flex justify-content-center mb-2">
       <div class="col-md-2 text-center hvr-bob">
         <a href="https://unsera.ac.id/" target="_blank">
-          <img class="rounded-circle img-thumbnail mb-1" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
-          <p>Universitas Serang Raya</p>
-        </a>
-      </div>
-      <div class="col-md-2 text-center hvr-bob">
-        <a href="https://unsera.ac.id/" target="_blank">
-          <img class="rounded-circle img-thumbnail mb-1" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
-          <p>Universitas Serang Raya</p>
-        </a>
-      </div>
-      <div class="col-md-2 text-center hvr-bob">
-        <a href="https://unsera.ac.id/" target="_blank">
-          <img class="rounded-circle img-thumbnail mb-1" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
+          <img class="rounded-circle img-thumbnail mb-1" src="<?php echo base_url('assets/img/unsera_logo.png') ?>">
           <p>Universitas Serang Raya</p>
         </a>
       </div>

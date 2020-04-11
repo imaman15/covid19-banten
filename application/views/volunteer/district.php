@@ -87,7 +87,7 @@
             "serverSide": true,
             "order": [],
             "ajax": {
-                "url": "<?php echo site_url('volunteer/district/list') ?>",
+                "url": "<?php echo site_url('volunteer/district/myList') ?>",
                 "type": "POST"
             },
             "columnDefs": [{

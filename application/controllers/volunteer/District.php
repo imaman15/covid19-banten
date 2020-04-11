@@ -25,7 +25,7 @@ class District extends CI_Controller
         $this->load->view('volunteer/templates', $data, FALSE);
     }
 
-    public function list()
+    public function myList()
     {
         $list = $this->district_model->get_datatables();
         $data = array();
