@@ -1,8 +1,24 @@
 /* Show it is fixed to the top */
+html {
+	position: relative;
+	min-height: 100%;
+}
+
 body {
 	/* min-height: 75rem; */
 	padding-top: 6.5rem;
+	margin-bottom: 60px;
 	background: #f8f8f8 !important;
+}
+
+.sticky-footer {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	height: auto;
+	/* Set the fixed height of the footer here */
+	line-height: 60px;
+	/* Vertically center the text there */
 }
 
 #main-navbar {
