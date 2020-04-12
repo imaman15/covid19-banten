@@ -73,12 +73,27 @@ defined('BASEPATH') or exit('No direct script access allowed');
 $active_group = 'default';
 $query_builder = TRUE;
 
+$pasCpanel = '$Z)7}t[@42ksSeqt;v';
+if ($_SERVER['HTTP_HOST']  == 'siagacovid-19.fti-unsera.id') {
+	$userCovid = 'u6117762_coviduser';
+	$passwordCovid = $pasCpanel;
+	$databaseCovid = 'u6117762_covid';
+} else if ($_SERVER['HTTP_HOST']  == 'siagacovid-19.sipjamet.com') {
+	$userCovid = 'sipjamet_coviduser';
+	$passwordCovid = $pasCpanel;
+	$databaseCovid = 'sipjamet_covid';
+} else {
+	$userCovid = 'root';
+	$passwordCovid = '';
+	$databaseCovid = 'dbcovid';
+}
+
 $db['default'] = array(
 	'dsn'	=> '',
 	'hostname' => 'localhost',
-	'username' => 'u6117762_coviduser',
-	'password' => '$Z)7}t[@42ksSeqt;v',
-	'database' => 'u6117762_covid',
+	'username' => $userCovid,
+	'password' => $passwordCovid,
+	'database' => $databaseCovid,
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
