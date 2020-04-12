@@ -108,6 +108,18 @@ class Subdistrict_model extends CI_Model
     {
         return $this->db->delete($this->_table, ["id_subdistrict" => $id]);
     }
+
+    public function getSubdistrict($id_district)
+    {
+    $this->db->select('*');
+    $this->db->from($this->_table);
+    $this->db->where('id_district', $id_district);
+    $this->db->order_by('id_subdistrict');
+    $query = $this->db->get();
+    return $query->result();
+    }
+
+    
 }
 
 /* End of file Subdistrict_model.php */

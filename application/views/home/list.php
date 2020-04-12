@@ -101,7 +101,6 @@
             <canvas id="myAreaChart"></canvas>
           </div>
           <hr>
-          Data ini diamabil berdasarkan relawan.
         </div>
       </div>
     </div>

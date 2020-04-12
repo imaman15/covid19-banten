@@ -11,16 +11,58 @@ class Covid_model extends CI_Model
     }
 
     private $_table = 'covid';
-
-    // Listing all kabupaten
+    // Listing all covid
     public function listing()
     {
-        $this->db->select('*');
+        $this->db->select('covid.*, district.nama_district, subdistrict.nama_subdistrict');
         $this->db->from($this->_table);
+        // Join Database
+        $this->db->join('district', 'district.id_district = covid.id_district', 'left');
+        $this->db->join('subdistrict', 'subdistrict.id_subdistrict = covid.id_subdistrict', 'left');
+        // end join
+        $this->db->order_by('id_covid', 'desc');
+        $query = $this->db->get();
+        return $query->result();
+    }
+
+    public function listing_chart()
+    {
+        $this->db->select('covid.*, 
+                LEFT(tgl_publish, 10) AS today, 
+                SUM(odp) AS tot_odp, 
+                SUM(pdp) AS tot_pdp, 
+                SUM(positif) AS tot_positif,
+                SUM(sembuh) AS tot_sembuh,
+                SUM(meninggal) AS tot_meninggal,
+                subdistrict.nama_subdistrict');
+        $this->db->query("SELECT LEFT(tgl_publish, 10) FROM covid ");
+        $this->db->from($this->_table);
+        // Join Database
+        $this->db->join('district', 'district.id_district = covid.id_district', 'left');
+        $this->db->join('subdistrict', 'subdistrict.id_subdistrict = covid.id_subdistrict', 'left');
+        // end join
+        $this->db->group_by('today'); 
+        $this->db->order_by('id_covid', 'desc');
+        $this->db->limit(30);
+        $query = $this->db->get();
+        return $query->result();
+    }
+
+
+    public function detail($id_covid)
+    {
+        $this->db->select('covid.*, district.nama_district, subdistrict.nama_subdistrict');
+        $this->db->from($this->_table);
+        // Join Database
+        $this->db->join('district', 'district.id_district = covid.id_district', 'left');
+        $this->db->join('subdistrict', 'subdistrict.id_subdistrict = covid.id_subdistrict', 'left');
+        // end join
+        $this->db->where('id_covid', $id_covid);
         $this->db->order_by('id_covid');
         $query = $this->db->get();
         return $query->result();
     }
+
 
     // Listing detail kabupaten
     public function listing_kabupaten_detail($id_kabupaten)
@@ -31,11 +73,28 @@ class Covid_model extends CI_Model
         $this->db->join('subdistrict', 'subdistrict.id_subdistrict = covid.id_subdistrict', 'left');
         // end join
         $this->db->where('covid.id_district', $id_kabupaten);
+        $this->db->limit(30);
         $this->db->order_by('id_covid');
         $query = $this->db->get();
         return $query->result();
     }
 
+    public function tambah($data)
+	{
+		$this->db->insert($this->_table, $data);
+    }
+    
+    public function edit($data)
+    {
+		$this->db->where('id_covid', $data['id_covid']);
+		$this->db->update($this->_table, $data);
+    }
+    
+    public function delete($data)
+	{
+		$this->db->where('id_covid', $data);
+		$this->db->delete($this->_table);
+	}
 
     // Jumlah keseluruhan
     public function jumlah()
@@ -53,22 +112,25 @@ class Covid_model extends CI_Model
         return $query->result();
     }
 
-    // getData('select1,select2', ['field1' => var1, 'field2' => var2])
-    public function getData($select = NULL, $where = NULL)
+
+    // Jumlah keseluruhan
+    public function jumlah_perkabupaten($id_district)
     {
-        if ($select != NULL) {
-            $this->db->select($select);
-        } else {
-            $this->db->select('*');
-        }
-
-        if ($where != NULL) {
-            $this->db->where($where);
-        }
-
+        $this->db->select('*, 
+            SUM(odp) AS tot_odp, 
+            SUM(pdp) AS tot_pdp, 
+            SUM(positif) AS tot_positif,
+            SUM(sembuh) AS tot_sembuh,
+            SUM(meninggal) AS tot_meninggal
+            ');
         $this->db->from($this->_table);
-        return $this->db->get();
+        $this->db->where('id_district', $id_district);
+        $this->db->order_by('id_covid');
+        $query = $this->db->get();
+        return $query->result();
     }
+
+    
 }
 
 /* End of file Covid_model.php */

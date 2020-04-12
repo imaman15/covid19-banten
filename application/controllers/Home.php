@@ -33,7 +33,7 @@ class Home extends CI_Controller
 
     public function data()
     {
-        $covid = $this->covid_model->listing();
+        $covid = $this->covid_model->listing_chart();
        
         $value =  json_encode($covid);
         echo $value;
@@ -52,9 +52,11 @@ class Home extends CI_Controller
 
     public function detail($id_kabupaten)
     {
+        $sum    = $this->covid_model->jumlah_perkabupaten($id_kabupaten);
         $kabupaten = $this->district_model->listing();
         $kabupaten_detail   = $this->district_model->detail($id_kabupaten);
         $data 	= array( 'title'	        => 'Detail 19 Provinsi Banten',
+                         'jumlah'           => $sum,
                          'kabupaten'        => $kabupaten,
                          'kabupaten_detail' => $kabupaten_detail,
 						 'content'	        => 'home/detail'

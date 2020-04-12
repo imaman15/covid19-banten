@@ -113,7 +113,10 @@ class District_model extends CI_Model
     // Listing all user
     public function listing()
     {
-        $this->db->select('*');
+        $this->db->select('district.*, subdistrict.nama_subdistrict');
+        // Join Database
+        $this->db->join('subdistrict', 'subdistrict.id_district = district.id_district', 'left');
+        // end join
         $this->db->from($this->_table);
         $query = $this->db->get();
         return $query->result();

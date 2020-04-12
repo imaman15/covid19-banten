@@ -92,10 +92,6 @@ function grafik_detail(id){
         myLineChart.data.datasets[4].data = pdp;
     
         myLineChart.update();
-        
-        
-          
-
       }
     });
 }
@@ -255,15 +251,15 @@ var myLineChart = new Chart(ctx, {
     },
     tooltips: {
       backgroundColor: "rgb(255,255,255)",
-      bodyFontColor: "#858796",
+      bodyFontColor: ["#858796", "#6e707e" ],
       titleMarginBottom: 10,
-      titleFontColor: '#6e707e',
+      titleFontColor: ['#6e707e'],
       titleFontSize: 14,
       borderColor: '#dddfeb',
       borderWidth: 1,
       xPadding: 15,
       yPadding: 15,
-      displayColors: false,
+      displayColors: true,
       intersect: false,
       mode: 'index',
       caretPadding: 10,
