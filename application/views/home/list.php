@@ -122,6 +122,25 @@
               <a class="btn btn-md bg-primary text-white" href="<?= base_url('home/detail/') ?><?= $kabupaten->id_district ?>">Lihat Lebih Detail</a>
             </p>
           </div>
+          <div class="card-footer" style="font-size: 14px;">.
+            <div class="row mt-n4 justify-content-center small">
+              <div class="col-lg-3 ml-lg-n4">
+                <div class="p-2 d-flex align-items-center"><i class="fas fa-circle text-primary"></i><span class="pl-1">Orang Dalam Pantauan (ODP)</span></div>
+              </div>
+              <div class="col-lg-3 ml-lg-n4">
+                <div class="p-2 d-flex align-items-center"><i class="fas fa-circle text-info"></i><span class="pl-1">Pasien Dalam Pengawasan (PDP)</span></div>
+              </div>
+              <div class="col-lg-2">
+                <div class="p-2 d-flex align-items-center"><i class="fas fa-circle text-warning"></i><span class="pl-1">Positif</span></div>
+              </div>
+              <div class="col-lg-2">
+                <div class="p-2 d-flex align-items-center"><i class="fas fa-circle text-success"></i><span class="pl-1">Sembuh</span></div>
+              </div>
+              <div class="col-lg-2">
+                <div class="p-2 d-flex align-items-center"><i class="fas fa-circle text-danger"></i><span class="pl-1">Meninggal</span></div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     <?php } ?>
