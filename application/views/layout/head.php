@@ -24,6 +24,6 @@
   <title><?= $title ?></title>
 </head>
 
-<body>
+<body class="d-flex flex-column">
   <!-- Content Wrapper -->
   <div class="wrapper">
