@@ -106,7 +106,7 @@ $(document).ready(function() {
                 method:"GET",
                 data: {id_covid : id},
                 success:function(data) {
-                    window.location.href = <?php echo site_url('volunteer/covid') ?>;
+                    window.location.href = "<?php echo site_url('volunteer/covid') ?>";
                 }
             });
     })

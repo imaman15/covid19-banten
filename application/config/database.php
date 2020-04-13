@@ -91,15 +91,9 @@ if ($_SERVER['HTTP_HOST']  == 'siagacovid-19.fti-unsera.id') {
 $db['default'] = array(
 	'dsn'	=> '',
 	'hostname' => 'localhost',
-<<<<<<< HEAD
-	'username' => 'root',
-	'password' => '',
-	'database' => 'dbcovid',
-=======
 	'username' => $userCovid,
 	'password' => $passwordCovid,
 	'database' => $databaseCovid,
->>>>>>> 3ae4fb6870e90c531cc311b624e0164b6fb2143d
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,

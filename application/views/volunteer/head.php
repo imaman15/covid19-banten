@@ -15,6 +15,9 @@
     <link rel="stylesheet" href="<?php echo base_url('assets/') ?>vendor/hover/hover-min.css">
     <link rel="stylesheet" href="<?php echo base_url('assets/') ?>vendor/animate/animate.min.css">
 
+    <!-- include summernote css/js -->
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.16/dist/summernote.min.css" rel="stylesheet">
+
     <!-- Custom styles for this template-->
     <link href="<?php echo base_url('assets'); ?>/css/sb-admin-2.min.css" rel="stylesheet">
     <!-- Custom styles for this page -->

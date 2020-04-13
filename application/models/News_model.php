@@ -10,7 +10,11 @@ class News_model extends CI_Model
     // List berita
     public function listing(){
         $this->db->select('*');
+        $this->db->select('news.*, users.name');
         $this->db->from($this->_table);
+         // Join Database
+		$this->db->join('users', 'users.id_users = news.id_users', 'left');
+        // end join
         $query = $this->db->get();
         return $query->result();
     }
@@ -26,6 +30,24 @@ class News_model extends CI_Model
         $query = $this->db->get();
         return $query->result();
     }
+
+    // tambah data
+    public function tambah($data) {
+        $this->db->insert( $this->_table, $data);
+    }
+
+    public function edit($data)
+    {
+		$this->db->where('id_news', $data['id_news']);
+		$this->db->update($this->_table, $data);
+    }
+
+    public function delete($data)
+	{
+		$this->db->where('id_news', $data);
+		$this->db->delete($this->_table);
+	}
+    
 }
 
 /* End of file News_model.php */
