@@ -1,5 +1,7 @@
+<!-- end Wrapper -->
+</div>
 <!-- colaborasi -->
-<footer class="sticky-footer py-4" style="background-color: #1f1d1d; color: #fff;">
+<footer id="sticky-footer" class="py-4" style="background-color: #1f1d1d; color: #fff;">
   <div class="container mx-auto">
     <div class="row mb-2">
       <div class="col text-center">
@@ -21,8 +23,7 @@
     </div>
   </div>
 </footer>
-<!-- end Wrapper -->
-</div>
+
 
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->

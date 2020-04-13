@@ -1,28 +1,24 @@
-/* Show it is fixed to the top */
 html {
-	position: relative;
-	min-height: 100%;
+	height: 100%;
 }
 
 body {
-	/* min-height: 75rem; */
+	height: 100%;
 	padding-top: 6.5rem;
-	margin-bottom: 60px;
 	background: #f8f8f8 !important;
 }
 
-.sticky-footer {
-	position: absolute;
-	bottom: 0;
-	width: 100%;
-	height: auto;
-	/* Set the fixed height of the footer here */
-	line-height: 60px;
-	/* Vertically center the text there */
+.wrapper {
+	flex: 1 0 auto;
+}
+
+#sticky-footer {
+	flex-shrink: none;
 }
 
 #main-navbar {
-	font-family: Product Sans, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif !important;
+	font-family: Product Sans, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+		Helvetica Neue, Arial, sans-serif !important;
 }
 
 #main-navbar .nav-link {

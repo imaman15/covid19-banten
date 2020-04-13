@@ -100,7 +100,25 @@
           <div class="chart-area">
             <canvas id="myAreaChart"></canvas>
           </div>
-          <hr>
+        </div>
+        <div class="card-footer">.
+          <div class="row mt-n4 justify-content-center">
+            <div class="col-md-3 small">
+              <div class="p-2 d-flex align-items-center"><i class="fas fa-circle text-primary"></i><span class="pl-2">Orang Dalam Pantauan (ODP)</span></div>
+            </div>
+            <div class="col-md-3 small">
+              <div class="p-2 d-flex align-items-center"><i class="fas fa-circle text-info"></i><span class="pl-2">Pasien Dalam Pengawasan (PDP)</span></div>
+            </div>
+            <div class="col-md-2 small">
+              <div class="p-2 d-flex align-items-center"><i class="fas fa-circle text-warning"></i><span class="pl-2">Positif</span></div>
+            </div>
+            <div class="col-md-2 small">
+              <div class="p-2 d-flex align-items-center"><i class="fas fa-circle text-success"></i><span class="pl-2">Sembuh</span></div>
+            </div>
+            <div class="col-md-2 small">
+              <div class="p-2 d-flex align-items-center"><i class="fas fa-circle text-danger"></i><span class="pl-2">Meninggal</span></div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
