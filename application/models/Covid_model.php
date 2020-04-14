@@ -20,7 +20,7 @@ class Covid_model extends CI_Model
         $this->db->join('district', 'district.id_district = covid.id_district', 'left');
         $this->db->join('subdistrict', 'subdistrict.id_subdistrict = covid.id_subdistrict', 'left');
         // end join
-        $this->db->order_by('id_covid', 'desc');
+        $this->db->order_by('tgl_publish');
         $query = $this->db->get();
         return $query->result();
     }
@@ -41,8 +41,8 @@ class Covid_model extends CI_Model
         $this->db->join('district', 'district.id_district = covid.id_district', 'left');
         $this->db->join('subdistrict', 'subdistrict.id_subdistrict = covid.id_subdistrict', 'left');
         // end join
-        $this->db->group_by('today'); 
-        $this->db->order_by('id_covid', 'desc');
+        $this->db->group_by('today');
+        $this->db->order_by('tgl_publish');
         $this->db->limit(30);
         $query = $this->db->get();
         return $query->result();
@@ -58,7 +58,7 @@ class Covid_model extends CI_Model
         $this->db->join('subdistrict', 'subdistrict.id_subdistrict = covid.id_subdistrict', 'left');
         // end join
         $this->db->where('id_covid', $id_covid);
-        $this->db->order_by('id_covid');
+        $this->db->order_by('tgl_publish');
         $query = $this->db->get();
         return $query->result();
     }
@@ -74,27 +74,27 @@ class Covid_model extends CI_Model
         // end join
         $this->db->where('covid.id_district', $id_kabupaten);
         $this->db->limit(30);
-        $this->db->order_by('id_covid');
+        $this->db->order_by('tgl_publish');
         $query = $this->db->get();
         return $query->result();
     }
 
     public function tambah($data)
-	{
-		$this->db->insert($this->_table, $data);
+    {
+        $this->db->insert($this->_table, $data);
     }
-    
+
     public function edit($data)
     {
-		$this->db->where('id_covid', $data['id_covid']);
-		$this->db->update($this->_table, $data);
+        $this->db->where('id_covid', $data['id_covid']);
+        $this->db->update($this->_table, $data);
     }
-    
+
     public function delete($data)
-	{
-		$this->db->where('id_covid', $data);
-		$this->db->delete($this->_table);
-	}
+    {
+        $this->db->where('id_covid', $data);
+        $this->db->delete($this->_table);
+    }
 
     // Jumlah keseluruhan
     public function jumlah()
@@ -129,8 +129,6 @@ class Covid_model extends CI_Model
         $query = $this->db->get();
         return $query->result();
     }
-
-    
 }
 
 /* End of file Covid_model.php */
