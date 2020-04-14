@@ -1,3 +1,4 @@
+<link href="<?php echo base_url('assets') ?>/vendor/summernote/summernote-bs4.min.css" rel="stylesheet">
 <div class="container-fluid">
 
     <!-- Page Heading -->
@@ -10,17 +11,19 @@
                 <div class="card-header text-primary text-center">
                     Form Input Berita & Info Kesehatan
                 </div>
-                <div class="card-body">  
-                <?php 
+                <div class="card-body">
+                    <?php
                     // notifikasi error
-                    echo validation_errors('<div class="alert alert-warning">', '</div>');
+                    echo validation_errors('<div class="alert alert-danger">', '</div>');
                     //form open
                     echo form_open_multipart();
-                ?>  
+                    ?>
                     <form>
                         <div class="form-group">
                             <label for="title">Judul Berita</label>
-                            <input type="text" class="form-control" id="title" name="title" value="<?php if($url == 'edit') { echo $news[0]->title;} ?>">
+                            <input type="text" class="form-control" id="title" name="title" value="<?php if ($url == 'edit') {
+                                                                                                        echo $news[0]->title;
+                                                                                                    } ?>">
                         </div>
                         <div class="form-group">
                             <label for="id_kategori">Pilih Kategori</label>
@@ -35,7 +38,9 @@
                         </div>
                         <div class="form-group">
                             <label for="exampleFormControlTextarea1">Content</label>
-                            <textarea class="form-control" id="summernote" rows="3" name="content"><?php if($url == 'edit') { echo $news[0]->content;} ?></textarea>
+                            <textarea class="form-control" id="summernote" rows="3" name="content"><?php if ($url == 'edit') {
+                                                                                                        echo $news[0]->content;
+                                                                                                    } ?></textarea>
                         </div>
                         <div class="text-right">
                             <button type="submit" id="btnSave" class="btn btn-primary"><?= ($url == 'edit') ? "Update" : "Simpan"; ?></button>
@@ -50,56 +55,54 @@
     </div>
 
 </div>
-<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.2/summernote.js"></script>
-<script type="text/javascript" src="<?php echo base_url('assets/summernote/summernote-bs4.js') ?>"></script>
+<script src="<?php echo base_url('assets/vendor/summernote/summernote-bs4.min.js') ?>"></script>
 <script>
-
-$(document).ready(function(){
-    $('#summernote').summernote({
-        height: "300px",
-        callbacks: {
+    $(document).ready(function() {
+        $('#summernote').summernote({
+            dialogsInBody: true,
+            minHeight: 300,
+            callbacks: {
                 onImageUpload: function(image) {
                     uploadImage(image[0]);
                 },
                 onMediaDelete: function(target) {
                     deleteImage(target[0].src);
                 }
+            }
+        });
+
+        function uploadImage(image) {
+            var data = new FormData();
+            data.append("image", image);
+            $.ajax({
+                url: "<?php echo site_url('volunteer/news/upload_image') ?>",
+                cache: false,
+                contentType: false,
+                processData: false,
+                data: data,
+                type: "POST",
+                success: function(url) {
+                    $('#summernote').summernote("insertImage", url);
+                },
+                error: function(data) {
+                    console.log(data);
+                }
+            });
         }
+
+        function deleteImage(src) {
+            $.ajax({
+                data: {
+                    src: src
+                },
+                type: "POST",
+                url: "<?php echo site_url('volunteer/news/delete_image') ?>",
+                cache: false,
+                success: function(response) {
+                    console.log(response);
+                }
+            });
+        }
+
     });
-
-    function uploadImage(image) {
-        var data = new FormData();
-        data.append("image", image);
-        $.ajax({
-            url: "<?php echo site_url('volunteer/news/upload_image')?>",
-            cache: false,
-            contentType: false,
-            processData: false,
-            data: data,
-            type: "POST",
-            success: function(url) {
-            $('#summernote').summernote("insertImage", url);
-            },
-            error: function(data) {
-                console.log(data);
-            }
-        });
-    }
-
-    function deleteImage(src) {
-        $.ajax({
-            data: {src : src},
-            type: "POST",
-            url: "<?php echo site_url('volunteer/news/delete_image')?>",
-            cache: false,
-            success: function(response) {
-                console.log(response);
-            }
-        });
-    }
-        
-});
-    
-
-         
 </script>

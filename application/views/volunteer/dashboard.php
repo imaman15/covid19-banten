@@ -9,7 +9,7 @@
             <div class="card shadow mb-3 ">
                 <img src="<?= base_url('assets/img/bg-profil.png') ?>" class="card-img-top" alt="..." style="height: 100%; max-height: 150px; background-position: center; background-repeat: no-repeat; background-size: cover;">
                 <div class="card-body text-center">
-                    <img src="<?= base_url('assets/img/profile/' . dUsers()->photo) ?>" class="card-img img-thumbnail rounded-circle" alt="<?php echo ucwords(dUsers()->name); ?>" style="width: 128px; height: 128px; margin-top: -85px;">
+                    <img src="<?= base_url('assets/img/profile/' . dUsers()->photo) ?>" class="card-img img-thumbnail rounded-circle" alt="<?php echo ucwords(dUsers()->name); ?>" style="width: 128px; margin-top: -85px;">
                     <h4 class="card-title text-primary font-weight-bold mt-3"><?php secho(ucwords(dUsers()->name)) ?></h4>
                     <ul class="fa-ul text-left">
                         <li class="mb-2">

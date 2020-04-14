@@ -9,7 +9,6 @@ class District extends CI_Controller
         parent::__construct();
         //Do your magic here
         $this->load->model('district_model');
-       
     }
 
     public function index()
@@ -17,11 +16,7 @@ class District extends CI_Controller
         $id_kabupaten = $this->input->post('id_kabupaten');
         $kabupaten = $this->district_model->listing();
 
-        $value =  json_encode( $kabupaten);
+        $value =  json_encode($kabupaten);
         echo $value;
-        
     }
-
 }
-
-?>

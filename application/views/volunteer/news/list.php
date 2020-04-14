@@ -2,10 +2,10 @@
 
     <!-- Page Heading -->
     <h1 class="h3 mb-4 text-gray-800">Berita Informasi Corona</h1>
-    
+
     <div class="card shadow mb-4 animated zoomIn fast">
         <div class="card-header py-3">
-            <a href="<?= site_url('volunteer/news/add')?>" class="btn btn-primary">
+            <a href="<?= site_url('volunteer/news/add') ?>" class="btn btn-primary">
                 Tambah Data
             </a>
         </div>
@@ -24,20 +24,20 @@
                         </tr>
                     </thead>
                     <tbody>
-                    <?php  foreach($news as $n){  ?>
-                        <tr>
-                            <td><?= $n->title ?></td>
-                            <td><?= $n->content ?></td>
-                            <td><?= ($n->kategori == 1) ? "Info Kesehatan" : "Berita"; ?></td>                       
-                            <td><?= tgl_indo($n->tgl_publish) ?></td>
-                            <td><?= tgl_indo($n->tgl_update) ?></td>
-                            <td><?= $n->name?></td>                       
-                            <td>
-                                <a title="Edit Data" class="btn btn-warning btn-circle btn-sm mb-lg-0 mb-1" href="<?= site_url('volunteer/news/edit/') . $n->id_news ?>"><i class="fas fa-edit"></i></a>
-                                <a title="Hapus Data" class="btn_delete btn btn-danger btn-circle btn-sm mb-lg-0 mb-1" data-id="<?= $n->id_news ?>" href="javascript:0"><i class="fas fa-trash"></i></a>
-                            </td>                       
-                        </tr>
-                    <?php } ?>
+                        <?php foreach ($news as $n) {  ?>
+                            <tr>
+                                <td><?= $n->title ?></td>
+                                <td><?= $n->content ?></td>
+                                <td><?= ($n->kategori == 1) ? "Info Kesehatan" : "Berita"; ?></td>
+                                <td><?= tgl_indo($n->tgl_publish) ?></td>
+                                <td><?= tgl_indo($n->tgl_update) ?></td>
+                                <td><?= $n->name ?></td>
+                                <td>
+                                    <a title="Edit Data" class="btn btn-warning btn-circle btn-sm mb-lg-0 mb-1" href="<?= site_url('volunteer/news/edit/') . $n->id_news ?>"><i class="fas fa-edit"></i></a>
+                                    <a title="Hapus Data" class="btn_delete btn btn-danger btn-circle btn-sm mb-lg-0 mb-1" data-id="<?= $n->id_news ?>" href="javascript:0"><i class="fas fa-trash"></i></a>
+                                </td>
+                            </tr>
+                        <?php } ?>
                     </tbody>
                 </table>
             </div>
@@ -68,44 +68,42 @@
 </div>
 
 <script>
+    $(document).ready(function() {
+        table = $('#dataNews').DataTable({
+            "processing": true,
+            "oLanguage": {
+                "sInfo": "Total _TOTAL_ data, menampilkan data (_START_ sampai _END_)",
+                "sInfoFiltered": " - filtering from _MAX_ records",
+                "sSearch": "Pencarian :",
+                "sInfoEmpty": "Belum ada data untuk saat ini",
+                "sLengthMenu": "Menampilkan _MENU_",
+                "oPaginate": {
+                    "sPrevious": "Sebelumnya",
+                    "sNext": "Selanjutnya"
+                },
+                "sZeroRecords": "Tidak ada data"
+            }
+        })
+    });
 
-$(document).ready(function() {
-    table = $('#dataNews').DataTable({
-        "processing": true,
-        "oLanguage": {
-            "sInfo": "Total _TOTAL_ data, menampilkan data (_START_ sampai _END_)",
-            "sInfoFiltered": " - filtering from _MAX_ records",
-            "sSearch": "Pencarian :",
-            "sInfoEmpty": "Belum ada data untuk saat ini",
-            "sLengthMenu": "Menampilkan _MENU_",
-            "oPaginate": {
-                "sPrevious": "Sebelumnya",
-                "sNext": "Selanjutnya"
-            },
-            "sZeroRecords": "Tidak ada data"
-        }
-    })
-});
 
-
-    $('.btn_delete').click(function(){
+    $('.btn_delete').click(function() {
         $('#deleteData').modal('show'); // show bootstrap modal
         var id = $(this).data('id');
         $('#id_news').val(id);
     })
 
-    $('#btn_delete_confirm').click(function(){
+    $('#btn_delete_confirm').click(function() {
         var id = $('#id_news').val();
         $.ajax({
-                url: "<?php echo site_url('volunteer/news/delete/') ?>" + id,
-                method:"GET",
-                data: {id_news : id},
-                success:function(data) {
-                    window.location.href = "<?php echo site_url('volunteer/news') ?>";
-                }
-            });
+            url: "<?php echo site_url('volunteer/news/delete/') ?>" + id,
+            method: "GET",
+            data: {
+                id_news: id
+            },
+            success: function(data) {
+                window.location.href = "<?php echo site_url('volunteer/news') ?>";
+            }
+        });
     })
-       
-
 </script>
-
