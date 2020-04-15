@@ -94,6 +94,21 @@ class Users_model extends CI_Model
         $this->db->where(array('id_users' => dUsers()->id_users, 'email' => dUsers()->email));
         $this->db->update($this->_table);
     }
+
+    public function add($post, $pass = NULL)
+    {
+        //$password = ($pass != NULL) ? $pass : $post["password"];
+
+        $data['name'] = htmlspecialchars(ucwords($post["name"]), true);
+        $data['phone'] = phoneNumber($post["phone"], true);
+        $data['email'] = htmlspecialchars($post["email"], true);
+        $data['password'] = password_hash($post["password"], PASSWORD_DEFAULT);
+        $data['photo'] = 'default.jpg';
+        $data['active'] = 0;
+        $data['status'] = 2;
+        $data['date_created'] = time();
+        $this->db->insert($this->_table, $data);
+    }
 }
 
 /* End of file Users_model.php */

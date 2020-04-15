@@ -33,7 +33,7 @@ $password = array(
 $phone = array(
     'field' => 'phone',
     'label' => '<strong>Nomor Handphone</strong>',
-    'rules' => 'trim|required|max_length[15]|numeric',
+    'rules' => 'trim|required|max_length[15]|min_length[9]|numeric',
 );
 
 $currentPass = array(
@@ -57,6 +57,7 @@ $config = array(
         $name, $phone, $email3
     ],
     'changepassword' => [$currentPass, $password, $confirmPass],
+    'register' => [$name, $phone, $email2, $password, $confirmPass],
 );
 
 $config['error_prefix'] = '<small class="text-danger mt-1 pl-3 d-block">';

@@ -148,24 +148,35 @@ function status($data)
     }
 }
 
-function tgl_indo($tanggal){
-    
+function tgl_indo($tanggal)
+{
+
     $tgl_new = date("Y-m-d", strtotime($tanggal));
-	$bulan = array (
-		1 =>   'Januari',
-		'Februari',
-		'Maret',
-		'April',
-		'Mei',
-		'Juni',
-		'Juli',
-		'Agustus',
-		'September',
-		'Oktober',
-		'November',
-		'Desember'
-	);
-	$date = explode('-', $tgl_new);
- 
-	return $date[2] . ' ' . $bulan[ (int)$date[1] ] . ' ' . $date[0];
+    $bulan = array(
+        1 =>   'Januari',
+        'Februari',
+        'Maret',
+        'April',
+        'Mei',
+        'Juni',
+        'Juli',
+        'Agustus',
+        'September',
+        'Oktober',
+        'November',
+        'Desember'
+    );
+    $date = explode('-', $tgl_new);
+
+    return $date[2] . ' ' . $bulan[(int) $date[1]] . ' ' . $date[0];
+}
+
+function base64_encode_url($string)
+{
+    return str_replace(['+', '/', '='], ['-', '_', ''], base64_encode($string));
+}
+
+function base64_decode_url($string)
+{
+    return base64_decode(str_replace(['-', '_'], ['+', '/'], $string));
 }

@@ -20,6 +20,10 @@ class Users extends CI_Controller
             // Whoops, we don't have a page for that!
             show_404();
         }
+
+        $param = ENCURL;
+        $var_enc = base64_encode_url($param);
+        $data['url'] = site_url(M_REGISTER . '?d=') . $var_enc;
         $data['title'] = 'Data Pengguna';
         $data['page'] = $page;
         $this->load->view('volunteer/templates', $data, FALSE);
