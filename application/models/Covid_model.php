@@ -123,18 +123,23 @@ class Covid_model extends CI_Model
 
 
     // Jumlah keseluruhan
-    public function jumlah_perkabupaten($id_district)
+    public function jumlah_perkabupaten($slug)
     {
         $this->db->select('*, 
             SUM(odp) AS tot_odp, 
             SUM(pdp) AS tot_pdp, 
             SUM(positif) AS tot_positif,
             SUM(sembuh) AS tot_sembuh,
-            SUM(meninggal) AS tot_meninggal
+            SUM(meninggal) AS tot_meninggal,
+            district.id_district,
+            district.nama_district
             ');
         $this->db->from($this->_table);
-        $this->db->where('id_district', $id_district);
-        $this->db->order_by('id_covid');
+        // join database
+        $this->db->join('district', 'district.id_district = covid.id_district', 'left');
+        // end join
+        $this->db->where('covid.slug', $slug);
+        $this->db->order_by('tgl_publish');
         $query = $this->db->get();
         return $query->result();
     }

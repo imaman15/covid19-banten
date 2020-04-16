@@ -2,7 +2,7 @@
 
     <!-- Page Heading -->
     <h1 class="h3 mb-4 text-gray-800">Berita Informasi Corona</h1>
-
+    
     <div class="card shadow mb-4 animated zoomIn fast">
         <div class="card-header py-3">
             <a href="<?= site_url('administrator/berita/tambah') ?>" class="btn btn-primary">
@@ -15,8 +15,8 @@
                     <thead>
                         <tr class="text-center text-white bg-dark">
                             <th>Judul Berita</th>
-                            <th>slug</th>
-                            <th>Content</th>
+                            <th>Slug</th>
+                            <th>Gambar Utama</th>
                             <th>Kategori</th>
                             <th>Tanggal Update</th>
                             <th>Tanggal Publish</th>
@@ -29,13 +29,13 @@
                             <tr>
                                 <td><?= $n->title ?></td>
                                 <td><?= $n->slug ?></td>
-                                <td><?= $n->content ?></td>
+                                <td><img src="<?php echo base_url('assets/img/news/thumbs/') . $n->img ?>" alt="thumbnail" width="100"></td>
                                 <td><?= ($n->kategori == 1) ? "Info Kesehatan" : "Berita"; ?></td>
                                 <td><?= tgl_indo($n->tgl_publish) ?></td>
                                 <td><?= tgl_indo($n->tgl_update) ?></td>
                                 <td><?= $n->name ?></td>
                                 <td>
-                                    <a title="Edit Data" class="btn btn-warning btn-circle btn-sm mb-lg-0 mb-1" href="<?= site_url('volunteer/news/edit/') . $n->id_news ?>"><i class="fas fa-edit"></i></a>
+                                    <a title="Edit Data" class="btn btn-warning btn-circle btn-sm mb-lg-0 mb-1" href="<?= site_url('volunteer/news/edit/') . $n->slug ?>"><i class="fas fa-edit"></i></a>
                                     <a title="Hapus Data" class="btn_delete btn btn-danger btn-circle btn-sm mb-lg-0 mb-1" data-id="<?= $n->id_news ?>" href="javascript:0"><i class="fas fa-trash"></i></a>
                                 </td>
                             </tr>
@@ -73,6 +73,11 @@
     $(document).ready(function() {
         table = $('#dataNews').DataTable({
             "processing": true,
+            "columnDefs": [{
+                "targets": [-1, 2],
+                "className": 'text-center',
+                "orderable": false,
+            }],
             "oLanguage": {
                 "sInfo": "Total _TOTAL_ data, menampilkan data (_START_ sampai _END_)",
                 "sInfoFiltered": " - filtering from _MAX_ records",
@@ -99,7 +104,7 @@
         var id = $('#id_news').val();
         $.ajax({
             url: "<?php echo site_url('volunteer/news/delete/') ?>" + id,
-            method: "GET",
+            method: "POST",
             data: {
                 id_news: id
             },

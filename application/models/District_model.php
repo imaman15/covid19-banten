@@ -11,6 +11,7 @@ class District_model extends CI_Model
     }
 
     private $_table = 'district';
+
     var $column_order = array(null, 'nama_district', null);
     var $column_search = array('nama_district');
     var $order = array('id_district' => 'desc');
@@ -19,9 +20,7 @@ class District_model extends CI_Model
     {
         $this->db->select('*');
         $this->db->from($this->_table);
-
         $i = 0;
-
         foreach ($this->column_search as $item) // loop column 
         {
             if ($_POST['search']['value']) // if datatable send POST for search
@@ -94,6 +93,7 @@ class District_model extends CI_Model
     {
         $post = $this->input->post(NULL, TRUE);
         $data['nama_district'] = ucwords($post['nama_district']);
+        $data['slug']         =  generate_url_slug($post['nama_district'], $this->_table);
         $this->db->insert($this->_table, $data);
     }
 
@@ -122,15 +122,6 @@ class District_model extends CI_Model
         return $query->result();
     }
 
-    // Listing all user
-    public function detail($id_kabupaten)
-    {
-        $this->db->select('*');
-        $this->db->from($this->_table);
-        $this->db->where('id_district', $id_kabupaten);
-        $query = $this->db->get();
-        return $query->result();
-    }
 }
 
 /* End of file District_model.php */

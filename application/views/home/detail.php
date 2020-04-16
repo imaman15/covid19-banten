@@ -13,7 +13,7 @@
             <div class="row no-gutters align-items-center">
               <div class="col mr-2">
                 <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Orang Dalam Pantauan (ODP)</div>
-                <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $jumlah[0]->tot_odp ?></div>
+                <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $kabupaten_detail[0]->tot_odp ?></div>
               </div>
               <div class="col-auto">
                 <i class="fas fa-diagnoses fa-2x text-gray-300"></i>
@@ -29,7 +29,7 @@
             <div class="row no-gutters align-items-center">
               <div class="col mr-2">
                 <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Pasien Dalam Pengawasan (PDP)</div>
-                <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $jumlah[0]->tot_pdp ?></div>
+                <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $kabupaten_detail[0]->tot_pdp ?></div>
               </div>
               <div class="col-auto">
                 <i class="fas fa-procedures fa-2x text-gray-300"></i>
@@ -49,7 +49,7 @@
             <div class="row no-gutters align-items-center">
               <div class="col mr-2">
                 <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Positif Corona</div>
-                <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $jumlah[0]->tot_positif ?></div>
+                <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $kabupaten_detail[0]->tot_positif ?></div>
               </div>
               <div class="col-auto">
                 <i class="fas fa-user-injured fa-2x text-gray-300"></i>
@@ -65,7 +65,7 @@
             <div class="row no-gutters align-items-center">
               <div class="col mr-2">
                 <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Sembuh</div>
-                <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $jumlah[0]->tot_sembuh ?></div>
+                <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $kabupaten_detail[0]->tot_sembuh ?></div>
               </div>
               <div class="col-auto">
                 <i class="fas fa-clinic-medical fa-2x text-gray-300"></i>
@@ -82,7 +82,7 @@
             <div class="row no-gutters align-items-center">
               <div class="col mr-2">
                 <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">Meninggal</div>
-                <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $jumlah[0]->tot_meninggal ?></div>
+                <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $kabupaten_detail[0]->tot_meninggal ?></div>
               </div>
               <div class="col-auto">
                 <i class="fas fa-ambulance fa-2x text-gray-300"></i>
@@ -101,7 +101,7 @@
         <select id="filter_kabupaten" class="form-control text-right">
           <option value="<?= $this->uri->segment('3') ?>">Pilih Wilayah</option>
           <?php foreach ($kabupaten as $kabupaten) { ?>
-            <option value="<?= $kabupaten->id_district ?>"><?= $kabupaten->nama_district ?></option>
+            <option value="<?= $kabupaten->slug ?>"><?= $kabupaten->nama_district ?></option>
           <?php } ?>
         </select>
       </div>
@@ -198,11 +198,11 @@
       "columns": [
           {data: 'tgl_publish', name: 'tgl_publish' },
           {data: 'nama_subdistrict', name:'nama_subdistrict' },
-          {data: 'odp', name:'odp' },
-          {data: 'pdp', name:'pdp' },
-          {data: 'positif', name:'positif' },
-          {data: 'sembuh', name:'sembuh' },
-          {data: 'meninggal', name:'meninggal' }
+          {data: 'tot_odp', name:'tot_odp' },
+          {data: 'tot_pdp', name:'tot_pdp' },
+          {data: 'tot_positif', name:'tot_positif' },
+          {data: 'tot_sembuh', name:'tot_sembuh' },
+          {data: 'tot_meninggal', name:'tot_meninggal' }
 			],
       "oLanguage": {
         "sInfo": "Total _TOTAL_ data, menampilkan data (_START_ sampai _END_)",

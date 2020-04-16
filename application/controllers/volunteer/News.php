@@ -47,14 +47,13 @@ class News extends CI_Controller
           
             if ( ! $this->upload->do_upload('gambar')){
 
-                $error = $this->upload->display_errors();
-
                 $page = 'news/add_news';
                 if (!file_exists(APPPATH . 'views/volunteer/' . $page . '.php')) {
                     // Whoops, we don't have a page for that!
                     show_404();
                 }
                 $error = $this->upload->display_errors();
+
                 $data['title']  = 'Tambah Berita Covid';
                 $data['url']    = 'add';
                 $data['error']  = $error;
@@ -86,7 +85,7 @@ class News extends CI_Controller
                 $content = [
                     'title'             => $i->post('title'),
                     'kategori'          => $i->post('kategori'),
-                    'slug'             => generate_url_slug($i->post('title'), 'news'),
+                    'slug'              => generate_url_slug($i->post('title'), 'news'),
                     'content'           => $i->post('content'),
                     'img'               => $upload_gambar['upload_data']['file_name'],
                     'tgl_publish'       => date('Y-m-d H:i:s'),
@@ -124,26 +123,32 @@ class News extends CI_Controller
         if ($valid->run()){
             // Check jika gambar di gantii
 			if(!empty($_FILES['gambar']['name'])){
+                
                 $config['upload_path'] 		= './assets/img/news/';
                 $config['allowed_types'] 	= 'gif|jpg|png|jpeg';
                 $config['max_size']  		= '2400'; // kilobye
                 $config['max_width']  		= '2024';
                 $config['max_height']  		= '2024';
                 
-                $this->load->library('upload', $config);
-                if ( ! $this->upload->do_upload('gambar')){
+                $this->upload->initialize($config);
+
+                if (!$this->upload->do_upload('gambar')){
+
                     $page = 'news/add_news';
                     if (!file_exists(APPPATH . 'views/volunteer/' . $page . '.php')) {
                         // Whoops, we don't have a page for that!
                         show_404();
                     }
+                    $error = $this->upload->display_errors();
+
                     $data['title']      = 'Edit Berita';
                     $data['url']        = 'edit';
+                    $data['error']      = $error ;
                     $data['news']       = $this->news_model->detail($id_news);
                     $data['page']       = $page;
+
                     $this->load->view('volunteer/templates', $data, FALSE); 
-                }
-            }else {
+                } else {
                     $upload_gambar = array('upload_data' => $this->upload->data());
                     // create thumbnail gambar
                     $config['image_library'] 	= 'gd2';
@@ -155,13 +160,16 @@ class News extends CI_Controller
                     $config['width']         	= 250; // ukuran pixel
                     $config['height']       	= 250; // ukuran pixel
                     $config['thumb_marker']		= '';
+    
                     $this->load->library('image_lib', $config);
                     $this->image_lib->resize();
+                    
                     $i = $this->input;
                     $user_session = $this->session->userdata('code_users');
                     $content = [
-                        'id_news'          => $id_news,
+                        'id_news'          => $i->post('id_news'),
                         'title'            => $i->post('title'),
+                        'slug'             => generate_url_slug($i->post('title'), 'news'),
                         'kategori'         => $i->post('kategori'),
                         'content'          => $i->post('content'),
                         'img'              => $upload_gambar['upload_data']['file_name'],
@@ -172,36 +180,39 @@ class News extends CI_Controller
                     $this->news_model->edit($content);
                     $this->session->set_flashdata('sukses', 'Data berhasil di edit');
                     redirect(site_url('administrator/berita'),'refresh');
-            } 
-
-        }else {
-            $i = $this->input;
-            $user_session = $this->session->userdata('code_users');
-            $content = [
-                'id_news'          => $id_news,
-                'title'            => $i->post('title'),
-                'kategori'         => $i->post('kategori'),
-                'content'          => $i->post('content'),
-                'tgl_publish'      => date('Y-m-d H:i:s'),
-                'tgl_update'       => date('Y-m-d H:i;s'),
-                'id_users'         => $user_session
-            ];
-            
-            $this->news_model->edit($content);
-            $this->session->set_flashdata('sukses', 'Data berhasil di edit');
-            redirect(site_url('administrator/berita'),'refresh');
+                }
+               
+            } else {
+                $i = $this->input;
+                $user_session = $this->session->userdata('code_users');
+                $content = [
+                    'id_news'          => $i->post('id_news'),
+                    'slug'             => generate_url_slug($i->post('title'), 'news'),
+                    'title'            => $i->post('title'),
+                    'kategori'         => $i->post('kategori'),
+                    'content'          => $i->post('content'),
+                    'tgl_publish'      => date('Y-m-d H:i:s'),
+                    'tgl_update'       => date('Y-m-d H:i;s'),
+                    'id_users'         => $user_session
+                ];
+                
+                $this->news_model->edit($content);
+                $this->session->set_flashdata('sukses', 'Data berhasil di edit');
+                redirect(site_url('administrator/berita'),'refresh');
+            }
+        } else {
+            $page = 'news/add_news';
+            if (!file_exists(APPPATH . 'views/volunteer/' . $page . '.php')) {
+                // Whoops, we don't have a page for that!
+                show_404();
+            }
+            $data['title']      = 'Edit Berita';
+            $data['url']        = 'edit';
+            $data['error']      = '';
+            $data['news']       = $this->news_model->detail($id_news);
+            $data['page']       = $page;
+            $this->load->view('volunteer/templates', $data, FALSE); 
         }
-
-        $page = 'news/add_news';
-        if (!file_exists(APPPATH . 'views/volunteer/' . $page . '.php')) {
-            // Whoops, we don't have a page for that!
-            show_404();
-        }
-        $data['title']      = 'Edit Berita';
-        $data['url']        = 'edit';
-        $data['news']       = $this->news_model->detail($id_news);
-        $data['page']       = $page;
-        $this->load->view('volunteer/templates', $data, FALSE); 
     }
 
     public function delete($id_news)
@@ -221,19 +232,18 @@ class News extends CI_Controller
                 $this->upload->display_errors();
                 return FALSE;
             } else {
-                $data = $this->upload->data();
-                //Compress Image
-                $config['image_library']='gd2';
-                $config['source_image']= site_url('assets/images/'.$data['file_name']);
-                $config['create_thumb']= FALSE;
-                $config['maintain_ratio']= TRUE;
-                $config['quality']= '60%';
-                $config['width']= 800;
-                $config['height']= 800;
-                $config['new_image']= site_url('assets/images/'.$data['file_name']);
+                $upload_gambar = array('upload_data' => $this->upload->data());
+                $config['image_library']    ='gd2';
+                $config['source_image'] 	= './assets/images/'. $upload_gambar['upload_data']['file_name'];
+                $config['create_thumb']     = FALSE;
+                $config['maintain_ratio']   = TRUE;
+                $config['quality']          = '60%';
+                $config['width']            = 800;
+                $config['height']           = 800;
+                $config['new_image']		= './assets/images/';
                 $this->load->library('image_lib', $config);
                 $this->image_lib->resize();
-                echo $this->upload->display_errors();
+                echo base_url().'/assets/images/'.$upload_gambar['upload_data']['file_name'];
             }
         }
     }

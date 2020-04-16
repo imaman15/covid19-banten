@@ -129,7 +129,7 @@
       <div class="col-md-6">
         <div class="card shadow mb-4">
           <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-center"> <a class="nav-link" href="<?= base_url('home/detail/') ?><?= $kabupaten->id_district ?>"><?= $kabupaten->nama_district ?></a></h6>
+            <h6 class="m-0 font-weight-bold text-center"> <a class="nav-link" href="<?= base_url('home/detail/') ?><?= $kabupaten->slug ?>"><?= $kabupaten->nama_district ?></a></h6>
           </div>
           <div class="card-body">
             <div class="chart-area">
@@ -137,7 +137,7 @@
             </div>
             <hr>
             <p class="text-right">
-              <a class="btn btn-md bg-primary text-white" href="<?= base_url('home/detail/') ?><?= $kabupaten->id_district ?>">Lihat Lebih Detail</a>
+              <a class="btn btn-md bg-primary text-white" href="<?= base_url('home/detail/') ?><?= $kabupaten->slug ?>">Lihat Lebih Detail</a>
             </p>
           </div>
           <div class="card-footer" style="font-size: 14px;">.
