@@ -97,6 +97,8 @@ define('M_NEWS_ADD', strtolower(M_ADMIN . '/berita/tambah'));
 define('M_USERS', strtolower(M_ADMIN . '/relawan'));
 define('M_PROFILE', strtolower(M_ADMIN . '/edit-profil'));
 define('M_PASSWORD', strtolower(M_ADMIN . '/ganti-sandi'));
+define('M_REGISTER', strtolower('daftar'));
+define('ENCURL', strtolower('daftar tim relawan'));
 
 // Constanta Menu Web User
 define('U_HOME', strtolower('beranda'));

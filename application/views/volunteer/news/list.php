@@ -15,6 +15,7 @@
                     <thead>
                         <tr class="text-center text-white bg-dark">
                             <th>Judul Berita</th>
+                            <th>slug</th>
                             <th>Content</th>
                             <th>Kategori</th>
                             <th>Tanggal Update</th>
@@ -27,6 +28,7 @@
                         <?php foreach ($news as $n) {  ?>
                             <tr>
                                 <td><?= $n->title ?></td>
+                                <td><?= $n->slug ?></td>
                                 <td><?= $n->content ?></td>
                                 <td><?= ($n->kategori == 1) ? "Info Kesehatan" : "Berita"; ?></td>
                                 <td><?= tgl_indo($n->tgl_publish) ?></td>

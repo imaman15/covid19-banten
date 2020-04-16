@@ -9,14 +9,37 @@ class Auth extends CI_Controller
     {
         parent::__construct();
         //Do your magic here
-        $this->load->library('form_validation');
+        $this->load->library(['form_validation', 'encryption']);
         $this->load->model('users_model', 'users');
     }
 
-    public function index()
+    public function register()
     {
-        $data['title'] = 'Daftar Relawan';
-        $this->load->view('volunteer/register', $data, FALSE);
+        $param = ENCURL;
+        $var_enc = base64_encode_url($param);
+        // echo $var_enc . "<br>";
+        $var_dec = base64_decode_url($this->input->get_post('d'));
+        $urlRegis = M_REGISTER . '?d=' . $var_enc;
+
+        if ($this->form_validation->run('register') == FALSE) {
+            if ($var_dec ==  $param) {
+                $data['url'] = $urlRegis;
+                $data['title'] = 'Daftar Relawan';
+                $this->load->view('volunteer/register', $data, FALSE);
+            } else {
+                show_404();
+            }
+        } else {
+            $post = $this->input->post(NULL, TRUE);
+            $this->users->add($post);
+            if ($this->db->affected_rows() > 0) {
+                $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
+                Registrasi berhasil dilakukan. Admin akan memberitahukan informasi keaktifan akun melalui whatsapp/sms/email. <small class="pl-3 font-weight-bold d-block text-muted">(Pastikan no hp atau email anda aktif)</small></div>');
+                redirect(site_url() . $urlRegis);
+            }
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Registrasi gagal. Silahkan coba kembali. <small class="pl-3 font-weight-bold d-block text-muted">(Hubungi admin jika registrasi masih gagal)</small></div>');
+            redirect(site_url() . $urlRegis);
+        }
     }
 
     public function login()

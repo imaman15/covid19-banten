@@ -148,24 +148,57 @@ function status($data)
     }
 }
 
-function tgl_indo($tanggal){
-    
+function tgl_indo($tanggal)
+{
+
     $tgl_new = date("Y-m-d", strtotime($tanggal));
-	$bulan = array (
-		1 =>   'Januari',
-		'Februari',
-		'Maret',
-		'April',
-		'Mei',
-		'Juni',
-		'Juli',
-		'Agustus',
-		'September',
-		'Oktober',
-		'November',
-		'Desember'
-	);
-	$date = explode('-', $tgl_new);
- 
-	return $date[2] . ' ' . $bulan[ (int)$date[1] ] . ' ' . $date[0];
+    $bulan = array(
+        1 =>   'Januari',
+        'Februari',
+        'Maret',
+        'April',
+        'Mei',
+        'Juni',
+        'Juli',
+        'Agustus',
+        'September',
+        'Oktober',
+        'November',
+        'Desember'
+    );
+    $date = explode('-', $tgl_new);
+
+    return $date[2] . ' ' . $bulan[(int) $date[1]] . ' ' . $date[0];
+}
+
+function base64_encode_url($string)
+{
+    return str_replace(['+', '/', '='], ['-', '_', ''], base64_encode($string));
+}
+
+function base64_decode_url($string)
+{
+    return base64_decode(str_replace(['-', '_'], ['+', '/'], $string));
+}
+
+function generate_url_slug($string, $table, $field = 'slug', $key = NULL, $value = NULL)
+{
+    $t = &get_instance();
+    $slug = url_title($string);
+    $slug = strtolower($slug);
+    $i = 0;
+    $params = array();
+    $params[$field] = $slug;
+
+    if ($key) $params["$key !="] = $value;
+
+    while ($t->db->where($params)->get($table)->num_rows()) {
+        if (!preg_match('/-{1}[0-9]+$/', $slug))
+            $slug .= '-' . ++$i;
+        else
+            $slug = preg_replace('/[0-9]+$/', ++$i, $slug);
+
+        $params[$field] = $slug;
+    }
+    return $slug . '.html';
 }

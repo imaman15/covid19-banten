@@ -19,10 +19,6 @@
                             <div class="col-lg-6 d-none d-lg-block bg-login-image" style="height: 350px; margin-top:auto; margin-bottom:auto;"></div>
                             <div class="col-lg-6">
                                 <div class="p-5">
-                                    <!-- <div class="text-center">
-                                        <img src="" alt="">
-                                        <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
-                                    </div> -->
                                     <div class="text-center mb-3">
                                         <img src="<?php echo base_url('assets') ?>/img/logo-banten.png" alt="BMKG" class="img-fluid">
                                     </div>
@@ -32,7 +28,7 @@
                                     </div>
                                     <?php
                                     echo $this->session->flashdata('message');
-                                    echo form_open(M_ADMIN . '/login', 'class="user"');
+                                    echo form_open($url, 'class="user"');
                                     ?>
                                     <div class="form-group">
                                         <input type="text" class="form-control form-control-user" name="name" placeholder="Masukkan nama lengkap ..." value="<?php echo set_value('name') ?>" autofocus>
@@ -57,8 +53,8 @@
                                         </small>
                                     </div>
                                     <div class="form-group">
-                                        <input type="password" class="form-control form-control-user" name="confpassword" value="<?php echo set_value('confpassword') ?>" placeholder="Masukkan ulang kata sandi ...">
-                                        <?php echo form_error('confpassword') ?>
+                                        <input type="password" class="form-control form-control-user" name="confirmPassword" value="<?php echo set_value('confirmPassword') ?>" placeholder="Masukkan ulang kata sandi ...">
+                                        <?php echo form_error('confirmPassword') ?>
                                     </div>
                                     <button type="submit" class="btn btn-primary btn-user btn-block">
                                         Daftar
@@ -82,6 +78,15 @@
 
     <?php $this->load->view('volunteer/jsutama');
     ?>
+    <script type="text/javascript">
+        function numberOnly(evt) {
+            var charCode = (evt.which) ? evt.which : event.keyCode
+            if (charCode > 31 && (charCode < 48 || charCode > 57))
+
+                return false;
+            return true;
+        }
+    </script>
 
 </body>
 

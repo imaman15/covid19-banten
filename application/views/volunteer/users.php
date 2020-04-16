@@ -5,9 +5,20 @@
 
     <div class="card shadow mb-4 animated zoomIn fast">
         <div class="card-header py-3">
-            <button type="button" class="btn btn-primary" onclick="add_employee()">
-                Lihat Tampilan Relawan
-            </button>
+            <div class="row justify-content-between">
+                <div class="col-md-3 text-center text-sm-left">
+                    <button type="button" class="btn btn-primary" onclick="add_employee()">
+                        Lihat Tampilan Relawan
+                    </button>
+                </div>
+
+                <div class="mt-2 mt-sm-0  col-md-7 text-center text-sm-right input-group">
+                    <input id="textUrl" type="text" class="form-control" value="<?php echo $url ?>" aria-label="Link untuk daftar relawan" aria-describedby="basic-addon2" data-toggle="tooltip" data-placement="top" title="Link Pendaftaran Relawan" readonly>
+                    <div class="input-group-append">
+                        <button onclick="myFunction()" data-toggle="tooltip" data-placement="top" title="Salin url ke papan klip" class="btn btn-outline-secondary btn-clipboard" type="button"><i class="fas fa-copy"></i> Salin</button>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -96,3 +107,16 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    $(function() {
+        $('[data-toggle="tooltip"]').tooltip()
+    });
+
+    function myFunction() {
+        var copyText = document.getElementById("textUrl");
+        copyText.select();
+        copyText.setSelectionRange(0, 99999)
+        document.execCommand("copy");
+    };
+</script>
