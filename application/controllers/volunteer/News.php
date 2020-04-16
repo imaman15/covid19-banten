@@ -76,7 +76,7 @@ class News extends CI_Controller
                 'id_users'          => $user_session
             ];
             $this->news_model->tambah($content);
-            redirect(site_url('volunteer/news'), 'refresh');
+            redirect(site_url(M_NEWS), 'refresh');
         } else {
             $page = 'news/add_news';
             if (!file_exists(APPPATH . 'views/volunteer/' . $page . '.php')) {
@@ -159,7 +159,7 @@ class News extends CI_Controller
                 'id_users'         => $user_session
             ];
             $this->news_model->edit($content);
-            redirect(site_url('volunteer/news'), 'refresh');
+            redirect(site_url(M_NEWS), 'refresh');
         } else {
             $page = 'news/add_news';
             if (!file_exists(APPPATH . 'views/volunteer/' . $page . '.php')) {

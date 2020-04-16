@@ -64,8 +64,10 @@ $route[M_PASSWORD] = 'volunteer/users/changepassword';
 $route[M_DISTRICT] = 'volunteer/district';
 $route[M_SUBDISTRICT] = 'volunteer/subdistrict';
 $route[M_COVID] = 'volunteer/covid';
+$route[M_COVID . '/add'] = 'volunteer/covid/add';
 $route[M_CONFIG] = 'volunteer/configuration';
 $route[M_NEWS] = 'volunteer/news';
+$route[M_NEWS . '/add'] = 'volunteer/news/add';
 
 // Frontend
 $route[U_NEWS] = 'news';

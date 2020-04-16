@@ -18,7 +18,7 @@ class Covid extends CI_Controller
             // Whoops, we don't have a page for that!
             show_404();
         }
-    
+
         $data['title'] = 'Data Covid';
         $data['covid'] = $this->covid_model->listing();
         $data['page'] = $page;
@@ -26,27 +26,48 @@ class Covid extends CI_Controller
     }
 
 
-    public function add(){
+    public function add()
+    {
 
         $valid = $this->form_validation;
 
-        $valid->set_rules('odp', 'ODP', 'required',
-			array('required' => '%s harus di isi'));
+        $valid->set_rules(
+            'odp',
+            'ODP',
+            'required',
+            array('required' => '%s harus di isi')
+        );
 
-		$valid->set_rules('pdp', 'PDP', 'required',
-            array('required' => '%s harus di isi'));
-            
-		$valid->set_rules('sembuh', 'Sembuh', 'required',
-            array('required' => '%s harus di isi'));
+        $valid->set_rules(
+            'pdp',
+            'PDP',
+            'required',
+            array('required' => '%s harus di isi')
+        );
 
-		$valid->set_rules('positif', 'Positif', 'required',
-            array('required' => '%s harus di isi'));
-            
-		$valid->set_rules('meninggal', 'Meninggal', 'required',
-            array('required' => '%s harus di isi'));
-            
+        $valid->set_rules(
+            'sembuh',
+            'Sembuh',
+            'required',
+            array('required' => '%s harus di isi')
+        );
 
-        if ($valid->run()){
+        $valid->set_rules(
+            'positif',
+            'Positif',
+            'required',
+            array('required' => '%s harus di isi')
+        );
+
+        $valid->set_rules(
+            'meninggal',
+            'Meninggal',
+            'required',
+            array('required' => '%s harus di isi')
+        );
+
+
+        if ($valid->run()) {
             $i = $this->input;
             $user_session = $this->session->userdata('code_users');
             $content = [
@@ -61,8 +82,7 @@ class Covid extends CI_Controller
                 'id_users'          => $user_session
             ];
             $this->covid_model->tambah($content);
-			redirect(site_url('volunteer/covid'),'refresh');
-
+            redirect(site_url(M_COVID), 'refresh');
         } else {
             $page = 'covid/add_covid';
             if (!file_exists(APPPATH . 'views/volunteer/' . $page . '.php')) {
@@ -76,33 +96,57 @@ class Covid extends CI_Controller
 
             $this->load->view('volunteer/templates', $data, FALSE);
         }
-
     }
 
-    public function edit($id_covid){
+    public function edit($id_covid)
+    {
 
         $valid = $this->form_validation;
 
 
-        $valid->set_rules('id_district', 'Data Kabupaten', 'required',
-            array('required' => '%s harus di isi'));
-            
-        $valid->set_rules('odp', 'Data ODP', 'required',
-			array('required' => '%s harus di isi'));
+        $valid->set_rules(
+            'id_district',
+            'Data Kabupaten',
+            'required',
+            array('required' => '%s harus di isi')
+        );
 
-		$valid->set_rules('pdp', 'Data PDP', 'required',
-            array('required' => '%s harus di isi'));
-            
-		$valid->set_rules('sembuh', 'Data Sembuh', 'required',
-            array('required' => '%s harus di isi'));
+        $valid->set_rules(
+            'odp',
+            'Data ODP',
+            'required',
+            array('required' => '%s harus di isi')
+        );
 
-		$valid->set_rules('positif', 'Data Positif', 'required',
-            array('required' => '%s harus di isi'));
-            
-		$valid->set_rules('meninggal', 'Data Meninggal', 'required',
-            array('required' => '%s harus di isi'));
+        $valid->set_rules(
+            'pdp',
+            'Data PDP',
+            'required',
+            array('required' => '%s harus di isi')
+        );
 
-        if ($valid->run()){
+        $valid->set_rules(
+            'sembuh',
+            'Data Sembuh',
+            'required',
+            array('required' => '%s harus di isi')
+        );
+
+        $valid->set_rules(
+            'positif',
+            'Data Positif',
+            'required',
+            array('required' => '%s harus di isi')
+        );
+
+        $valid->set_rules(
+            'meninggal',
+            'Data Meninggal',
+            'required',
+            array('required' => '%s harus di isi')
+        );
+
+        if ($valid->run()) {
             $i = $this->input;
             $user_session = $this->session->userdata('code_users');
             $content = [
@@ -118,8 +162,7 @@ class Covid extends CI_Controller
                 'id_users'          => $user_session
             ];
             $this->covid_model->edit($content);
-            redirect(site_url('volunteer/covid'),'refresh');
-
+            redirect(site_url('volunteer/covid'), 'refresh');
         } else {
             $page = 'covid/add_covid';
             if (!file_exists(APPPATH . 'views/volunteer/' . $page . '.php')) {
@@ -134,16 +177,17 @@ class Covid extends CI_Controller
 
             $this->load->view('volunteer/templates', $data, FALSE);
         }
-
     }
 
-    public function delete($id_covid){
+    public function delete($id_covid)
+    {
         $data = $this->covid_model->delete($id_covid);
 
         echo '1';
     }
 
-    public function getSubdistrict(){
+    public function getSubdistrict()
+    {
 
         $id_district = $this->input->post('id_district');
         $data = $this->subdistrict_model->getSubdistrict($id_district);
