@@ -67,14 +67,23 @@ class Covid_model extends CI_Model
     // Listing detail kabupaten
     public function listing_kabupaten_detail($id_kabupaten)
     {
-        $this->db->select('covid.*, subdistrict.nama_subdistrict');
+        $this->db->select('covid.*, 
+            LEFT(tgl_publish, 10) AS today, 
+            SUM(odp) AS tot_odp, 
+            SUM(pdp) AS tot_pdp, 
+            SUM(positif) AS tot_positif,
+            SUM(sembuh) AS tot_sembuh,
+            SUM(meninggal) AS tot_meninggal,
+            subdistrict.nama_subdistrict');
+        $this->db->query("SELECT LEFT(tgl_publish, 10) FROM covid ");
         $this->db->from($this->_table);
         // Join Database
         $this->db->join('subdistrict', 'subdistrict.id_subdistrict = covid.id_subdistrict', 'left');
         // end join
         $this->db->where('covid.id_district', $id_kabupaten);
-        $this->db->limit(30);
+        $this->db->group_by('today');
         $this->db->order_by('tgl_publish');
+        $this->db->limit(30);
         $query = $this->db->get();
         return $query->result();
     }

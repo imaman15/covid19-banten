@@ -25,11 +25,8 @@ $("#filter_kabupaten").change(function () {
 
 function grafik_detail(id) {
 	$.ajax({
-		url: url + "home/data_kabupaten",
-		type: 'POST',
-		data: {
-			id_kabupaten: id
-		},
+		url: url + "home/data_kabupaten/" + id,
+		type: "GET",
 		dataType: "json",
 		success: function (data) {
 			var month = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli",
@@ -58,23 +55,6 @@ function grafik_detail(id) {
 				var label_one = date.getDate() + ' ' + month[date.getMonth()] + ' ' + date.getFullYear() + ' ' + date.getHours() + ':' + date.getMinutes();
 
 				myLineChart.data.labels.push(label_one);
-
-				// create table
-
-				$('#tbl_body').each(function (index, tbody) {
-					$(tbody).append(` 
-                <tr>
-                  <td>${label_one}</td>
-                  <td>${nama_subdistrict_one}</td>
-                  <td>${count_odp}</td>
-                  <td>${count_pdp}</td>
-                  <td>${count_positif}</td>
-                  <td>${count_sembuh}</td>
-                  <td>${count_meninggal}</td>
-                </tr> 
-              `);
-				});
-
 
 				return [meninggal.push(count_meninggal),
 					positif.push(count_positif),

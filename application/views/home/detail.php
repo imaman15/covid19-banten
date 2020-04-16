@@ -1,7 +1,7 @@
 <div id="page-content">
   <div class="container">
     <input type="hidden" id="base_url" value="<?= base_url() ?>">
-    <input type="hidden" id="id" value="<?= $this->uri->segment('3') ?>">
+    <input type="hidden" id="id" value="<?= $kabupaten_detail[0]->id_district ?> ?>">
     <input type="hidden" id="nama_kabupaten_default" value="<?= $kabupaten_detail[0]->nama_district ?>">
     <p class="h3 text-center mb-4 text-dark">Data Informasi Persebaran Corona Wilayah <?= ucwords($kabupaten_detail[0]->nama_district) ?></p>
 
@@ -142,7 +142,6 @@
       </div>
     </div>
 
-
     <div class="row">
       <div class="col-md-12">
         <div class="card shadow mb-4">
@@ -185,7 +184,26 @@
 <script src="<?= base_url('assets'); ?>/vendor/datatables/dataTables.bootstrap4.min.js"></script>
 <script type="text/javascript">
   $(document).ready(function() {
+    var url = $('#base_url').val();
+    var id = $('#id').val();
+
     $('#dataTable').DataTable({
+     
+      "ajax" : {
+          url: url + 'home/data_kabupaten/'+ id,
+          method: "GET",
+          dataType: "json",
+          dataSrc: '',
+      },
+      "columns": [
+          {data: 'tgl_publish', name: 'tgl_publish' },
+          {data: 'nama_subdistrict', name:'nama_subdistrict' },
+          {data: 'odp', name:'odp' },
+          {data: 'pdp', name:'pdp' },
+          {data: 'positif', name:'positif' },
+          {data: 'sembuh', name:'sembuh' },
+          {data: 'meninggal', name:'meninggal' }
+			],
       "oLanguage": {
         "sInfo": "Total _TOTAL_ data, menampilkan data (_START_ sampai _END_)",
         "sInfoFiltered": " - filtering from _MAX_ records",
@@ -199,5 +217,15 @@
         "sZeroRecords": "Tidak ada data"
       }
     });
+
+    function tgl_indo(count_tanggal){
+        var month = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli",
+          "Agustus", "September", "Oktober", "Novermber", "Desember"
+        ]
+        var date = new Date(count_tanggal);
+				var label_one = date.getDate() + ' ' + month[date.getMonth()] + ' ' + date.getFullYear() + ' ' + date.getHours() + ':' + date.getMinutes();
+    }
+      
+
   });
 </script>

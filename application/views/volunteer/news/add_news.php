@@ -13,12 +13,15 @@
                 </div>
                 <div class="card-body">
                     <?php
+                    // error gambar 
+                    if($error != '') {
+                        echo '<div class="alert alert-danger">' . $error . '</div>';
+                    }
                     // notifikasi error
                     echo validation_errors('<div class="alert alert-danger">', '</div>');
                     //form open
                     echo form_open_multipart();
                     ?>
-                    <form>
                         <div class="form-group">
                             <label for="title">Judul Berita</label>
                             <input type="text" class="form-control" id="title" name="title" value="<?php if ($url == 'edit') {
@@ -34,7 +37,7 @@
                         </div>
                         <div class="form-group">
                             <label for="images">Gambar Utama </label>
-                            <input type="file" class="form-control" id="images" name="images">
+                            <input type="file" class="form-control" id="images" name="gambar">
                         </div>
                         <div class="form-group">
                             <label for="exampleFormControlTextarea1">Content</label>
@@ -46,8 +49,6 @@
                             <button type="submit" id="btnSave" class="btn btn-primary"><?= ($url == 'edit') ? "Update" : "Simpan"; ?></button>
                             <button type="reset" class="btn btn-danger">Reset</button>
                         </div>
-                    </form>
-
                     <?php echo form_close(); ?>
                 </div>
             </div>

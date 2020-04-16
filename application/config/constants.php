@@ -88,9 +88,12 @@ defined('EXIT__AUTO_MAX')      or define('EXIT__AUTO_MAX', 125); // highest auto
 define('M_ADMIN', strtolower('administrator'));
 define('M_CONFIG', strtolower(M_ADMIN . '/konfigurasi'));
 define('M_COVID', strtolower(M_ADMIN . '/covid'));
+define('M_COVID_ADD', strtolower(M_ADMIN . '/covid/add'));
+define('M_COVID_EDIT', strtolower(M_ADMIN . '/covid/editt/'));
 define('M_DISTRICT', strtolower(M_ADMIN . '/kabupaten'));
 define('M_SUBDISTRICT', strtolower(M_ADMIN . '/kecamatan'));
 define('M_NEWS', strtolower(M_ADMIN . '/berita'));
+define('M_NEWS_ADD', strtolower(M_ADMIN . '/berita/tambah'));
 define('M_USERS', strtolower(M_ADMIN . '/relawan'));
 define('M_PROFILE', strtolower(M_ADMIN . '/edit-profil'));
 define('M_PASSWORD', strtolower(M_ADMIN . '/ganti-sandi'));

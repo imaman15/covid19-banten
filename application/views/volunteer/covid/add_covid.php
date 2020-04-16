@@ -25,6 +25,7 @@
                             <label for="exampleFormControlSelect1">Pilih Kabupaten</label>
                             <select data-header="Pilih Kabupaten/Kota" class="form-control selectpicker show-tick" data-live-search="true" name="id_district" id="id_district">
                                 <?php foreach ($kabupaten as $k) { ?>
+                                    <option>Pilih Kabupaten</option>
                                     <option value="<?= $k->id_district ?>" <?php if ($url == 'edit' && ($k->id_district == $covid[0]->id_district)) {
                                                                                 echo 'selected';
                                                                             } ?>><?= $k->nama_district ?></option>

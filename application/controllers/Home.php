@@ -39,12 +39,11 @@ class Home extends CI_Controller
         echo $value;
     }
 
-    public function data_kabupaten()
+    public function data_kabupaten($id_kabupaten)
     {
-        $id_kabupaten = $this->input->post('id_kabupaten');
         $covid = $this->covid_model->listing_kabupaten_detail($id_kabupaten);
-
         $value =  json_encode($covid);
+
         echo $value;
     }
 
