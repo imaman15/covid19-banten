@@ -225,11 +225,8 @@ var myLineChart = new Chart(ctx, {
 function kabupaten(id) {
 
 	$.ajax({
-		url: url + "home/data_kabupaten",
-		type: 'POST',
-		data: {
-			id_kabupaten: id
-		},
+		url: url + "home/data_kabupaten/" + id,
+		type: 'GET',
 		dataType: "json",
 		success: function (data) {
 

@@ -86,6 +86,7 @@ class News extends CI_Controller
                 $content = [
                     'title'             => $i->post('title'),
                     'kategori'          => $i->post('kategori'),
+                    'slug'             => generate_url_slug($i->post('title'), 'news'),
                     'content'           => $i->post('content'),
                     'img'               => $upload_gambar['upload_data']['file_name'],
                     'tgl_publish'       => date('Y-m-d H:i:s'),
@@ -93,7 +94,7 @@ class News extends CI_Controller
                     'id_users'          => $user_session
                 ];
                 $this->news_model->tambah($content);
-                redirect(site_url('administrator/news'),'refresh');
+                redirect(site_url('administrator/berita'),'refresh');
                 }
 
         } else {
@@ -170,7 +171,7 @@ class News extends CI_Controller
                     ];
                     $this->news_model->edit($content);
                     $this->session->set_flashdata('sukses', 'Data berhasil di edit');
-                    redirect(site_url('volunteer/news'),'refresh');
+                    redirect(site_url('administrator/berita'),'refresh');
             } 
 
         }else {
@@ -188,7 +189,7 @@ class News extends CI_Controller
             
             $this->news_model->edit($content);
             $this->session->set_flashdata('sukses', 'Data berhasil di edit');
-            redirect(site_url('volunteer/news'),'refresh');
+            redirect(site_url('administrator/berita'),'refresh');
         }
 
         $page = 'news/add_news';
@@ -210,9 +211,10 @@ class News extends CI_Controller
     }
 
     //Upload image summernote
-    function upload_image(){
-        if(isset($_FILES["image"]["name"])){
-            $config['upload_path'] = site_url('assets/images/');
+    function upload_image()
+    {
+        if (isset($_FILES["image"]["name"])) {
+            $config['upload_path'] = './assets/images/';
             $config['allowed_types'] = 'jpg|jpeg|png|gif';
             $this->upload->initialize($config);
             if (!$this->upload->do_upload('image')) {
@@ -221,17 +223,17 @@ class News extends CI_Controller
             } else {
                 $data = $this->upload->data();
                 //Compress Image
-                $config['image_library'] = 'gd2';
-                $config['source_image'] = './assets/images/' . $data['file_name'];
-                $config['create_thumb'] = FALSE;
-                $config['maintain_ratio'] = TRUE;
-                $config['quality'] = '60%';
-                $config['width'] = 800;
-                $config['height'] = 800;
-                $config['new_image'] = './assets/images/' . $data['file_name'];
+                $config['image_library']='gd2';
+                $config['source_image']= site_url('assets/images/'.$data['file_name']);
+                $config['create_thumb']= FALSE;
+                $config['maintain_ratio']= TRUE;
+                $config['quality']= '60%';
+                $config['width']= 800;
+                $config['height']= 800;
+                $config['new_image']= site_url('assets/images/'.$data['file_name']);
                 $this->load->library('image_lib', $config);
                 $this->image_lib->resize();
-                echo base_url() . 'assets/images/' . $data['file_name'];
+                echo $this->upload->display_errors();
             }
         }
     }
