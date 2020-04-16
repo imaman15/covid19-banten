@@ -22,9 +22,9 @@ class News extends CI_Controller
         );
         $this->load->view('layout/index', $data, FALSE);
     }
-    public function detail($id)
+    public function detail($slug)
     {
-        $berita_detail  = $this->news_model->detail($id);
+        $berita_detail  = $this->news_model->detail($slug);
         $data           = array(
             'title'    => 'Judul Berita',
             'detail'    => $berita_detail,
