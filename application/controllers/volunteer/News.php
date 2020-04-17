@@ -215,9 +215,14 @@ class News extends CI_Controller
         }
     }
 
-    public function delete($id_news)
+    public function delete($slug)
     {
-        $data = $this->news_model->delete($id_news);
+        $data = $this->news_model->detail($slug);
+
+        unlink('./assets/img/news/'.$data[0]->img);
+        unlink('./assets/img/news/thumbs/'.$data[0]->img);
+        
+        $data = $this->news_model->delete($slug);
         echo '1';
     }
 

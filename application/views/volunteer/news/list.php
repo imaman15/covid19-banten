@@ -36,7 +36,7 @@
                                 <td><?= $n->name ?></td>
                                 <td>
                                     <a title="Edit Data" class="btn btn-warning btn-circle btn-sm mb-lg-0 mb-1" href="<?= site_url('volunteer/news/edit/') . $n->slug ?>"><i class="fas fa-edit"></i></a>
-                                    <a title="Hapus Data" class="btn_delete btn btn-danger btn-circle btn-sm mb-lg-0 mb-1" data-id="<?= $n->id_news ?>" href="javascript:0"><i class="fas fa-trash"></i></a>
+                                    <a title="Hapus Data" class="btn_delete btn btn-danger btn-circle btn-sm mb-lg-0 mb-1" data-id="<?= $n->slug ?>" href="javascript:0"><i class="fas fa-trash"></i></a>
                                 </td>
                             </tr>
                         <?php } ?>
@@ -50,7 +50,7 @@
 <!-- Modal Delete -->
 <div class="modal fade" id="deleteData" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
     <div class="modal-dialog" role="document">
-        <input type="hidden" id="id_news">
+        <input type="hidden" id="slug">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Anda yakin untuk menghapus data ini?</h5>
@@ -97,11 +97,11 @@
     $('.btn_delete').click(function() {
         $('#deleteData').modal('show'); // show bootstrap modal
         var id = $(this).data('id');
-        $('#id_news').val(id);
+        $('#slug').val(id);
     })
 
     $('#btn_delete_confirm').click(function() {
-        var id = $('#id_news').val();
+        var id = $('#slug').val();
         $.ajax({
             url: "<?php echo site_url('volunteer/news/delete/') ?>" + id,
             method: "POST",
