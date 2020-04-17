@@ -138,7 +138,7 @@ class Covid_model extends CI_Model
         // join database
         $this->db->join('district', 'district.id_district = covid.id_district', 'left');
         // end join
-        $this->db->where('covid.slug', $slug);
+        $this->db->where('district.slug', $slug);
         $this->db->order_by('tgl_publish');
         $query = $this->db->get();
         return $query->result();

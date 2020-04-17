@@ -20,8 +20,6 @@
                     echo form_open_multipart();
                     ?>
                     <form>
-
-                        <input type="hidden" name="name_district" id="slug">
                         <div class="form-group">
                             <label for="exampleFormControlSelect1">Pilih Kabupaten</label>
                             <select data-header="Pilih Kabupaten/Kota" class="form-control selectpicker show-tick" data-live-search="true" name="id_district" id="id_district">
@@ -75,8 +73,6 @@
     $(document).ready(function() {
         $("#kecamatan").attr("disabled", true);
         $("#id_district").change(function() {
-
-            $("#slug").val($("#id_district option:selected").text());
             $("#kecamatan").attr("disabled", false);
             var id = $(this).val();
             $.ajax({
