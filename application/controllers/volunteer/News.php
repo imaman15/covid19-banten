@@ -20,7 +20,7 @@ class News extends CI_Controller
             // Whoops, we don't have a page for that!
             show_404();
         }
-        $data['news']   = $this->news_model->listing();
+        // $data['news']   = $this->news_model->listing();
         $data['title'] = 'Info & Tips Kesehatan';
         $data['page'] = $page;
         $this->load->view('volunteer/templates', $data, FALSE);
@@ -93,7 +93,7 @@ class News extends CI_Controller
                     'id_users'          => $user_session
                 ];
                 $this->news_model->tambah($content);
-                redirect(site_url('administrator/berita'), 'refresh');
+                redirect(site_url(M_NEWS), 'refresh');
             }
         } else {
             $page = 'news/add_news';
@@ -187,7 +187,7 @@ class News extends CI_Controller
                     ];
                     $this->news_model->edit($content);
                     $this->session->set_flashdata('sukses', 'Data berhasil di edit');
-                    redirect(site_url('administrator/berita'), 'refresh');
+                    redirect(site_url(M_NEWS), 'refresh');
                 }
             } else {
                 $i = $this->input;
@@ -205,7 +205,7 @@ class News extends CI_Controller
 
                 $this->news_model->edit($content);
                 $this->session->set_flashdata('sukses', 'Data berhasil di edit');
-                redirect(site_url('administrator/berita'), 'refresh');
+                redirect(site_url(M_NEWS), 'refresh');
             }
         } else {
             $page = 'news/add_news';
@@ -268,6 +268,41 @@ class News extends CI_Controller
         if (unlink($file_name)) {
             echo 'File Delete Successfully';
         }
+    }
+
+    public function myList()
+    {
+        $list = $this->news_model->get_datatables();
+        $data = array();
+        $no = $_POST['start'];
+        foreach ($list as $n) {
+            $no++;
+            $row = array();
+            // $row[] = $no . ".";
+            $row[] = $n->title;
+            $row[] = $n->slug;
+            $row[] = '<img src="' . base_url("assets/img/news/thumbs/") . $n->img . '" alt="thumbnail" width="100">';
+            $row[] = ($n->kategori == 1) ? "Info Kesehatan" : "Berita";
+            $row[] = tgl_indo($n->tgl_publish);
+            $row[] = tgl_indo($n->tgl_update);
+            $row[] = $n->name;
+
+            $row[] = '
+            <a title="Edit Data" class="btn btn-warning btn-circle btn-sm mb-lg-0 mb-1" href="' . site_url(M_NEWS_EDIT) . $n->slug . '"><i class="fas fa-edit"></i></a>
+
+            <a title="Hapus Data" class="btn btn-danger btn-circle btn-sm mb-lg-0 mb-1" href="javascript:void(0)" onclick="btn_delete(' . "'" . $n->slug . "'" . ')"><i class="fas fa-trash"></i></a>';
+
+            $data[] = $row;
+        }
+
+        $output = array(
+            "draw" => $_POST['draw'],
+            "recordsTotal" => $this->news_model->count_all(),
+            "recordsFiltered" => $this->news_model->count_filtered(),
+            "data" => $data,
+        );
+        //output to json format
+        echo json_encode($output);
     }
 }
 

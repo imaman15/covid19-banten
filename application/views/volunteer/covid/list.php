@@ -25,25 +25,7 @@
                             <th width="90px">Aksi</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <?php foreach ($covid as $c) {  ?>
 
-                            <tr>
-                                <td><?= tgl_indo($c->tgl_publish) ?></td>
-                                <td><?= $c->nama_district ?></td>
-                                <td><?= $c->nama_subdistrict ?></td>
-                                <td><?= $c->odp ?></td>
-                                <td><?= $c->pdp ?></td>
-                                <td><?= $c->positif ?></td>
-                                <td><?= $c->sembuh ?></td>
-                                <td><?= $c->meninggal ?></td>
-                                <td>
-                                    <a title="Edit Data" class="btn btn-warning btn-circle btn-sm mb-lg-0 mb-1" href="<?= site_url('volunteer/covid/edit/') . $c->id_covid ?>"><i class="fas fa-edit"></i></a>
-                                    <a title="Hapus Data" class="btn_delete btn btn-danger btn-circle btn-sm mb-lg-0 mb-1" data-id="<?= $c->id_covid ?>" onclick="delete_district(<?= $c->id_covid ?>)" href="javascript:0"><i class="fas fa-trash"></i></a>
-                                </td>
-                            </tr>
-                        <?php } ?>
-                    </tbody>
                 </table>
             </div>
         </div>
@@ -76,6 +58,17 @@
     $(document).ready(function() {
         table = $('#dataCovid').DataTable({
             "processing": true,
+            "serverSide": true,
+            "order": [],
+            "ajax": {
+                "url": "<?php echo site_url('volunteer/covid/myList') ?>",
+                "type": "POST"
+            },
+            "columnDefs": [{
+                "targets": [-1],
+                "className": 'text-center',
+                "orderable": false,
+            }],
             "oLanguage": {
                 "sInfo": "Total _TOTAL_ data, menampilkan data (_START_ sampai _END_)",
                 "sInfoFiltered": " - filtering from _MAX_ records",
@@ -91,11 +84,20 @@
         });
     });
 
-    $('.btn_delete').click(function() {
+    function reload_table() {
+        table.ajax.reload(null, false); //reload datatable ajax 
+    };
+
+    // $('#btn_delete').click(function() {
+    //     $('#deleteData').modal('show'); // show bootstrap modal
+    //     var id = $(this).data('id');
+    //     $('#covid_id').val(id);
+    // });
+
+    function btn_delete(params) {
         $('#deleteData').modal('show'); // show bootstrap modal
-        var id = $(this).data('id');
-        $('#covid_id').val(id);
-    });
+        $('#covid_id').val(params);
+    }
 
     $('#btn_delete_confirm').click(function() {
         var id = $('#covid_id').val();
@@ -106,7 +108,8 @@
                 id_covid: id
             },
             success: function(data) {
-                window.location.href = "<?php echo site_url('volunteer/covid') ?>";
+                reload_table();
+                $('#deleteData').modal('hide');
             }
         });
     })

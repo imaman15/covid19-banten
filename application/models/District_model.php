@@ -4,11 +4,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class District_model extends CI_Model
 {
-    public function __construct()
-    {
-        parent::__construct();
-        $this->load->database();
-    }
 
     private $_table = 'district';
 
@@ -121,7 +116,6 @@ class District_model extends CI_Model
         $query = $this->db->get();
         return $query->result();
     }
-
 }
 
 /* End of file District_model.php */

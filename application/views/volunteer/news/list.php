@@ -24,23 +24,6 @@
                             <th width="90px">Aksi</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <?php foreach ($news as $n) {  ?>
-                            <tr>
-                                <td><?= $n->title ?></td>
-                                <td><?= $n->slug ?></td>
-                                <td><img src="<?php echo base_url('assets/img/news/thumbs/') . $n->img ?>" alt="thumbnail" width="100"></td>
-                                <td><?= ($n->kategori == 1) ? "Info Kesehatan" : "Berita"; ?></td>
-                                <td><?= tgl_indo($n->tgl_publish) ?></td>
-                                <td><?= tgl_indo($n->tgl_update) ?></td>
-                                <td><?= $n->name ?></td>
-                                <td>
-                                    <a title="Edit Data" class="btn btn-warning btn-circle btn-sm mb-lg-0 mb-1" href="<?= site_url('volunteer/news/edit/') . $n->slug ?>"><i class="fas fa-edit"></i></a>
-                                    <a title="Hapus Data" class="btn_delete btn btn-danger btn-circle btn-sm mb-lg-0 mb-1" data-id="<?= $n->slug ?>" href="javascript:0"><i class="fas fa-trash"></i></a>
-                                </td>
-                            </tr>
-                        <?php } ?>
-                    </tbody>
                 </table>
             </div>
         </div>
@@ -73,6 +56,12 @@
     $(document).ready(function() {
         table = $('#dataNews').DataTable({
             "processing": true,
+            "serverSide": true,
+            "order": [],
+            "ajax": {
+                "url": "<?php echo site_url('volunteer/news/myList') ?>",
+                "type": "POST"
+            },
             "columnDefs": [{
                 "targets": [-1, 2],
                 "className": 'text-center',
@@ -93,12 +82,14 @@
         })
     });
 
+    function reload_table() {
+        table.ajax.reload(null, false); //reload datatable ajax 
+    };
 
-    $('.btn_delete').click(function() {
+    function btn_delete(params) {
         $('#deleteData').modal('show'); // show bootstrap modal
-        var id = $(this).data('id');
-        $('#slug').val(id);
-    })
+        $('#slug').val(params);
+    }
 
     $('#btn_delete_confirm').click(function() {
         var id = $('#slug').val();
@@ -109,7 +100,8 @@
                 id_news: id
             },
             success: function(data) {
-                window.location.href = "<?php echo site_url('volunteer/news') ?>";
+                reload_table();
+                $('#deleteData').modal('hide');
             }
         });
     })

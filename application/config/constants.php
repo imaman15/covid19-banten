@@ -94,6 +94,7 @@ define('M_DISTRICT', strtolower(M_ADMIN . '/kabupaten'));
 define('M_SUBDISTRICT', strtolower(M_ADMIN . '/kecamatan'));
 define('M_NEWS', strtolower(M_ADMIN . '/berita'));
 define('M_NEWS_ADD', strtolower(M_ADMIN . '/berita/tambah'));
+define('M_NEWS_EDIT', strtolower(M_ADMIN . '/berita/edit/'));
 define('M_USERS', strtolower(M_ADMIN . '/relawan'));
 define('M_PROFILE', strtolower(M_ADMIN . '/edit-profil'));
 define('M_PASSWORD', strtolower(M_ADMIN . '/ganti-sandi'));

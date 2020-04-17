@@ -19,7 +19,7 @@ class Team extends CI_Controller
             'title'    => 'Relawan',
             'content'    => 'team/list',
             'dev' => $this->users_model->getData(NULL, 'id_users <= 2')->result(),
-            'volunteer' => $this->users_model->dataNot([1, 2])->result(),
+            'volunteer' => $this->users_model->dataNot([1, 2, 3])->result(),
             'tektime' => 'Diperbarui'
         );
         $this->load->view('layout/index', $data, FALSE);

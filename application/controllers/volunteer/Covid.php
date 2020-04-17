@@ -20,7 +20,7 @@ class Covid extends CI_Controller
         }
 
         $data['title'] = 'Data Covid';
-        $data['covid'] = $this->covid_model->listing();
+        //$data['covid'] = $this->covid_model->listing();
         $data['page'] = $page;
         $this->load->view('volunteer/templates', $data, FALSE);
     }
@@ -162,7 +162,7 @@ class Covid extends CI_Controller
                 'id_users'          => $user_session
             ];
             $this->covid_model->edit($content);
-            redirect(site_url('volunteer/covid'), 'refresh');
+            redirect(site_url(M_COVID), 'refresh');
         } else {
             $page = 'covid/add_covid';
             if (!file_exists(APPPATH . 'views/volunteer/' . $page . '.php')) {
@@ -193,6 +193,42 @@ class Covid extends CI_Controller
         $data = $this->subdistrict_model->getSubdistrict($id_district);
 
         echo json_encode($data);
+    }
+
+    public function myList()
+    {
+        $list = $this->covid_model->get_datatables();
+        $data = array();
+        $no = $_POST['start'];
+        foreach ($list as $c) {
+            $no++;
+            $row = array();
+            // $row[] = $no . ".";
+            $row[] = tgl_indo($c->tgl_publish);
+            $row[] = $c->nama_district;
+            $row[] = $c->nama_subdistrict;
+            $row[] = $c->odp;
+            $row[] = $c->pdp;
+            $row[] = $c->positif;
+            $row[] = $c->sembuh;
+            $row[] = $c->meninggal;
+
+            $row[] = '
+            <a title="Edit Data" class="btn btn-warning btn-circle btn-sm mb-1" href="' . site_url(M_COVID_EDIT) . $c->id_covid . '"><i class="fas fa-edit"></i></a>
+
+            <a title="Hapus Data" class="btn btn-danger btn-circle btn-sm mb-1" href="javascript:void(0)" onclick="btn_delete(' . "'" . $c->id_covid . "'" . ')"><i class="fas fa-trash"></i></a>';
+
+            $data[] = $row;
+        }
+
+        $output = array(
+            "draw" => $_POST['draw'],
+            "recordsTotal" => $this->covid_model->count_all(),
+            "recordsFiltered" => $this->covid_model->count_filtered(),
+            "data" => $data,
+        );
+        //output to json format
+        echo json_encode($output);
     }
 }
 
