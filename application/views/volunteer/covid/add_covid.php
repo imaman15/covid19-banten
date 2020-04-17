@@ -20,15 +20,13 @@
                     echo form_open_multipart();
                     ?>
                     <form>
-
                         <div class="form-group">
                             <label for="exampleFormControlSelect1">Pilih Kabupaten</label>
                             <select data-header="Pilih Kabupaten/Kota" class="form-control selectpicker show-tick" data-live-search="true" name="id_district" id="id_district">
-                                <?php foreach ($kabupaten as $k) { ?>
-                                    <option value="<?= $k->id_district ?>" <?php if ($url == 'edit' && ($k->id_district == $covid[0]->id_district)) {
-                                                                                echo 'selected';
-                                                                            } ?>><?= $k->nama_district ?></option>
-                                <?php } ?>
+                                    <option>Pilih Kabupaten</option>
+                                    <?php foreach ($kabupaten as $k) { ?>
+                                        <option value="<?= $k->id_district ?>" <?php if ($url == 'edit' && ($k->id_district == $covid[0]->id_district)) { echo 'selected'; } ?>><?= $k->nama_district ?></option>
+                                    <?php } ?>
                             </select>
                         </div>
                         <div class="form-group">
@@ -39,33 +37,23 @@
                         </div>
                         <div class="form-group">
                             <label for="odp">ODP (Orang Dalam Pantauan) </label>
-                            <input type="number" class="form-control" id="odp" name="odp" value="<?php if ($url == 'edit') {
-                                                                                                        echo $covid[0]->odp;
-                                                                                                    } ?>">
+                            <input type="number" class="form-control" id="odp" name="odp" value="<?php if ($url == 'edit') { echo $covid[0]->odp; } ?>">
                         </div>
                         <div class="form-group">
                             <label for="odp">PDP (Pasien Dalam Pantauan) </label>
-                            <input type="number" class="form-control" id="pdp" name="pdp" value="<?php if ($url == 'edit') {
-                                                                                                        echo $covid[0]->pdp;
-                                                                                                    } ?>">
+                            <input type="number" class="form-control" id="pdp" name="pdp" value="<?php if ($url == 'edit') { echo $covid[0]->pdp; } ?>">
                         </div>
                         <div class="form-group">
                             <label for="odp">Positif </label>
-                            <input type="number" class="form-control" id="postif" name="positif" value="<?php if ($url == 'edit') {
-                                                                                                            echo $covid[0]->positif;
-                                                                                                        } ?>">
+                            <input type="number" class="form-control" id="postif" name="positif" value="<?php if ($url == 'edit') { echo $covid[0]->positif; } ?>">
                         </div>
                         <div class="form-group">
                             <label for="odp">Sembuh </label>
-                            <input type="number" class="form-control" id="sembuh" name="sembuh" value="<?php if ($url == 'edit') {
-                                                                                                            echo $covid[0]->sembuh;
-                                                                                                        } ?>">
+                            <input type="number" class="form-control" id="sembuh" name="sembuh" value="<?php if ($url == 'edit') { echo $covid[0]->sembuh; } ?>">
                         </div>
                         <div class="form-group">
                             <label for="odp">Meninggal </label>
-                            <input type="number" class="form-control" id="meninggal" name="meninggal" value="<?php if ($url == 'edit') {
-                                                                                                                    echo $covid[0]->meninggal;
-                                                                                                                } ?>">
+                            <input type="number" class="form-control" id="meninggal" name="meninggal" value="<?php if ($url == 'edit') { echo $covid[0]->meninggal;} ?>">
                         </div>
                         <div class="text-right">
                             <button type="submit" id="btnSave" class="btn btn-primary">Simpan</button>
@@ -84,7 +72,7 @@
 <script>
     $(document).ready(function() {
         $("#kecamatan").attr("disabled", true);
-        $('#id_district').change(function() {
+        $("#id_district").change(function() {
             $("#kecamatan").attr("disabled", false);
             var id = $(this).val();
             $.ajax({

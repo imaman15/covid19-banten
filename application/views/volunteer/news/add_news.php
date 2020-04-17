@@ -13,17 +13,20 @@
                 </div>
                 <div class="card-body">
                     <?php
-                    // notifikasi error
+                    // error gambar 
+                    if($error != '') {
+                        echo '<div class="alert alert-danger">' . $error . '</div>';
+                    }
+
                     echo validation_errors('<div class="alert alert-danger">', '</div>');
+
                     //form open
                     echo form_open_multipart();
                     ?>
-                    <form>
+                        <input type="hidden" name="id_news" value="<?php if ($url == 'edit') { echo $news[0]->id_news; } ?>">
                         <div class="form-group">
                             <label for="title">Judul Berita</label>
-                            <input type="text" class="form-control" id="title" name="title" value="<?php if ($url == 'edit') {
-                                                                                                        echo $news[0]->title;
-                                                                                                    } ?>">
+                            <input type="text" class="form-control" id="title" name="title" value="<?php if ($url == 'edit') { echo $news[0]->title; } ?>">
                         </div>
                         <div class="form-group">
                             <label for="id_kategori">Pilih Kategori</label>
@@ -34,20 +37,17 @@
                         </div>
                         <div class="form-group">
                             <label for="images">Gambar Utama </label>
-                            <input type="file" class="form-control" id="images" name="images">
+                            <input type="file" class="form-control" id="images" name="gambar">
+                            <span>ukuran gambar maksimal 2024px x 2024px dan 2MB </span>
                         </div>
                         <div class="form-group">
                             <label for="exampleFormControlTextarea1">Content</label>
-                            <textarea class="form-control" id="summernote" rows="3" name="content"><?php if ($url == 'edit') {
-                                                                                                        echo $news[0]->content;
-                                                                                                    } ?></textarea>
+                            <textarea class="form-control" id="summernote" rows="3" name="content"><?php if ($url == 'edit') { echo $news[0]->content; } ?></textarea>
                         </div>
                         <div class="text-right">
                             <button type="submit" id="btnSave" class="btn btn-primary"><?= ($url == 'edit') ? "Update" : "Simpan"; ?></button>
                             <button type="reset" class="btn btn-danger">Reset</button>
                         </div>
-                    </form>
-
                     <?php echo form_close(); ?>
                 </div>
             </div>

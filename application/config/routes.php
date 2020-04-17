@@ -63,11 +63,12 @@ $route[M_PROFILE] = 'volunteer/users/editprofile';
 $route[M_PASSWORD] = 'volunteer/users/changepassword';
 $route[M_DISTRICT] = 'volunteer/district';
 $route[M_SUBDISTRICT] = 'volunteer/subdistrict';
-$route[M_COVID] = 'volunteer/covid';
-$route[M_COVID . '/add'] = 'volunteer/covid/add';
+$route[M_COVID . '/(:any)'] = 'volunteer/covid/$1';
+$route[M_COVID_ADD] = 'volunteer/covid/add';
+$route[M_COVID_EDIT . '/(:any)'] = 'volunteer/covid/edit/';
 $route[M_CONFIG] = 'volunteer/configuration';
 $route[M_NEWS] = 'volunteer/news';
-$route[M_NEWS . '/add'] = 'volunteer/news/add';
+$route[M_NEWS_ADD] = 'volunteer/news/add';
 
 // Frontend
 $route[U_NEWS] = 'news';

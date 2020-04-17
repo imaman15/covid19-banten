@@ -156,6 +156,7 @@ class Covid extends CI_Controller
                 'positif'           => $i->post('positif'),
                 'sembuh'            => $i->post('sembuh'),
                 'meninggal'         => $i->post('meninggal'),
+                'slug'              => generate_url_slug($i->post('name_district'), 'covid'),
                 'tgl_publish'       => date('Y-m-d H:i:s'),
                 'id_district'       => $i->post('id_district'),
                 'id_subdistrict'    => $i->post('id_subdistrict'),

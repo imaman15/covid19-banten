@@ -8,11 +8,11 @@
           <img class="card-img-right flex-auto d-none d-md-block" src="<?= base_url('assets/img/news/') . $berita->img ?>" height="200" width="200" alt="Card image cap">
           <div class="card-body d-flex flex-column align-items-start">
             <strong class="d-inline-block mb-2 text-primary"><?= ($berita->kategori == 1) ? "Info Kesehatan" : "Berita"; ?></strong>
-            <h3 class="mb-0">
-              <a class="text-dark" href="<?= base_url('news/detail/') . $berita->slug ?>"><?= $berita->title ?></a>
-            </h3>
+            <h4 class="mb-0" width="100%">
+              <p><a class="text-dark mb-auto" href="<?= base_url('news/detail/') . $berita->slug ?>"><?= $berita->title ?></a></p>
+            </h4>
             <div class="mb-1 text-muted"><?= tgl_indo($berita->tgl_publish) ?></div>
-            <p class="card-text mb-auto"><?= substr($berita->content, 0, 100) . '...'; ?></p>
+            <!-- <p class="card-text mb-auto"><?= substr($berita->content, 0, 100) . '...'; ?></p> -->
             <a href="<?= base_url('news/detail/') . $berita->slug ?>">Lanjut membaca</a>
           </div>
         </div>
@@ -22,3 +22,5 @@
   </div>
 
 </div>
+
+

@@ -5,7 +5,7 @@
 
     <div class="card shadow mb-4 animated zoomIn fast">
         <div class="card-header py-3">
-            <a href="<?= site_url(M_NEWS . '/add') ?>" class="btn btn-primary">
+            <a href="<?= site_url(M_NEWS_ADD) ?>" class="btn btn-primary">
                 Tambah Data
             </a>
         </div>
@@ -15,8 +15,8 @@
                     <thead>
                         <tr class="text-center text-white bg-dark">
                             <th>Judul Berita</th>
-                            <th>slug</th>
-                            <th>Content</th>
+                            <th>Slug</th>
+                            <th>Gambar Utama</th>
                             <th>Kategori</th>
                             <th>Tanggal Update</th>
                             <th>Tanggal Publish</th>
@@ -29,14 +29,14 @@
                             <tr>
                                 <td><?= $n->title ?></td>
                                 <td><?= $n->slug ?></td>
-                                <td><?= $n->content ?></td>
+                                <td><img src="<?php echo base_url('assets/img/news/thumbs/') . $n->img ?>" alt="thumbnail" width="100"></td>
                                 <td><?= ($n->kategori == 1) ? "Info Kesehatan" : "Berita"; ?></td>
                                 <td><?= tgl_indo($n->tgl_publish) ?></td>
                                 <td><?= tgl_indo($n->tgl_update) ?></td>
                                 <td><?= $n->name ?></td>
                                 <td>
-                                    <a title="Edit Data" class="btn btn-warning btn-circle btn-sm mb-lg-0 mb-1" href="<?= site_url('volunteer/news/edit/') . $n->id_news ?>"><i class="fas fa-edit"></i></a>
-                                    <a title="Hapus Data" class="btn_delete btn btn-danger btn-circle btn-sm mb-lg-0 mb-1" data-id="<?= $n->id_news ?>" href="javascript:0"><i class="fas fa-trash"></i></a>
+                                    <a title="Edit Data" class="btn btn-warning btn-circle btn-sm mb-lg-0 mb-1" href="<?= site_url('volunteer/news/edit/') . $n->slug ?>"><i class="fas fa-edit"></i></a>
+                                    <a title="Hapus Data" class="btn_delete btn btn-danger btn-circle btn-sm mb-lg-0 mb-1" data-id="<?= $n->slug ?>" href="javascript:0"><i class="fas fa-trash"></i></a>
                                 </td>
                             </tr>
                         <?php } ?>
@@ -50,7 +50,7 @@
 <!-- Modal Delete -->
 <div class="modal fade" id="deleteData" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
     <div class="modal-dialog" role="document">
-        <input type="hidden" id="id_news">
+        <input type="hidden" id="slug">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Anda yakin untuk menghapus data ini?</h5>
@@ -73,6 +73,11 @@
     $(document).ready(function() {
         table = $('#dataNews').DataTable({
             "processing": true,
+            "columnDefs": [{
+                "targets": [-1, 2],
+                "className": 'text-center',
+                "orderable": false,
+            }],
             "oLanguage": {
                 "sInfo": "Total _TOTAL_ data, menampilkan data (_START_ sampai _END_)",
                 "sInfoFiltered": " - filtering from _MAX_ records",
@@ -92,14 +97,14 @@
     $('.btn_delete').click(function() {
         $('#deleteData').modal('show'); // show bootstrap modal
         var id = $(this).data('id');
-        $('#id_news').val(id);
+        $('#slug').val(id);
     })
 
     $('#btn_delete_confirm').click(function() {
-        var id = $('#id_news').val();
+        var id = $('#slug').val();
         $.ajax({
             url: "<?php echo site_url('volunteer/news/delete/') ?>" + id,
-            method: "GET",
+            method: "POST",
             data: {
                 id_news: id
             },

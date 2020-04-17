@@ -5,7 +5,7 @@
 
     <div class="card shadow mb-4 animated zoomIn fast">
         <div class="card-header py-3">
-            <a href="<?= site_url(M_COVID . '/add') ?>" class="btn btn-primary">
+            <a href="<?= site_url(M_COVID_ADD) ?>" class="btn btn-primary">
                 Tambah Data
             </a>
         </div>

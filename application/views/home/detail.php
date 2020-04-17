@@ -1,7 +1,7 @@
 <div id="page-content">
   <div class="container">
     <input type="hidden" id="base_url" value="<?= base_url() ?>">
-    <input type="hidden" id="id" value="<?= $this->uri->segment('3') ?>">
+    <input type="hidden" id="id" value="<?= $kabupaten_detail[0]->id_district ?> ?>">
     <input type="hidden" id="nama_kabupaten_default" value="<?= $kabupaten_detail[0]->nama_district ?>">
     <p class="h3 text-center mb-4 text-dark">Data Informasi Persebaran Corona Wilayah <?= ucwords($kabupaten_detail[0]->nama_district) ?></p>
 
@@ -13,7 +13,7 @@
             <div class="row no-gutters align-items-center">
               <div class="col mr-2">
                 <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Orang Dalam Pantauan (ODP)</div>
-                <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $jumlah[0]->tot_odp ?></div>
+                <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $kabupaten_detail[0]->tot_odp ?></div>
               </div>
               <div class="col-auto">
                 <i class="fas fa-diagnoses fa-2x text-gray-300"></i>
@@ -29,7 +29,7 @@
             <div class="row no-gutters align-items-center">
               <div class="col mr-2">
                 <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Pasien Dalam Pengawasan (PDP)</div>
-                <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $jumlah[0]->tot_pdp ?></div>
+                <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $kabupaten_detail[0]->tot_pdp ?></div>
               </div>
               <div class="col-auto">
                 <i class="fas fa-procedures fa-2x text-gray-300"></i>
@@ -49,7 +49,7 @@
             <div class="row no-gutters align-items-center">
               <div class="col mr-2">
                 <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Positif Corona</div>
-                <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $jumlah[0]->tot_positif ?></div>
+                <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $kabupaten_detail[0]->tot_positif ?></div>
               </div>
               <div class="col-auto">
                 <i class="fas fa-user-injured fa-2x text-gray-300"></i>
@@ -65,7 +65,7 @@
             <div class="row no-gutters align-items-center">
               <div class="col mr-2">
                 <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Sembuh</div>
-                <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $jumlah[0]->tot_sembuh ?></div>
+                <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $kabupaten_detail[0]->tot_sembuh ?></div>
               </div>
               <div class="col-auto">
                 <i class="fas fa-clinic-medical fa-2x text-gray-300"></i>
@@ -82,7 +82,7 @@
             <div class="row no-gutters align-items-center">
               <div class="col mr-2">
                 <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">Meninggal</div>
-                <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $jumlah[0]->tot_meninggal ?></div>
+                <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $kabupaten_detail[0]->tot_meninggal ?></div>
               </div>
               <div class="col-auto">
                 <i class="fas fa-ambulance fa-2x text-gray-300"></i>
@@ -101,7 +101,7 @@
         <select id="filter_kabupaten" class="form-control text-right">
           <option value="<?= $this->uri->segment('3') ?>">Pilih Wilayah</option>
           <?php foreach ($kabupaten as $kabupaten) { ?>
-            <option value="<?= $kabupaten->id_district ?>"><?= $kabupaten->nama_district ?></option>
+            <option value="<?= $kabupaten->slug ?>"><?= $kabupaten->nama_district ?></option>
           <?php } ?>
         </select>
       </div>
@@ -141,7 +141,6 @@
         </div>
       </div>
     </div>
-
 
     <div class="row">
       <div class="col-md-12">
@@ -185,7 +184,26 @@
 <script src="<?= base_url('assets'); ?>/vendor/datatables/dataTables.bootstrap4.min.js"></script>
 <script type="text/javascript">
   $(document).ready(function() {
+    var url = $('#base_url').val();
+    var id = $('#id').val();
+
     $('#dataTable').DataTable({
+     
+      "ajax" : {
+          url: url + 'home/data_kabupaten/'+ id,
+          method: "GET",
+          dataType: "json",
+          dataSrc: '',
+      },
+      "columns": [
+          {data: 'tgl_publish', name: 'tgl_publish' },
+          {data: 'nama_subdistrict', name:'nama_subdistrict' },
+          {data: 'tot_odp', name:'tot_odp' },
+          {data: 'tot_pdp', name:'tot_pdp' },
+          {data: 'tot_positif', name:'tot_positif' },
+          {data: 'tot_sembuh', name:'tot_sembuh' },
+          {data: 'tot_meninggal', name:'tot_meninggal' }
+			],
       "oLanguage": {
         "sInfo": "Total _TOTAL_ data, menampilkan data (_START_ sampai _END_)",
         "sInfoFiltered": " - filtering from _MAX_ records",
@@ -199,5 +217,15 @@
         "sZeroRecords": "Tidak ada data"
       }
     });
+
+    function tgl_indo(count_tanggal){
+        var month = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli",
+          "Agustus", "September", "Oktober", "Novermber", "Desember"
+        ]
+        var date = new Date(count_tanggal);
+				var label_one = date.getDate() + ' ' + month[date.getMonth()] + ' ' + date.getFullYear() + ' ' + date.getHours() + ':' + date.getMinutes();
+    }
+      
+
   });
 </script>
