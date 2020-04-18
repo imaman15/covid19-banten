@@ -7,6 +7,89 @@ class Users_model extends CI_Model
 
     private $_table = 'users';
 
+    private function _get_datatables_query($check)
+    {
+        $column_order = array(null, 'date_created', null);
+        $column_search = array('name', 'email', 'phone', 'desc');
+        if ($check == 'active') {
+            $active = 1;
+            $order = ['date_update' => 'desc'];
+        } elseif ($check == 'notactive') {
+            $active = 0;
+            $order = ['date_created' => 'asc'];
+        } elseif ($check == 'blocked') {
+            $active = 2;
+            $order = ['date_update' => 'desc'];
+        }
+
+        $this->db->where('active', $active);
+        $this->db->where_not_in('id_users', [1, 2, 3]);
+        $this->db->select('*');
+        $this->db->from($this->_table);
+
+        $i = 0;
+        foreach ($column_search as $item) // loop column 
+        {
+            if ($_POST['search']['value']) // if datatable send POST for search
+            {
+
+                if ($i === 0) // first loop
+                {
+                    $this->db->group_start(); // open bracket. query Where with OR clause better with bracket. because maybe can combine with other WHERE with AND.
+                    $this->db->like($item, $_POST['search']['value']);
+                } else {
+                    $this->db->or_like($item, $_POST['search']['value']);
+                }
+
+                if (count($column_search) - 1 == $i) //last loop
+                    $this->db->group_end(); //close bracket
+            }
+            $i++;
+        }
+
+        if (isset($_POST['order'])) // here order processing
+        {
+            $this->db->order_by($column_order[$_POST['order']['0']['column']], $_POST['order']['0']['dir']);
+        } else if (isset($order)) {
+            $torder = $order;
+            $this->db->order_by(key($torder), $torder[key($torder)]);
+        }
+    }
+
+    function get_datatables($check)
+    {
+        $this->_get_datatables_query($check);
+        if ($_POST['length'] != -1)
+            $this->db->limit($_POST['length'], $_POST['start']);
+        $query = $this->db->get();
+        return $query->result();
+    }
+
+    function count_filtered($check)
+    {
+        $this->_get_datatables_query($check);
+        $query = $this->db->get();
+        return $query->num_rows();
+    }
+
+    public function count_all($check)
+    {
+        if ($check == 'active') {
+            $active = 1;
+        } elseif ($check == 'notactive') {
+            $active = 0;
+        } elseif ($check == 'blocked') {
+            $active = 2;
+        }
+
+        $this->db->where('active', $active);
+        $this->db->where_not_in('id_users', [1, 2, 3]);
+        $this->db->select('*');
+        $this->db->from($this->_table);
+        return $this->db->count_all_results();
+    }
+    //=======================================================
+
     // getData('select1,select2', ['field1' => var1, 'field2' => var2])
     public function getData($select = NULL, $where = NULL)
     {
@@ -108,6 +191,22 @@ class Users_model extends CI_Model
         $data['status'] = 2;
         $data['date_created'] = time();
         $this->db->insert($this->_table, $data);
+    }
+
+    public function update_active()
+    {
+        $post = $this->input->post(NULL, TRUE);
+        $params['active'] = $post['active'];
+        $this->db->where(['id_users' => $post['id_users']]);
+        $this->db->update($this->_table, $params);
+    }
+
+    public function update_status()
+    {
+        $post = $this->input->post(NULL, TRUE);
+        $params['status'] = $post['status'];
+        $this->db->where(['id_users' => $post['id_users']]);
+        $this->db->update($this->_table, $params);
     }
 }
 

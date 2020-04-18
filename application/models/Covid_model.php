@@ -209,6 +209,22 @@ class Covid_model extends CI_Model
         $query = $this->db->get();
         return $query->result();
     }
+
+    public function activity()
+    {
+        $this->db->select('covid.tgl_publish,district.nama_district as kabupaten, subdistrict.nama_subdistrict as kecamatan, users.name ');
+        $this->db->from($this->_table);
+        // Join Database
+
+        $this->db->join('users', 'users.id_users = covid.id_users', 'left');
+        $this->db->join('district', 'district.id_district = covid.id_district', 'left');
+        $this->db->join('subdistrict', 'subdistrict.id_subdistrict = covid.id_subdistrict', 'left');
+        // end join
+        $this->db->order_by('tgl_publish', 'desc');
+        $this->db->limit(5);
+        $query = $this->db->get();
+        return $query->result();
+    }
 }
 
 /* End of file Covid_model.php */

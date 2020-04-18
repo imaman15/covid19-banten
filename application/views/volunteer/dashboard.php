@@ -7,14 +7,14 @@
     <div class="row animated zoomIn fast">
         <div class="col-md-6">
             <div class="card shadow mb-3 ">
-                <img src="<?= base_url('assets/img/bg-profil.png') ?>" class="card-img-top" alt="..." style="height: 100%; max-height: 150px; background-position: center; background-repeat: no-repeat; background-size: cover;">
+                <img src="<?php echo base_url('assets/img/bg-profil.png') ?>" class="card-img-top" alt="..." style="height: 100%; max-height: 150px; background-position: center; background-repeat: no-repeat; background-size: cover;">
                 <div class="card-body text-center">
-                    <img src="<?= base_url('assets/img/profile/' . dUsers()->photo) ?>" class="card-img img-thumbnail rounded-circle" alt="<?php echo ucwords(dUsers()->name); ?>" style="width: 128px; margin-top: -85px;">
+                    <img src="<?php echo base_url('assets/img/profile/' . dUsers()->photo) ?>" class="card-img img-thumbnail rounded-circle" alt="<?php echo ucwords(dUsers()->name); ?>" style="width: 128px; margin-top: -85px;">
                     <h4 class="card-title text-primary font-weight-bold mt-3"><?php secho(ucwords(dUsers()->name)) ?></h4>
                     <ul class="fa-ul text-left">
                         <li class="mb-2">
                             <span class="fa-li text-primary"><i class="far fa-clock"></i></span>
-                            Anggota sejak <?= date('d F Y', dUsers()->date_created) ?>
+                            Anggota sejak <?php echo strftime("%d %B %Y", dUsers()->date_created) ?>
                         </li>
                         <li class="mb-2">
                             <span class="fa-li text-primary"><i class="fas fa-envelope"></i></span>
@@ -39,7 +39,7 @@
                     ?>
                 </div>
                 <div class="card-footer text-muted mt-n2 small">
-                    Terakhir di perbarui : <?= timeInfo(dUsers()->date_update) ?>
+                    Terakhir di perbarui : <?php echo timeInfo(dUsers()->date_update) ?>
                 </div>
             </div>
         </div>
@@ -119,6 +119,41 @@
                                     <i class="fas fa-ambulance  text-gray-300"></i>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card shadow text-center">
+                        <div class="card-header">
+                            Aktivitas Relawan
+                        </div>
+                        <div class="card-body">
+                            <table class="table table-striped small" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th>Tanggal Update</th>
+                                        <th>Nama Relawan</th>
+                                        <th>Wilayah</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    if ($covid) {
+                                        foreach ($covid as $c) { ?>
+                                            <tr>
+                                                <td><?php echo DateTime($c->tgl_publish) ?></td>
+                                                <td><?php echo $c->name ?></td>
+                                                <td><?php echo $c->kecamatan . ' - ' . $c->kabupaten ?></td>
+                                            <?php };
+                                    } else { ?>
+                                            <tr>
+                                                <td colspan="4" class="dataTables_empty">Tidak ada data.</td>
+                                            </tr>
+                                        <?php } ?>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>

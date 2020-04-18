@@ -3,6 +3,8 @@
     <!-- Page Heading -->
     <h1 class="h3 mb-4 text-gray-800">Data Kabupaten / Kota</h1>
 
+    <div id="the-message"></div>
+
     <div class="card shadow mb-4 animated zoomIn fast">
         <div class="card-header py-3">
             <button type="button" class="btn btn-primary" onclick="add_district()">

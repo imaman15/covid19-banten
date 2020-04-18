@@ -22,6 +22,7 @@ class Dashboard extends CI_Controller
         $data['title'] = 'Dashboard';
         $data['page'] = $page;
         $data['count'] = $this->covid_model->jumlah();
+        $data['covid'] = $this->covid_model->activity();
         $this->load->view('volunteer/templates', $data, FALSE);
     }
 }

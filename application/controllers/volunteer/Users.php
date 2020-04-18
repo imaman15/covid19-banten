@@ -9,6 +9,7 @@ class Users extends CI_Controller
     {
         parent::__construct();
         //Do your magic here
+        $this->load->library(['form_validation']);
         $this->load->model('users_model');
     }
 
@@ -107,6 +108,7 @@ class Users extends CI_Controller
 
     public function change_email($email = '')
     {
+        not_login();
         //Regex merupakan singkatan dari Regular Expression, yaitu sebuah metode untuk mencari suatu pola dalam sebuah string.
         //Fungsi yang digunakan untuk Regex dalam php adalah preg_match($regex, $string), di mana $regex adalah pola yang akan dicari dan $string adalah variabel yang akan dicari apakah ada pola $regex di dalamnya.
 
@@ -119,6 +121,72 @@ class Users extends CI_Controller
         }
 
         return TRUE;
+    }
+
+    public function mylist($check = NULL)
+    {
+        not_login(2);
+        $list = $this->users_model->get_datatables($check);
+        $data = array();
+        $no = $_POST['start'];
+        foreach ($list as $l) {
+            $no++;
+            $row = array();
+
+            if ($l->status == 1) {
+                $status = 'Administrator';
+            } else if ($l->status == 2) {
+                $status = 'Relawan';
+            } else {
+                $status = '-';
+            }
+
+            $row[] = '<img src="' . base_url('assets/img/profile/' . $l->photo) . '" alt="" class="card-img img-thumbnail rounded-circle" style="width: 100px">';
+            $row[] = '<p class="font-weight-bold">' . ucwords($l->name) . ' <sup>(' . $status . ')</sup></p><div class="mt-n3"><small><i class="fas fa-envelope"></i> ' . $l->email . '</small> &#8286; <small><i class="fas fa-phone"></i> ' . $l->phone . '</small> &#8286; <small><i class="far fa-clock"></i> ' . strftime("%d %B %Y", $l->date_created) . '</small></div><p class="small mb-n3">' . $l->desc . '</p><hr><p class="small mt-n3">Terakhir di perbarui : ' . timeInfo($l->date_update) . '</p>';
+
+            if ($check == 'active') {
+                $btnAction = '<a data-toggle="tooltip" data-placement="top" title="Ganti Role Akun" class="btn btn-primary btn-circle btn-sm mb-1" href="javascript:void(0)" onclick="status_users(' . "'" . $l->id_users . "'"  . ',' . "'" . $l->status . "'" . ')"><i class="fas fa-exchange-alt"></i></a><a data-toggle="tooltip" data-placement="top" title="Blokir Akun" class="btn btn-danger btn-circle btn-sm mb-1" href="javascript:void(0)" onclick="active_users(' . "'" . $l->id_users  . "','blocked'" . ')"><i class="fas fa-ban"></i></a>';
+            } elseif ($check == 'notactive') {
+                $btnAction = '<a data-toggle="tooltip" data-placement="top" title="Aktifkan Akun" class="btn btn-success btn-circle mb-lg-0 btn-sm mb-1" href="javascript:void(0)" onclick="active_users(' . "'" . $l->id_users  . "','active'" . ')"><i class="fas fa-user-check"></i></a> <a data-toggle="tooltip" data-placement="top" title="Blokir Akun" class="btn btn-danger btn-circle btn-sm mb-lg-0 mb-1" href="javascript:void(0)" onclick="active_users(' . "'" . $l->id_users  . "','blocked'" . ')"><i class="fas fa-ban"></i></a>';
+            } elseif ($check == 'blocked') {
+                $btnAction = '<a data-toggle="tooltip" data-placement="top" title="Aktifkan Akun" class="btn btn-success btn-circle mb-lg-0 btn-sm mb-1" href="javascript:void(0)" onclick="active_users(' . "'" . $l->id_users  . "','active'" . ')"><i class="fas fa-user-check"></i></a>';
+            }
+
+            $row[] = $btnAction;
+
+            $data[] = $row;
+        }
+
+        $output = array(
+            "draw" => $_POST['draw'],
+            "recordsTotal" => $this->users_model->count_all($check),
+            "recordsFiltered" => $this->users_model->count_filtered($check),
+            "data" => $data,
+        );
+        //output to json format
+        echo json_encode($output);
+    }
+
+    public function update_status()
+    {
+        not_login(2);
+        $this->users_model->update_status();
+        echo json_encode(array("status" => TRUE));
+    }
+    public function update_active()
+    {
+        not_login(2);
+        $this->users_model->update_active();
+        echo json_encode(array("status" => TRUE));
+    }
+    public function notif()
+    {
+        not_login(2);
+        $data['active'] = $this->users_model->count_all('active');
+        $data['notactive'] = $this->users_model->count_all('notactive');
+        $data['blocked'] = $this->users_model->count_all('blocked');
+        $data['status'] = TRUE;
+        echo json_encode($data);
     }
 }
 
