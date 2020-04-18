@@ -88,8 +88,7 @@ class News extends CI_Controller
                     'slug'              => generate_url_slug($i->post('title'), 'news'),
                     'content'           => $i->post('content'),
                     'img'               => $upload_gambar['upload_data']['file_name'],
-                    'tgl_publish'       => date('Y-m-d H:i:s'),
-                    'tgl_update'        => date('Y-m-d H:i;s'),
+                    'tgl_publish'       => $i->post('tgl_publish'),
                     'id_users'          => $user_session
                 ];
                 $this->news_model->tambah($content);
@@ -181,8 +180,7 @@ class News extends CI_Controller
                         'kategori'         => $i->post('kategori'),
                         'content'          => $i->post('content'),
                         'img'              => $upload_gambar['upload_data']['file_name'],
-                        'tgl_publish'      => date('Y-m-d H:i:s'),
-                        'tgl_update'       => date('Y-m-d H:i;s'),
+                        'tgl_publish'       => $i->post('tgl_publish'),
                         'id_users'         => $user_session
                     ];
                     $this->news_model->edit($content);
@@ -198,8 +196,7 @@ class News extends CI_Controller
                     'title'            => $i->post('title'),
                     'kategori'         => $i->post('kategori'),
                     'content'          => $i->post('content'),
-                    'tgl_publish'      => date('Y-m-d H:i:s'),
-                    'tgl_update'       => date('Y-m-d H:i;s'),
+                    'tgl_publish'      => $i->post('tgl_publish'),
                     'id_users'         => $user_session
                 ];
 

@@ -29,6 +29,10 @@
                             <input type="text" class="form-control" id="title" name="title" value="<?php if ($url == 'edit') { echo $news[0]->title; } ?>">
                         </div>
                         <div class="form-group">
+                            <label for="tgl_publish">Tanggal Publish </label>
+                            <input type="date" class="form-control" id="tgl_publish" name="tgl_publish" value="<?php if ($url == 'edit') { echo $news[0]->today; } ?>">
+                        </div>
+                        <div class="form-group">
                             <label for="id_kategori">Pilih Kategori</label>
                             <select class="form-control" name="kategori" id="kategori">
                                 <option value="1">Info Kesehatan</option>
@@ -41,7 +45,7 @@
                             <span>ukuran gambar maksimal 2024px x 2024px dan 2MB </span>
                         </div>
                         <div class="form-group">
-                            <label for="exampleFormControlTextarea1">Content</label>
+                            <label for="content">Content</label>
                             <textarea class="form-control" id="summernote" rows="3" name="content"><?php if ($url == 'edit') { echo $news[0]->content; } ?></textarea>
                         </div>
                         <div class="text-right">

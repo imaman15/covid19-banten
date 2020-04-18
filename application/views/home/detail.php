@@ -1,9 +1,9 @@
 <div id="page-content">
   <div class="container">
     <input type="hidden" id="base_url" value="<?= base_url() ?>">
-    <input type="hidden" id="id" value="<?= $kabupaten_detail[0]->id_district ?> ?>">
-    <input type="hidden" id="nama_kabupaten_default" value="<?= $kabupaten_detail[0]->nama_district ?>">
-    <p class="h3 text-center mb-4 text-dark">Data Informasi Persebaran Corona Wilayah <?= ucwords($kabupaten_detail[0]->nama_district) ?></p>
+    <input type="hidden" id="id" value="<?= $kabupaten_detail->id_district ?> ?>">
+    <input type="hidden" id="nama_kabupaten_default" value="<?= $kabupaten_detail->nama_district ?>">
+    <p class="h3 text-center mb-4 text-dark">Data Informasi Persebaran Corona Wilayah <?= ucwords($kabupaten_name->nama_district) ?></p>
 
     <div class="row">
 
@@ -13,7 +13,7 @@
             <div class="row no-gutters align-items-center">
               <div class="col mr-2">
                 <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Orang Dalam Pantauan (ODP)</div>
-                <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $kabupaten_detail[0]->tot_odp ?></div>
+                <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $kabupaten_detail->tot_odp ?></div>
               </div>
               <div class="col-auto">
                 <i class="fas fa-diagnoses fa-2x text-gray-300"></i>
@@ -29,7 +29,7 @@
             <div class="row no-gutters align-items-center">
               <div class="col mr-2">
                 <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Pasien Dalam Pengawasan (PDP)</div>
-                <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $kabupaten_detail[0]->tot_pdp ?></div>
+                <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $kabupaten_detail->tot_pdp ?></div>
               </div>
               <div class="col-auto">
                 <i class="fas fa-procedures fa-2x text-gray-300"></i>
@@ -49,7 +49,7 @@
             <div class="row no-gutters align-items-center">
               <div class="col mr-2">
                 <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Positif Corona</div>
-                <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $kabupaten_detail[0]->tot_positif ?></div>
+                <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $kabupaten_detail->tot_positif ?></div>
               </div>
               <div class="col-auto">
                 <i class="fas fa-user-injured fa-2x text-gray-300"></i>
@@ -65,7 +65,7 @@
             <div class="row no-gutters align-items-center">
               <div class="col mr-2">
                 <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Sembuh</div>
-                <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $kabupaten_detail[0]->tot_sembuh ?></div>
+                <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $kabupaten_detail->tot_sembuh ?></div>
               </div>
               <div class="col-auto">
                 <i class="fas fa-clinic-medical fa-2x text-gray-300"></i>
@@ -82,7 +82,7 @@
             <div class="row no-gutters align-items-center">
               <div class="col mr-2">
                 <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">Meninggal</div>
-                <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $kabupaten_detail[0]->tot_meninggal ?></div>
+                <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $kabupaten_detail->tot_meninggal ?></div>
               </div>
               <div class="col-auto">
                 <i class="fas fa-ambulance fa-2x text-gray-300"></i>
@@ -101,7 +101,7 @@
         <select id="filter_kabupaten" class="form-control text-right">
           <option value="<?= $this->uri->segment('3') ?>">Pilih Wilayah</option>
           <?php foreach ($kabupaten as $kabupaten) { ?>
-            <option value="<?= $kabupaten->slug ?>"><?= $kabupaten->nama_district ?></option>
+            <option value="<?= $kabupaten->slug ?>" <?php if ($kabupaten->nama_district == $kabupaten_name->nama_district ) echo 'selected'; ?>><?= $kabupaten->nama_district ?></option>
           <?php } ?>
         </select>
       </div>
@@ -112,7 +112,7 @@
       <div class="col-md-12">
         <div class="card shadow mb-4">
           <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary text-center" id="nama_kabupaten"><?= $kabupaten_detail[0]->nama_district ?></h6>
+            <h6 class="m-0 font-weight-bold text-primary text-center" id="nama_kabupaten"><?= $kabupaten_name->nama_district ?></h6>
           </div>
           <div class="card-body">
             <div class="chart-area" id="your_canvas_father">

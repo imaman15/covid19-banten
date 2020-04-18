@@ -18,8 +18,8 @@
                             <th>Slug</th>
                             <th>Gambar Utama</th>
                             <th>Kategori</th>
-                            <th>Tanggal Update</th>
                             <th>Tanggal Publish</th>
+                            <th>Tanggal Update</th>
                             <th>Penulis</th>
                             <th width="90px">Aksi</th>
                         </tr>

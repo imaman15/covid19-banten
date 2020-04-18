@@ -35,12 +35,14 @@ class Home extends CI_Controller
     {
         $kabupaten_detail    = $this->covid_model->jumlah_perkabupaten($slug);
         $kabupaten           = $this->district_model->listing();
+        $kabupaten_name      = $this->district_model->detail($slug);
 
         $data     = array(
             'title'            => 'Detail 19 Provinsi Banten',
             'kabupaten'        => $kabupaten,
+            'kabupaten_name'   => $kabupaten_name,
             'kabupaten_detail' => $kabupaten_detail,
-            'content'            => 'home/detail'
+            'content'          => 'home/detail'
         );
         $this->load->view('layout/index', $data, FALSE);
     }

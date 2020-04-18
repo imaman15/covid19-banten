@@ -68,6 +68,12 @@
                                                                                                                     echo $covid[0]->meninggal;
                                                                                                                 } ?>">
                         </div>
+                        <div class="form-group">
+                            <label for="odp">Tanggal Update </label>
+                            <input type="date" class="form-control" id="tgl_publish" name="tgl_publish" value="<?php if ($url == 'edit') {
+                                                                                                                    echo $covid[0]->today;
+                                                                                                                } ?>">
+                        </div>
                         <div class="text-right">
                             <button type="submit" id="btnSave" class="btn btn-primary">Simpan</button>
                             <button type="reset" class="btn btn-danger">Reset</button>
@@ -84,7 +90,6 @@
 
 <script>
     $(document).ready(function() {
-        var data_subdistrict = '<?php echo $covid[0]->id_subdistrict ?>';
 
         $("#kecamatan").attr("disabled", true);
         $("#id_district").change(function() {

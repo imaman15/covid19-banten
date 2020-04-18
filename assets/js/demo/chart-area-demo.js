@@ -165,6 +165,7 @@ var myLineChart = new Chart(ctx, {
 		},
 		scales: {
 			xAxes: [{
+				stacked: true,
 				time: {
 					unit: 'date'
 				},
@@ -173,7 +174,8 @@ var myLineChart = new Chart(ctx, {
 					drawBorder: false
 				},
 				ticks: {
-					maxTicksLimit: 7
+					maxTicksLimit: 7,
+					
 				}
 			}],
 			yAxes: [{
@@ -182,7 +184,7 @@ var myLineChart = new Chart(ctx, {
 					padding: 10,
 					// Include a dollar sign in the ticks
 					callback: function (value, index, values) {
-						return +number_format(value);
+						return value;
 					}
 				},
 				gridLines: {
@@ -370,6 +372,7 @@ function kabupaten(id) {
 			},
 			scales: {
 				xAxes: [{
+					stacked: true,
 					time: {
 						unit: 'date'
 					},
@@ -378,7 +381,10 @@ function kabupaten(id) {
 						drawBorder: false
 					},
 					ticks: {
-						maxTicksLimit: 7
+						maxTicksLimit: 7,
+						callback: function(label, index, labels) {
+							return label ? label : '';
+						}
 					}
 				}],
 				yAxes: [{
@@ -387,7 +393,7 @@ function kabupaten(id) {
 						padding: 10,
 						// Include a dollar sign in the ticks
 						callback: function (value, index, values) {
-							return +number_format(value);
+							return value;
 						}
 					},
 					gridLines: {

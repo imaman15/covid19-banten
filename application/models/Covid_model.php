@@ -117,7 +117,9 @@ class Covid_model extends CI_Model
 
     public function detail($id_covid)
     {
-        $this->db->select('covid.*, district.nama_district, subdistrict.nama_subdistrict');
+        $this->db->select('covid.*, 
+        LEFT(tgl_publish, 10) AS today, 
+        district.nama_district, subdistrict.nama_subdistrict');
         $this->db->from($this->_table);
         // Join Database
         $this->db->join('district', 'district.id_district = covid.id_district', 'left');
@@ -148,7 +150,7 @@ class Covid_model extends CI_Model
         // end join
         $this->db->where('covid.id_district', $id_kabupaten);
         $this->db->group_by('today');
-        $this->db->order_by('tgl_publish');
+        $this->db->order_by('tgl_publish', 'desc');
         $this->db->limit(30);
         $query = $this->db->get();
         return $query->result();
@@ -205,9 +207,9 @@ class Covid_model extends CI_Model
         $this->db->join('district', 'district.id_district = covid.id_district', 'left');
         // end join
         $this->db->where('district.slug', $slug);
-        $this->db->order_by('tgl_publish');
+        $this->db->order_by('tgl_publish', 'desc');
         $query = $this->db->get();
-        return $query->result();
+        return $query->row();
     }
 
     public function activity()

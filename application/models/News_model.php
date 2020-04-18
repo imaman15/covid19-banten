@@ -93,7 +93,9 @@ class News_model extends CI_Model
     // Detail berita
     public function detail($slug)
     {
-        $this->db->select('news.*, users.name');
+        $this->db->select('news.*,
+        LEFT(tgl_publish, 10) AS today, 
+        users.name');
         $this->db->from($this->_table);
         // Join Database
         $this->db->join('users', 'users.id_users = news.id_users', 'left');

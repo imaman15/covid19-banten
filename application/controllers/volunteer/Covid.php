@@ -76,7 +76,7 @@ class Covid extends CI_Controller
                 'positif'           => $i->post('positif'),
                 'sembuh'            => $i->post('sembuh'),
                 'meninggal'         => $i->post('meninggal'),
-                'tgl_publish'       => date('Y-m-d H:i:s'),
+                'tgl_publish'       => $i->post('tgl_publish'),
                 'id_district'       => $i->post('id_district'),
                 'id_subdistrict'    => $i->post('id_subdistrict'),
                 'id_users'          => $user_session
@@ -156,7 +156,7 @@ class Covid extends CI_Controller
                 'positif'           => $i->post('positif'),
                 'sembuh'            => $i->post('sembuh'),
                 'meninggal'         => $i->post('meninggal'),
-                'tgl_publish'       => date('Y-m-d H:i:s'),
+                'tgl_publish'       => $i->post('tgl_publish'),
                 'id_district'       => $i->post('id_district'),
                 'id_subdistrict'    => $i->post('id_subdistrict'),
                 'id_users'          => $user_session
