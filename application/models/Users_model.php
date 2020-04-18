@@ -208,6 +208,14 @@ class Users_model extends CI_Model
         $this->db->where(['id_users' => $post['id_users']]);
         $this->db->update($this->_table, $params);
     }
+
+    public function update_password()
+    {
+        $post = $this->input->post(NULL, TRUE);
+        $params['password'] = password_hash('Relawan123', PASSWORD_DEFAULT);
+        $this->db->where(['id_users' => $post['id_users']]);
+        $this->db->update($this->_table, $params);
+    }
 }
 
 /* End of file Users_model.php */

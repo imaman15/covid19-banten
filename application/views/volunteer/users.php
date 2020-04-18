@@ -123,6 +123,35 @@
     </div>
 </div>
 
+<!-- Modal -->
+<div class="modal fade" id="modelPass" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Ganti Password</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="text-center input-group">
+                    <input id="textPass" type="text" class="form-control" value="Relawan123" aria-label="Password Default" aria-describedby="basic-addon2" data-toggle="tooltip" data-placement="top" title="Password Default" readonly>
+                    <div class="input-group-append">
+                        <button onclick="myFunctionPass()" data-toggle="tooltip" data-placement="top" title="Salin url ke papan klip" class="btn btn-outline-secondary btn-clipboard" type="button"><i class="fas fa-copy"></i>Salin</button>
+                    </div>
+                </div>
+                <div class="alert alert-info mt-2 small" role="alert">
+                    Silahkan salin password default, kemudian klik tombol "Ganti".
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                <button id="btn-pass" type="button" class="btn btn-primary">Ganti</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script type="text/javascript">
     var language = {
         "sInfo": "Total _TOTAL_ data, menampilkan data (_START_ sampai _END_)",
@@ -142,7 +171,14 @@
         "orderable": false, //set not orderable
     }, {
         "targets": [1],
-        "className": 'text-center'
+        "className": 'text-center',
+        "width": "80%"
+    }, {
+        "targets": [-1],
+        "width": "5%"
+    }, {
+        "targets": [0],
+        "width": "15%"
     }];
 
     $(document).ready(function() {
@@ -243,6 +279,13 @@
 
     function myFunction() {
         var copyText = document.getElementById("textUrl");
+        copyText.select();
+        copyText.setSelectionRange(0, 99999)
+        document.execCommand("copy");
+    };
+
+    function myFunctionPass() {
+        var copyText = document.getElementById("textPass");
         copyText.select();
         copyText.setSelectionRange(0, 99999)
         document.execCommand("copy");
@@ -366,5 +409,46 @@
                 });
             }
         });
-    }
+    };
+
+    function pass_users(id, name) {
+        $('#modelPass').modal('show');
+        $('#modelPass .modal-title').text('Ganti Password ' + name);
+        $('#btn-pass').attr('onclick', "passuse(" + id + ",'" + name + "')");
+    };
+
+    function passuse(id_users, name) {
+        $.ajax({
+            url: "<?php echo site_url('volunteer/users/update_password') ?>",
+            type: "POST",
+            data: {
+                id_users: id_users,
+            },
+            dataType: "JSON",
+            success: function(data) {
+
+                $('#modelPass').modal('hide');
+                $('#the-message').html('<div class="alert alert-success animated zoomIn fast" role="alert">Password ' + name + ' berhasil diubah</div>');
+                // close the message after seconds
+                $('.alert-success').delay(500).show(10, function() {
+                    $(this).delay(3000).hide(10, function() {
+                        $(this).remove();
+                    });
+                });
+                reload_table();
+
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                $('#modelPass').modal('hide');
+                reload_table();
+                $('#the-message').html('<div class="alert alert-danger animated zoomIn fast" role="alert">Kesalahan dalam menyimpan pada database</div>');
+                // close the message after seconds
+                $('.alert-danger').delay(500).show(10, function() {
+                    $(this).delay(3000).hide(10, function() {
+                        $(this).remove();
+                    });
+                });
+            }
+        });
+    };
 </script>
