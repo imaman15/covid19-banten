@@ -133,7 +133,7 @@
                             <table class="table table-striped small" width="100%" cellspacing="0">
                                 <thead>
                                     <tr>
-                                        <th>Tanggal Update</th>
+                                        <th>Tanggal <br> Publish(P) / Update(U)</th>
                                         <th>Nama Relawan</th>
                                         <th>Wilayah</th>
                                     </tr>
@@ -141,9 +141,18 @@
                                 <tbody>
                                     <?php
                                     if ($covid) {
-                                        foreach ($covid as $c) { ?>
+
+                                        foreach ($covid as $c) {
+                                            $tgl_update = $c->tgl_update;
+                                            $tgl_publish = $c->tgl_publish;
+                                            if ($tgl_publish == $tgl_update) {
+                                                $tgl = "P - " . DateTime($c->tgl_publish);
+                                            } else {
+                                                $tgl = "P - " . DateTime($c->tgl_publish) . " <br> U - " . DateTime($c->tgl_update);
+                                            }
+                                    ?>
                                             <tr>
-                                                <td><?php echo DateTime($c->tgl_publish) ?></td>
+                                                <td><?php echo $tgl ?></td>
                                                 <td><?php echo $c->name ?></td>
                                                 <td><?php echo $c->kecamatan . ' - ' . $c->kabupaten ?></td>
                                             <?php };

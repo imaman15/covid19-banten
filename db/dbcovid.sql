@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.2
+-- version 4.8.3
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Apr 17, 2020 at 02:38 AM
--- Server version: 10.4.11-MariaDB
--- PHP Version: 7.2.26
+-- Host: 127.0.0.1
+-- Generation Time: Apr 19, 2020 at 06:44 PM
+-- Server version: 10.1.36-MariaDB
+-- PHP Version: 7.2.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -30,13 +30,13 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `covid` (
   `id_covid` int(11) NOT NULL,
-  `slug` varchar(255) NOT NULL,
   `odp` int(11) NOT NULL,
   `pdp` int(11) NOT NULL,
   `positif` int(11) NOT NULL,
   `sembuh` int(11) NOT NULL,
   `meninggal` int(11) NOT NULL,
-  `tgl_publish` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `tgl_publish` datetime NOT NULL,
+  `tgl_update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `id_district` int(11) NOT NULL,
   `id_subdistrict` int(11) NOT NULL,
   `id_users` int(11) NOT NULL
@@ -46,11 +46,16 @@ CREATE TABLE `covid` (
 -- Dumping data for table `covid`
 --
 
-INSERT INTO `covid` (`id_covid`, `slug`, `odp`, `pdp`, `positif`, `sembuh`, `meninggal`, `tgl_publish`, `id_district`, `id_subdistrict`, `id_users`) VALUES
-(1, 'kabupaten-lebak.html', 23, 32, 32, 32, 331, '2020-04-15 18:54:45', 2, 1, 2),
-(2, 'kabupaten-pandeglang.html', 23, 23, 12, 112, 32, '2020-04-16 18:55:02', 1, 2, 2),
-(3, 'kabupaten-pandeglang.html', 32, 32, 12, 33, 32, '2020-04-16 19:09:45', 1, 2, 2),
-(4, 'kabupaten-pandeglang.html', 1233, 3213, 3233, 3233, 32333, '2020-04-15 19:22:13', 1, 2, 2);
+INSERT INTO `covid` (`id_covid`, `odp`, `pdp`, `positif`, `sembuh`, `meninggal`, `tgl_publish`, `tgl_update`, `id_district`, `id_subdistrict`, `id_users`) VALUES
+(1, 2300, 3200, 3200, 3250, 3310, '2020-04-18 21:05:51', '2020-04-18 15:11:09', 1, 2, 2),
+(2, 1000, 1000, 1000, 1000, 1000, '2020-04-18 21:02:59', '2020-04-18 15:11:09', 1, 2, 2),
+(3, 320, 320, 120, 330, 320, '2020-04-09 00:00:00', '2020-04-18 15:11:09', 4, 4, 2),
+(4, 2000, 2000, 2000, 3000, 4000, '2020-04-18 21:04:25', '2020-04-18 15:11:09', 1, 2, 2),
+(5, 2333, 3232, 3232, 3233, 3232, '2020-04-17 00:00:00', '2020-04-18 15:11:09', 1, 2, 2),
+(6, 2343, 3234, 3434, 4323, 4344, '2020-04-16 00:00:00', '2020-04-18 15:11:09', 4, 4, 2),
+(7, 4343, 4444, 4324, 4343, 4343, '2020-04-05 00:00:00', '2020-04-18 15:14:56', 1, 2, 2),
+(8, 4300, 4300, 4300, 4300, 4300, '2020-04-17 00:00:00', '2020-04-18 15:19:16', 1, 2, 2),
+(9, 1000, 320, 320, 320, 320, '2020-04-14 00:00:00', '2020-04-18 16:16:43', 2, 1, 2);
 
 -- --------------------------------------------------------
 
@@ -89,7 +94,7 @@ CREATE TABLE `news` (
   `kategori` int(1) NOT NULL,
   `img` varchar(256) NOT NULL,
   `tgl_publish` datetime NOT NULL,
-  `tgl_update` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `tgl_update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `id_users` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -113,7 +118,9 @@ INSERT INTO `subdistrict` (`id_subdistrict`, `nama_subdistrict`, `id_district`) 
 (1, 'Rangkasbitung', 2),
 (2, 'Pandeglang', 1),
 (3, 'Taktakan', 3),
-(4, 'Ciruas', 4);
+(4, 'Ciruas', 4),
+(5, 'Cibadak', 2),
+(6, 'Maja', 2);
 
 -- --------------------------------------------------------
 
@@ -128,11 +135,11 @@ CREATE TABLE `users` (
   `name` varchar(128) NOT NULL,
   `phone` varchar(50) NOT NULL,
   `photo` varchar(128) NOT NULL,
-  `desc` text DEFAULT NULL,
+  `desc` text,
   `status` int(1) NOT NULL COMMENT '1 = Administrator, 2 = Relawan',
   `active` int(1) NOT NULL COMMENT '0 = Tidak Aktif, 1 = Aktif, 2 = Blokir',
   `date_created` int(11) NOT NULL,
-  `date_update` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `date_update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -141,7 +148,9 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id_users`, `email`, `password`, `name`, `phone`, `photo`, `desc`, `status`, `active`, `date_created`, `date_update`) VALUES
 (1, 'imamagustiannugraha@ymail.com', '$2y$10$UoH0.7GTDJD55fJpX.7Um.sOrXUwzN0KUuFxJDubfJ9n22mO7uoru', 'Imam Agustian Nugraha', '+62089671843158', 'default.jpg', NULL, 1, 1, 1580968149, '2020-04-02 15:38:01'),
-(2, 'tbfajri@gmail.com', '$2y$10$UoH0.7GTDJD55fJpX.7Um.sOrXUwzN0KUuFxJDubfJ9n22mO7uoru', 'Tb. Fajri Mulyana', '+6289671843158', 'default.jpg', NULL, 2, 1, 1580968149, '2020-04-10 08:25:11');
+(2, 'tbfajri@gmail.com', '$2y$10$UoH0.7GTDJD55fJpX.7Um.sOrXUwzN0KUuFxJDubfJ9n22mO7uoru', 'Tb. Fajri Mulyana', '+6289671843158', 'default.jpg', NULL, 2, 1, 1580968149, '2020-04-10 08:25:11'),
+(3, 'admin@gmail.com', '$2y$10$0w9ZZBr.33DC0O8OjL5my.ETcEFphE5SoBT7cBV9WD2MygMZYQ4Ou', 'Administrator', '+6287724100331', 'default.jpg', NULL, 1, 1, 1587215210, '2020-04-19 16:42:39'),
+(4, 'tbaimunandar@gmail.com', '$2y$10$o8E6bLkVPM.fINZm8xNpV.W/IKMK4kTyU3vajZEVOTBIwwsJg91ZS', 'TB Ai Munandar', '+628123456789', 'default.jpg', NULL, 1, 1, 1587215561, '2020-04-19 16:43:16');
 
 --
 -- Indexes for dumped tables
@@ -190,7 +199,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `covid`
 --
 ALTER TABLE `covid`
-  MODIFY `id_covid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_covid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `district`
@@ -202,19 +211,19 @@ ALTER TABLE `district`
 -- AUTO_INCREMENT for table `news`
 --
 ALTER TABLE `news`
-  MODIFY `id_news` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_news` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `subdistrict`
 --
 ALTER TABLE `subdistrict`
-  MODIFY `id_subdistrict` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_subdistrict` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id_users` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_users` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

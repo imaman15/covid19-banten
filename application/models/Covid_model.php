@@ -214,7 +214,7 @@ class Covid_model extends CI_Model
 
     public function activity()
     {
-        $this->db->select('covid.tgl_publish,district.nama_district as kabupaten, subdistrict.nama_subdistrict as kecamatan, users.name ');
+        $this->db->select('covid.tgl_publish,covid.tgl_update,district.nama_district as kabupaten, subdistrict.nama_subdistrict as kecamatan, users.name ');
         $this->db->from($this->_table);
         // Join Database
 
@@ -222,7 +222,7 @@ class Covid_model extends CI_Model
         $this->db->join('district', 'district.id_district = covid.id_district', 'left');
         $this->db->join('subdistrict', 'subdistrict.id_subdistrict = covid.id_subdistrict', 'left');
         // end join
-        $this->db->order_by('tgl_publish', 'desc');
+        $this->db->order_by('tgl_update', 'desc');
         $this->db->limit(5);
         $query = $this->db->get();
         return $query->result();
